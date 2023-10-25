@@ -206,8 +206,7 @@ anarchic,6b6451c0-cec5-48c9-889c-1d2c701c9ecf,false,tending toward anarchy; lawl
 anathema,83cedbc4-71f9-4d62-8dbc-07d0c407244d,false,something or someone loathed or detested,uh NATH uh muh,
 anatomy,1f1164f8-aad5-4ef7-899a-9eeeca0cce8b,false,,,
 ancillary; ancillaries,0643c88c-ec16-4ac0-9ab8-249b18847578,false,subordinate; subsidiary,AN suh ler ee,
-"anecdote, anecdotal",90cf68d8-635f-4fb8-a912-d9e3b04934e1,false,based on personal experience or unsubstantiated reports,,
-"anecdote, anecdotal evidence",e816c0a8-f38d-47e6-bc7b-e7139372e54f,false,,,
+anecdote; anecdotal,90cf68d8-635f-4fb8-a912-d9e3b04934e1,false,based on personal experience or unsubstantiated reports,,anecdotal evidence
 anemic,72ef6dd7-9d14-466b-b1b7-a5cb5abcfdcb,false,"lacking power, vigor, vitality",,
 animate,033aaa1f-5207-4f40-9a6c-11a52849e230,false,,,
 animated,c2bda8bd-08cb-4c1b-b265-d0be578b1f02,false,alive; moving,,
@@ -310,7 +309,6 @@ astray,0a6e64a2-ae2b-4013-a52b-15cb9e4032bb,false,,gone astray,
 astute; astuteness,3b40b47c-f0f0-4f74-842c-087084dc7ced,false,quick in discernment; shrewd; clever; keen in judgment; perceptive; intelligent,uh STEWT,Larry thought a new suit would make him appear more astute for his job interview.; …has a natural astuteness in dealing with angry people
 asymmetry,7322dcaf-dbe6-40ae-8295-f822764843ce,false,imbalance,,
 atone; atonement,7b140c9f-e0ab-407e-bee9-42c57ef67064,false,to make amends,uh TOHN,
-atonement,146a82bc-c989-4b3c-922f-369a49f0ab54,false,,,
 atrophy,0a83dfb4-9e2a-4438-b339-b867c2c99726,false,to wither away; to waste away from lack of use,AT ruh fee,The muscles atrophied due to chronic illness.; The atrophied bodies of the starving children were an appalling sight.
 attend [to]; attended; unattended; attending,00ac2902-f5f2-4764-9777-11efa81c45ff,false,,A attending B,
 attendant,721d2976-53a6-4c36-bd68-d43f1e8832e8,false,a corollary; consequent; associated; related thing or quality,,
@@ -352,8 +350,7 @@ balk,9b2ef801-33fd-4359-8bad-fbdb546ad08f,false,to abruptly refuse (to do someth
 "balk, balked",211e3f26-a424-4b08-8cd8-fe9ccb528974,false,to stop short and stubbornly refuse to go on,,
 ban; banned,118e0c97-2db1-4153-9db1-8804abd265a9,false,,,
 banal; banality; banalities,b45abffa-6011-474d-937a-7bee5058513c,false,unoriginal; drearily commonplace; predictable; lacking originality,buh NAL,banalities and generalities
-bane,e4d66fbf-8a70-409d-ae25-c9d4c88e2b10,false,poison; torment; cause of harm,,
-baneful,9539a3ba-fcd2-4200-8cd0-b9b69ca2b277,false,destructive,,
+bane; baneful,e4d66fbf-8a70-409d-ae25-c9d4c88e2b10,false,poison; torment; cause of harm; destructive,,
 banish,47a1391c-2154-47e1-bd82-c8c5e9abe2c9,false,,,
 banter,6b5fa914-abd3-4379-add7-2c61dac686c2,false,an exchange of good-humored or mildly teasing remarks,"BAN tur
 witty banterBAN tur
@@ -1413,39 +1410,27 @@ extrinsic,b6406223-cfdd-43a0-b14d-630e23c3aa74,false,"being, coming, or acting f
 extrude; extrusive,c1b66a22-eb1f-42c5-bf41-1537648024ea,false,"to push out, thrust out; expel",The volcanic upheaval extruded molten lava over a vast area.,
 exuberant; exuberance,e2ce8d90-bffb-4428-aba3-91e2f840102d,false,full of unrestrained enthusiasm or joy; profuse in growth,ig ZOO buh runt,
 "exult, exulted",7d27c21a-bcdd-4d7b-84e7-d11ba0ad8238,false,to show or feel a lively or triumphant joy; rejoice exceedingly; be highly elated,,
-façade,3592af50-2498-4c7b-831b-2b4c6c4db3cb,false,a superficial appearance or illusion of something,fuh-sahd,
-façade,60fd8dbf-4d54-4578-afe4-52cbc7404ae1,false,the front of a building; the false front or misleading apearance of anything,fuh SAHD,unconvincing façade
+facade,60fd8dbf-4d54-4578-afe4-52cbc7404ae1,false,a superficial appearance or illusion of something; the front of a building; the false front or misleading appearance of anything,fuh SAHD,unconvincing façade
 facet,2b737758-9e3e-45bc-a794-3a035a1b14da,false,,,
 facetious; facetiously,a50d5359-983d-4833-995d-2ad3fb3372b3,false,unserious; comments made specifically to get a laugh out of those around you; something said in jest; sarcastic,fuh SEE shus,
 facile,e20598de-0009-4794-b57a-1a8ba596ed4c,false,fluent; skillful in a superficial way; easy,FAS il,
 facilitate; facilitator,5de8e146-c7fa-415a-ab67-c1d02a773547,true,to make easier; to help bring about,fuh SIL uh tayt,"a mediator, not a facilitator; facilitate learning; facilitate the sale"
-fact-check,9f3cacdf-a010-4793-9bf3-b95f129e20dd,false,,,
 factitious,ea4bcbee-7c76-439c-b8ca-245b4098384e,false,contrived; fabricated,,
 fade; fading,aa74e270-9b72-4a8b-bdbb-ba5e59a9195b,false,,,
 fainted,db247b00-e79c-4bf2-92bb-0ed53241f5b2,false,,,
 fall in,4403c35f-9d33-4956-8fec-60b025d18385,false,,,
 fallacious; fallacy,25344876-545a-4ac8-8754-464020338df3,false,embodying or presenting a false or erroneous idea; an idea or conclusion based on one ore more false assumptions,FAL uh see,
 Fallacy: Ad Hominem,246dc3a5-e18c-4b5a-b1ec-b43e8c3c84d1,false,attacking an opponent's character rather than the merits of his argument,,
-Fallacy: Begging the QuestionFallacy: Begging the QuestionFallacy: Begging the QuestionFallacy: Begging the QuestionFallacy: Begging the QuestionFallacy: Begging the Question,f8e3b604-d25f-4e0b-9376-80416845c8a4,false,occurs when the conclusion occurs as one of the premises,,
-Fallacy: Circular ArgumentFallacy: Circular ArgumentFallacy: Circular ArgumentFallacy: Circular ArgumentFallacy: Circular ArgumentFallacy: Circular Argument,9bb1af10-a269-4d7a-af4e-76039719277a,false,when your only reason for believing a premise is because you already accept the conclusion,,
-Fallacy: Fallacy of CompositionFallacy: Fallacy of CompositionFallacy: Fallacy of CompositionFallacy: Fallacy of CompositionFallacy: Fallacy of CompositionFallacy: Fallacy of Composition,5b359c9a-795a-4f2f-a8d1-fc71150c5484,false,Making false inferences about a population based on a sample,,
-Fallacy: Genetic FallacyFallacy: Genetic FallacyFallacy: Genetic FallacyFallacy: Genetic FallacyFallacy: Genetic FallacyFallacy: Genetic Fallacy,b2639700-56d7-43b6-89e1-7df5b84c216b,false,,,
-Fallacy: Inflation of ConflictFallacy: Inflation of ConflictFallacy: Inflation of ConflictFallacy: Inflation of ConflictFallacy: Inflation of ConflictFallacy: Inflation of Conflict,b29c7700-148f-4317-a55d-553e0b2d91cd,false,"argument that since experts debate a particular point, their entire field of knowledge is compromised",,
-Fallacy: NeedlingFallacy: NeedlingFallacy: NeedlingFallacy: NeedlingFallacy: NeedlingFallacy: Needling,b0cca861-86bd-4080-a113-07bc8c31136c,false,"attempt to make opponent angry without addressing the argument, a delaying tactic",,
-Fallacy: Non SequiturFallacy: Non SequiturFallacy: Non SequiturFallacy: Non SequiturFallacy: Non SequiturFallacy: Non Sequitur,e188659f-fa92-40ed-91c7-1f2ed86315bc,false,a conclusion that doesn't follow that which preceded it,,
-Fallacy: Red HerringFallacy: Red HerringFallacy: Red HerringFallacy: Red HerringFallacy: Red HerringFallacy: Red Herring,00964c7b-8e64-445c-a6ad-2d882854b44f,false,"changing the subject, digression, diversionary tactic",,
-"Fallacy: Special Pleading
-(Stacking the Deck)Fallacy: Special Pleading
-(Stacking the Deck)Fallacy: Special Pleading
-(Stacking the Deck)Fallacy: Special Pleading
-(Stacking the Deck)Fallacy: Special Pleading
-(Stacking the Deck)",761f46b6-efc1-494d-bf00-65013bcf39e5,false,"using arguments that support a position, but disacknowleding arguments against the position",,
-"Fallacy: Straw Man
-(Fallacy of Extension)Fallacy: Straw Man
-(Fallacy of Extension)Fallacy: Straw Man
-(Fallacy of Extension)Fallacy: Straw Man
-(Fallacy of Extension)Fallacy: Straw Man
-(Fallacy of Extension)",ddf7c54d-eedd-4cf6-9fd3-0230f2766298,false,attacking an exaggerated or caricatured version of a position,,
+Fallacy: Begging the Question,f8e3b604-d25f-4e0b-9376-80416845c8a4,false,occurs when the conclusion occurs as one of the premises,,
+Fallacy: Circular Argument,9bb1af10-a269-4d7a-af4e-76039719277a,false,when your only reason for believing a premise is because you already accept the conclusion,,
+Fallacy: Fallacy of Composition,5b359c9a-795a-4f2f-a8d1-fc71150c5484,false,Making false inferences about a population based on a sample,,
+Fallacy: Genetic Fallacy,b2639700-56d7-43b6-89e1-7df5b84c216b,false,,,
+Fallacy: Inflation of Conflict,b29c7700-148f-4317-a55d-553e0b2d91cd,false,"argument that since experts debate a particular point, their entire field of knowledge is compromised",,
+Fallacy: Needling,b0cca861-86bd-4080-a113-07bc8c31136c,false,"attempt to make opponent angry without addressing the argument, a delaying tactic",,
+Fallacy: Non Sequitur,e188659f-fa92-40ed-91c7-1f2ed86315bc,false,a conclusion that doesn't follow that which preceded it,,
+Fallacy: Red Herring,00964c7b-8e64-445c-a6ad-2d882854b44f,false,"changing the subject, digression, diversionary tactic",,
+Fallacy: Special Pleading (Stacking the Deck),761f46b6-efc1-494d-bf00-65013bcf39e5,false,"using arguments that support a position, but disacknowleding arguments against the position",,
+Fallacy: Straw Man (Fallacy of Extension),ddf7c54d-eedd-4cf6-9fd3-0230f2766298,false,attacking an exaggerated or caricatured version of a position,,
 fallible; fallibility,b23e7da4-94b1-42b8-9c3f-39209083a0ef,false,,,
 fallout,5df28774-fe67-4ff8-9c9c-3e2f56db549b,false,,,
 fallow,d1d65b97-e2d5-4604-a6d3-1dc983db0710,false,marked by inactivity,fallow periods,
@@ -3376,8 +3361,7 @@ summative,18d94d34-3ff9-4e6b-9437-d70776c469e5,false,,,
 sumptuous,f34862d7-05cc-41e8-944b-cd57fec27b4c,false,luxurious; splendid; lavish,SUMP choo us,
 sundry,c1bbd8ff-16d4-4c24-9fb7-60358b5470ff,false,various; several; miscellaneous; diverse,,
 supercilious,23f07cb0-963a-4e85-8254-1f20707942cb,false,haughty; patronizing,soo-per-sil-ee-uh s,
-"superficial, superficially",dd17f9d6-c2ac-4cc3-b0d3-a2f3ab7c7f0a,false,on the surface only; shallow; not thorough,,
-superficially plausible,2da25a8e-61cb-4272-8945-95064d982946,false,apparantly feasible,,
+"superficial, superficially",dd17f9d6-c2ac-4cc3-b0d3-a2f3ab7c7f0a,false,on the surface only; shallow; not thorough; apparent,,superficially plausible
 superfluous; superfluously,0cdd7309-c7f2-48a5-a29d-a315cbd756e8,true,extra; unnecesary; redundant; not required,soo PUR floo us,He was hit with superfluous indictments
 superior,60389b39-4cbc-4296-b386-300b78e97fda,false,,,inferior
 superlative,6af990fa-09b6-426c-9dcc-bf9a8211e44f,false,,,
@@ -4192,7 +4176,6 @@ melodious,a69c2e79-9243-4bdf-94f8-9137dc43cc79,false,"soft, soothing, pleasing t
 oust; ouster,ee3b9189-f316-43b7-a7cc-2e79dc977127,false,to eject; to force out; to banish,owst,immediately ousted form the school; after Roger's ouster
 conscientious,83c666d8-aa22-4590-922e-b6e9a3170845,false,able to empathize and aware of surroundings; moral responsible to do own work careful and treat others with respect,con shi EN shuhs,
 preposterous,e6383050-6b6b-4de4-89d8-8ba0340d3d50,false,ridiculous; absurd,pre PAW ster uhs,
-defamatory,432ddd10-e49b-48b3-9647-6a07434e9a1e,false,,de FAM uh tow ree,the man's defamatory remarks
 tiring; untiring,edea5c95-f263-4b5b-91e1-e64914a5c303,false,,,
 excess,c3521a94-db7a-4244-84b3-ca6fa669511f,false,(antonym: deficiency),,
 abut,edb0f9a0-6e69-4c35-a51c-e2592b4c68ab,false,to border upon; to adjoin,uh BUT,Texas abuts Mexico on its southern border.; The abutting rocks formed a perfect wall.
@@ -4231,7 +4214,7 @@ serpentine,9c71ddee-bbd4-4d82-9da5-09ff087e6a3b,false,snakelike in shape or move
 somber,c99541b8-f27d-4b21-aa46-0b37a4907eb6,false,depressing; gloomy; dark,SOM bur,He had the most somber expression.; The somber weather forecast spoiled our weekend plans.
 fathom,5b043666-10a4-4fe8-84ba-97e8e4f2d4a7,false,to understand fully; to penetrate the meaning of,FATH um,found it hard to fathom; I can't fathom the reason.
 porcine,e5c3a296-e929-4ee7-bc59-27eb3ef01dfb,false,reminiscent of or pertaining to a pig; resembling a pig,POOR sine,
-defame,d8be4d4f-128c-4ad0-b4c0-9c8fb1c09c8e,false,to libel or slander; to take away a good name,dih FAYM,defamed and defeated; False accusations by lying women have defamed the reputation of many reputable men.
+defame; defamatory,d8be4d4f-128c-4ad0-b4c0-9c8fb1c09c8e,false,to libel or slander; to take away a good name,dih FAYM,defamed and defeated; False accusations by lying women have defamed the reputation of many reputable men; the man's defamatory remarks
 debase; debasing,242ec2ec-2bbd-4c83-8f95-7a9880c8e1d6,false,"to lower in quality, character, or value",dih BAYS,Inflation in Brazil has debased the value of money so much that people won't stoop to recover small coins in the street.; Violent crime in America debases the country.
 decree,3f8b9855-a8d1-4331-8b1e-87caa03bf9cc,false,an order having the force of law,dih KREE,The governor decreed that all the prisoners be set free.
 misanthropy; misanthropic,43cdb28e-d21f-4a81-aad3-502743ae01c3,false,someone who hates mankind,mis AN thruh pee,a misanthropic person
@@ -4293,10 +4276,4 @@ emotive,062d4dd2-1598-43e7-b3a6-dda595e7d63d,false,,,making a very emotive argum
 importunate; importunately,c1551839-2466-4c56-8253-a66d8257260a,false,troublesomely urgent or persistent in requesting; unreasonably solicitous; overpressing in request or demand; urgent,,an importunate job seeker; He keeps saying the same things importunately.
 genitals,bf9c5c49-f40f-4626-8379-d741ff9b2945,false,,,male and female genitals; female genitals
 confidential; confidentiality,808be460-7802-4591-8a01-06414857cd9e,false,,,All such matters will be dealt with in total confidentiality.
-stonewall,46f831bd-51a2-41f9-ac2a-be2e4f2a78f4,true,to obstruct or hinder,,
-stonewall,6e76a12d-1950-400a-b87c-726937809545,true,to obstruct or hinder,,
-stonewall,cb0eeeff-24cb-487a-9998-df280a08eb9f,false,to obstruct or hinder,,new exa
-stonewall,72cf45d9-cecc-40ef-8cb0-9db4fa913d77,true,to obstruct or hinder,,
-stonewall,b7eed483-9233-4d9c-909a-5de7676bb784,false,to obstruct or hinder,pro,
-farcical,566c5a45-ae6c-48d8-b106-28265058e649,false,humorously absurd or ludicrous,FAR sih kul,
 farcical,e63a1c78-7d98-4755-abc8-302d6e01fce0,false,humorously absurd or ludicrous,FAR sih kul,
