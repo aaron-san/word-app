@@ -1,13 +1,8 @@
-import React, {
-  ChangeEvent,
-  MouseEventHandler,
-  useState,
-  useEffect,
-} from "react";
+import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { IWords, IAddWord, IDefaults } from "../types-english";
 import Form from "./Form";
+import { MyGlobalContext } from "../App";
 
 export type FormValues = {
   word: string;
@@ -16,14 +11,13 @@ export type FormValues = {
   pronunciation: string;
   example: string;
 };
-const AddWord = ({
-  wordsList,
-  setWordsList,
-  addWord,
-  setAddWord,
-  showResults,
-  setShowResults,
-}: IAddWord) => {
+const AddWord = () => {
+  const { addWord, searchWord } = useContext(MyGlobalContext);
+
+  const defaults = {
+    defaultWord: searchWord,
+  };
+
   // const { setFocus } = useForm<FormValues>();
 
   // const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -55,15 +49,7 @@ const AddWord = ({
 
   return (
     <section>
-      {addWord && (
-        <Form
-          setAddWord={setAddWord}
-          setWordsList={setWordsList}
-          methodType="POST"
-          showResults={showResults}
-          setShowResults={setShowResults}
-        />
-      )}
+      {addWord && <Form methodType="POST" defaults={defaults} />}
     </section>
   );
 };

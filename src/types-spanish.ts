@@ -16,8 +16,6 @@ export interface ISWord {
 }
 
 export interface ISWords {
-  sWordsList: ISWord[];
-  setSWordsList: React.Dispatch<SetStateAction<ISWord[]>>;
   addSWord: boolean;
   setAddSWord: React.Dispatch<SetStateAction<boolean>>;
   searchSWord: string;
@@ -26,39 +24,25 @@ export interface ISWords {
   setShowSResults: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export interface IAddSWord {
-  sWordsList: ISWord[];
-  setSWordsList: React.Dispatch<SetStateAction<ISWord[]>>;
-  addSWord: boolean;
-  setAddSWord: React.Dispatch<SetStateAction<boolean>>;
-  showSResults: boolean;
-  setShowSResults: React.Dispatch<SetStateAction<boolean>>;
-}
+// export interface IAddSWord {
+// }
 
 export interface ISDefaults {
-  defaultWord: string | null;
-  defaultDefinition: string | null;
-  defaultExample: string | null;
-  defaultPresent: string | null;
-  defaultPast: string | null;
-  defaultConditional: string | null;
-  defaultSubjunctive: string | null;
-  defaultFuture: string | null;
-  defaultImperfect: string | null;
-  defaultContinuousProgressive: string | null;
-  defaultMark: boolean | null;
+  defaultWord?: string;
+  defaultDefinition?: string;
+  defaultExample?: string;
+  defaultPresent?: string;
+  defaultPast?: string;
+  defaultConditional?: string;
+  defaultSubjunctive?: string;
+  defaultFuture?: string;
+  defaultImperfect?: string;
+  defaultContinuousProgressive?: string;
+  defaultMark?: boolean;
 }
 
 export interface ISForm {
-  // wordsList: IWord[];
-  setSWordsList: React.Dispatch<SetStateAction<ISWord[]>>;
-  // addWord: boolean;
-  setAddSWord: React.Dispatch<SetStateAction<boolean>>;
-  setEditSWordMode?: React.Dispatch<SetStateAction<boolean>>;
-  setSearchSWord?: React.Dispatch<SetStateAction<string>>;
   sDefaults?: ISDefaults;
   sMethodType: string;
   sIdToEdit?: string | null;
-  showSResults: boolean;
-  setShowSResults: React.Dispatch<SetStateAction<boolean>>;
 }

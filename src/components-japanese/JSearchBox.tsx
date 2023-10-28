@@ -1,26 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IJDefaults, IJWord, IJWords } from "../types-japanese";
-// import { v4 as uuidv4 } from "uuid";
+import { useContext } from "react";
+import { MyGlobalContext } from "../App";
 
-const JSearchBox = ({
-  jWordsList,
-  setJWordsList,
-  addJWord,
-  setAddJWord,
-  searchJWord,
-  setSearchJWord,
-  showJResults,
-  setShowJResults,
-}: IJWords) => {
+const JSearchBox = () => {
+  const {
+    jWordsList,
+    addJWord,
+    setAddJWord,
+    searchJWord,
+    setSearchJWord,
+    setShowJResults,
+    editJWordMode,
+  } = useContext(MyGlobalContext);
   // const searchJRef = useRef<HTMLInputElement>(null);
 
   // useEffect(() => {
   //   searchJRef.current?.focus();
   // }, []);
-
-  // const [showSearchBox, setShowSearchBox] = useState<boolean>(true)
-
-  const [editJWordMode, setEditJWordMode] = useState<boolean>(false);
 
   // Add throttle (delay) to onChange handler
   // const [filteredWords, setFilteredWords] = useState<IWord[]>([]);
@@ -42,6 +37,19 @@ const JSearchBox = ({
     setShowJResults(false);
   };
 
+  const onAddSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchJWord(e.target.value);
+  };
+
+  const handleKeyUp = (
+    e: React.KeyboardEvent<HTMLInputElement>
+    // ie: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      setSearchJWord(e.currentTarget.value);
+    }
+  };
+
   return (
     <div className="flex justify-start gap-2 mx-auto rounded-md w-fit bg-slate-800/70">
       {/* Search Bar */}
@@ -49,11 +57,11 @@ const JSearchBox = ({
         <input
           type="text"
           placeholder="Search..."
-          value={searchJWord}
+          defaultValue={searchJWord}
           // ref={searchRef}
           className="p-2 m-2 text-lg text-white bg-transparent border-2 rounded-md"
-          // onChange={(e) => doWordFilter(e.target.value)}
-          onChange={(e) => setSearchJWord(e.target.value)}
+          // onChange={onAddSearchWord}
+          onKeyUp={(e) => handleKeyUp(e)}
         />
       )}
       {!addJWord && !editJWordMode && (

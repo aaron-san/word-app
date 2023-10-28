@@ -1,27 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ISDefaults, ISWord, ISWords } from "../types-spanish";
-import AddSWord, { FormValues } from "./AddSWord";
-// import { v4 as uuidv4 } from "uuid";
+import { useState, useContext } from "react";
+import { ISDefaults } from "../types-spanish";
+import AddSWord from "./AddSWord";
 import SForm from "./SForm";
+import { MyGlobalContext } from "../App";
 
-const SSearchResults = ({
-  sWordsList,
-  setSWordsList,
-  addSWord,
-  setAddSWord,
-  searchSWord,
-  showSResults,
-  setShowSResults,
-}: // setSearchWord,
-ISWords) => {
+const SSearchResults = () => {
+  const {
+    sWordsList,
+    setSWordsList,
+    searchSWord,
+    showSResults,
+    editSWordMode,
+    setEditSWordMode,
+    sIdToEdit,
+    setSIdToEdit,
+  } = useContext(MyGlobalContext);
+
   // const searchRef = useRef<HTMLInputElement>(null);
 
   // useEffect(() => {
   //   searchRef.current?.focus();
   // }, []);
-
-  const [editSWordMode, setEditSWordMode] = useState<boolean>(false);
-  const [sIdToEdit, setSIdToEdit] = useState<string | null>(null);
 
   const handleDelete = async (word: string, id: string) => {
     const deleteWord = window.prompt(
@@ -30,7 +29,7 @@ ISWords) => {
     if (deleteWord !== "DELETE") return;
     // Delete data on the backend via PUT
     try {
-      await fetch(`http://localhost:3000/english-spanish/${id}`, {
+      await fetch(`http://localhost:3000/spanish-words/${id}`, {
         method: "DELETE",
       });
 
@@ -60,20 +59,11 @@ ISWords) => {
   //   }, 1);
   // };
 
-  // const [addWord, setAddWord] = useState<boolean>(false);
-
   return (
     <div className="w-fill mx-auto p-4  mt-4 max-h-[400px] overflow-auto ">
       <div className="flex flex-col justify-start gap-4 ">
         <div className="flex items-start justify-center gap-4"></div>
-        <AddSWord
-          sWordsList={sWordsList}
-          setSWordsList={setSWordsList}
-          addSWord={addSWord}
-          setAddSWord={setAddSWord}
-          showSResults={showSResults}
-          setShowSResults={setShowSResults}
-        />
+        <AddSWord />
       </div>
       {/* Search Results */}
       {showSResults && (
@@ -231,20 +221,10 @@ ISWords) => {
                   defaultContinuousProgressive: el.continuousProgressive,
                   defaultMark: el.mark,
                 };
-                // console.log(defaults);
 
                 return (
                   <div key={el.id} className="">
-                    <SForm
-                      setSWordsList={setSWordsList}
-                      setAddSWord={setAddSWord}
-                      setEditSWordMode={setEditSWordMode}
-                      sDefaults={defaults}
-                      sIdToEdit={sIdToEdit}
-                      sMethodType="PUT"
-                      showSResults={showSResults}
-                      setShowSResults={setShowSResults}
-                    />
+                    <SForm sDefaults={defaults} sMethodType="PUT" />
                   </div>
                 );
               })}

@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IDefaults, IWord, IWords } from "../types-english";
-import AddWord, { FormValues } from "./AddWord";
-// import { v4 as uuidv4 } from "uuid";
-import Form from "./Form";
+import { useEffect, useRef, useContext } from "react";
+import { MyGlobalContext } from "../App";
 
-const SearchBox = ({
-  wordsList,
-  setWordsList,
-  addWord,
-  setAddWord,
-  searchWord,
-  setSearchWord,
-  showResults,
-  setShowResults,
-}: IWords) => {
+const SearchBox = () => {
+  const {
+    wordsList,
+    addWord,
+    setAddWord,
+    searchWord,
+    setSearchWord,
+    editWordMode,
+    setShowResults,
+  } = useContext(MyGlobalContext);
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -21,8 +18,6 @@ const SearchBox = ({
   }, []);
 
   // const [showSearchBox, setShowSearchBox] = useState<boolean>(true)
-
-  const [editWordMode, setEditWordMode] = useState<boolean>(false);
 
   // Add throttle (delay) to onChange handler
   // const [filteredWords, setFilteredWords] = useState<IWord[]>([]);
@@ -42,7 +37,15 @@ const SearchBox = ({
     // setFocus("word");
     setAddWord(true);
     setShowResults(false);
-    // console.log("Add Word: ", searchWord);
+  };
+
+  const handleKeyUp = (
+    e: React.KeyboardEvent<HTMLInputElement>
+    // ie: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      setSearchWord(e.currentTarget.value);
+    }
   };
 
   return (
@@ -53,10 +56,9 @@ const SearchBox = ({
           type="text"
           placeholder="Search..."
           // ref={searchRef}
-          value={searchWord}
+          defaultValue={searchWord}
           className="p-2 m-2 text-lg text-white bg-transparent border-2 rounded-md"
-          // onChange={(e) => doWordFilter(e.target.value)}
-          onChange={(e) => setSearchWord(e.target.value)}
+          onKeyUp={(e) => handleKeyUp(e)}
         />
       )}
       {!addWord && !editWordMode && (

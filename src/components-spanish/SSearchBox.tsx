@@ -1,27 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ISDefaults, ISWord, ISWords } from "../types-spanish";
-import AddSWord, { FormValues } from "./AddSWord";
-// import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { MyGlobalContext } from "../App";
 
-const SSearchBox = ({
-  sWordsList,
-  setSWordsList,
-  addSWord,
-  setAddSWord,
-  searchSWord,
-  setSearchSWord,
-  showSResults,
-  setShowSResults,
-}: ISWords) => {
+const SSearchBox = () => {
+  const {
+    sWordsList,
+    addSWord,
+    setAddSWord,
+    searchSWord,
+    setSearchSWord,
+    setShowSResults,
+    editSWordMode,
+  } = useContext(MyGlobalContext);
+
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     searchRef.current?.focus();
   }, []);
-
-  // const [showSearchBox, setShowSearchBox] = useState<boolean>(true)
-
-  const [editSWordMode, setEditSWordMode] = useState<boolean>(false);
 
   // Add throttle (delay) to onChange handler
   // const [filteredWords, setFilteredWords] = useState<IWord[]>([]);
@@ -42,17 +37,24 @@ const SSearchBox = ({
     setAddSWord(true);
     setShowSResults(false);
   };
-  const onAddSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e);
 
-    // const originalWord = e.target.value
-    setSearchSWord(e.target.value);
-  };
+  // const onAddSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchSWord(e.target.value);
+  // };
 
   const clickHandler = (letter: string) => {
-    setSearchSWord((prev) => `${prev}${letter}`);
+    setSearchSWord(`${searchSWord}${letter}`);
     searchRef.current?.focus();
     // console.log(searchSWord);
+  };
+
+  const handleKeyUp = (
+    e: React.KeyboardEvent<HTMLInputElement>
+    // ie: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      setSearchSWord(e.currentTarget.value);
+    }
   };
 
   return (
@@ -63,12 +65,11 @@ const SSearchBox = ({
           <input
             type="text"
             placeholder="Search..."
-            ref={searchRef}
-            value={searchSWord}
+            // ref={searchRef}
+            defaultValue={searchSWord}
             className="p-2 m-2 text-lg text-white bg-transparent border-2 rounded-md"
-            // onChange={(e) => doWordFilter(e.target.value)}
-            // onChange={(e) => setSearchSWord(e.target.value)}
-            onChange={onAddSearchWord}
+            onKeyUp={(e) => handleKeyUp(e)}
+            // onChange={onAddSearchWord}
           />
         )}
         {!addSWord && !editSWordMode && (

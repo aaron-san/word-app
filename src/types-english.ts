@@ -10,8 +10,8 @@ export interface IWord {
 }
 
 export interface IWords {
-  wordsList: IWord[];
-  setWordsList: React.Dispatch<SetStateAction<IWord[]>>;
+  // wordsList?: IWord[];
+  // setWordsList?: React.Dispatch<SetStateAction<IWord[]>>;
   addWord: boolean;
   setAddWord: React.Dispatch<SetStateAction<boolean>>;
   searchWord: string;
@@ -21,8 +21,6 @@ export interface IWords {
 }
 
 export interface IAddWord {
-  wordsList: IWord[];
-  setWordsList: React.Dispatch<SetStateAction<IWord[]>>;
   addWord: boolean;
   setAddWord: React.Dispatch<SetStateAction<boolean>>;
   showResults: boolean;
@@ -30,23 +28,15 @@ export interface IAddWord {
 }
 
 export interface IDefaults {
-  defaultWord: string | null;
-  defaultDefinition: string | null;
-  defaultPronunciation: string | null;
-  defaultExample: string | null;
-  defaultMark: boolean | null;
+  defaultWord?: string;
+  defaultDefinition?: string;
+  defaultPronunciation?: string;
+  defaultExample?: string;
+  defaultMark?: boolean;
 }
 
 export interface IForm {
-  // wordsList: IWord[];
-  setWordsList: React.Dispatch<SetStateAction<IWord[]>>;
-  // addWord: boolean;
-  setAddWord: React.Dispatch<SetStateAction<boolean>>;
-  setEditWordMode?: React.Dispatch<SetStateAction<boolean>>;
-  setSearchWord?: React.Dispatch<SetStateAction<string>>;
   defaults?: IDefaults;
   methodType: string;
   idToEdit?: string | null;
-  showResults: boolean;
-  setShowResults: React.Dispatch<SetStateAction<boolean>>;
 }

@@ -1,28 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { IJDefaults, IJWord, IJWords } from "../types-japanese";
-import AddWord, { JFormValues } from "./AddJWord";
-// import { v4 as uuidv4 } from "uuid";
+import JAddWord from "./AddJWord";
 import JForm from "./JForm";
+import { MyGlobalContext } from "../App";
 
-const JSearchResults = ({
-  jWordsList,
-  setJWordsList,
-  addJWord,
-  setAddJWord,
-  searchJWord,
-  setSearchJWord,
-  showJResults,
-  setShowJResults,
-}: // setSearchWord,
-IJWords) => {
+const JSearchResults = () => {
+  const {
+    jWordsList,
+    setJWordsList,
+    searchJWord,
+    setSearchJWord,
+    showJResults,
+    editJWordMode,
+    setEditJWordMode,
+    jIdToEdit,
+    setJIdToEdit,
+  } = useContext(MyGlobalContext);
   // const searchRef = useRef<HTMLInputElement>(null);
 
   // useEffect(() => {
   //   searchRef.current?.focus();
   // }, []);
-
-  const [editJWordMode, setEditJWordMode] = useState<boolean>(false);
-  const [jIdToEdit, setJIdToEdit] = useState<string | null>(null);
 
   const handleDelete = async (word: string, id: string) => {
     const deleteWord = window.prompt(
@@ -67,14 +65,7 @@ IJWords) => {
     <div className="max-w-2xl mx-auto p-4  mt-4 max-h-[400px] overflow-auto ">
       <div className="flex flex-col justify-start gap-4 ">
         <div className="flex items-start justify-center gap-4"></div>
-        <AddWord
-          jWordsList={jWordsList}
-          setJWordsList={setJWordsList}
-          addJWord={addJWord}
-          setAddJWord={setAddJWord}
-          showJResults={showJResults}
-          setShowJResults={setShowJResults}
-        />
+        <JAddWord />
       </div>
       {/* Search Results */}
       {showJResults && (
@@ -100,7 +91,7 @@ IJWords) => {
                         onClick={() => {
                           setJIdToEdit(e.id);
                           setEditJWordMode(!editJWordMode);
-                          setSearchJWord("");
+                          // setSearchJWord("");
                         }}
                       >
                         <div className="p-2 text-xl border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
@@ -190,15 +181,9 @@ IJWords) => {
                 return (
                   <div key={el.id} className="">
                     <JForm
-                      setJWordsList={setJWordsList}
-                      setAddJWord={setAddJWord}
-                      setEditJWordMode={setEditJWordMode}
-                      // setSearchWord={setSearchWord}
                       jDefaults={jDefaults}
                       jIdToEdit={jIdToEdit}
                       jMethodType="PUT"
-                      showJResults={showJResults}
-                      setShowJResults={setShowJResults}
                     />
                   </div>
                 );

@@ -26,8 +26,6 @@ export interface IJWord {
 }
 
 export interface IJWords {
-  jWordsList: IJWord[];
-  setJWordsList: React.Dispatch<SetStateAction<IJWord[]>>;
   addJWord: boolean;
   setAddJWord: React.Dispatch<SetStateAction<boolean>>;
   searchJWord: string;
@@ -37,8 +35,6 @@ export interface IJWords {
 }
 
 export interface IAddJWord {
-  jWordsList: IJWord[];
-  setJWordsList: React.Dispatch<SetStateAction<IJWord[]>>;
   addJWord: boolean;
   setAddJWord: React.Dispatch<SetStateAction<boolean>>;
   showJResults: boolean;
@@ -46,39 +42,31 @@ export interface IAddJWord {
 }
 
 export interface IJDefaults {
-  defaultWord: string | null;
-  defaultEnglish: string | null;
-  defaultJapanese: string | null;
-  defaultExample: string | null;
-  defaultPresent: string | null;
-  defaultTeForm: string | null;
-  defaultNegative: string | null;
-  defaultPast: string | null;
-  defaultPastNegative: string | null;
-  defaultPotential: string | null;
-  defaultImperative: string | null;
-  defaultVolitional: string | null;
-  defaultGroup: string | null;
-  defaultDesirative: string | null;
-  defaultConditional: string | null;
-  defaultPassive: string | null;
-  defaultCausative: string | null;
-  defaultCausativePassive: string | null;
-  defaultHonorific: string | null;
-  defaultHumble: string | null;
-  defaultMark: boolean | null;
+  defaultWord?: string;
+  defaultEnglish?: string;
+  defaultJapanese?: string;
+  defaultExample?: string;
+  defaultPresent?: string;
+  defaultTeForm?: string;
+  defaultNegative?: string;
+  defaultPast?: string;
+  defaultPastNegative?: string;
+  defaultPotential?: string;
+  defaultImperative?: string;
+  defaultVolitional?: string;
+  defaultGroup?: string;
+  defaultDesirative?: string;
+  defaultConditional?: string;
+  defaultPassive?: string;
+  defaultCausative?: string;
+  defaultCausativePassive?: string;
+  defaultHonorific?: string;
+  defaultHumble?: string;
+  defaultMark?: boolean;
 }
 
 export interface IJForm {
-  // wordsList: IWord[];
-  setJWordsList: React.Dispatch<SetStateAction<IJWord[]>>;
-  // addWord: boolean;
-  setAddJWord: React.Dispatch<SetStateAction<boolean>>;
-  setEditJWordMode?: React.Dispatch<SetStateAction<boolean>>;
-  setSearchJWord?: React.Dispatch<SetStateAction<string>>;
   jDefaults?: IJDefaults;
   jMethodType: string;
   jIdToEdit?: string | null;
-  showJResults: boolean;
-  setShowJResults: React.Dispatch<SetStateAction<boolean>>;
 }

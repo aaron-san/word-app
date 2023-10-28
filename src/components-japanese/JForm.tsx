@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IJForm } from "../types-japanese";
+import { MyGlobalContext } from "../App";
 
 export type JFormValues = {
   word: string | null;
@@ -27,18 +28,14 @@ export type JFormValues = {
   mark: boolean | null;
 };
 
-const JForm = ({
-  setJWordsList,
-  setAddJWord,
-  setEditJWordMode,
-  setSearchJWord,
-  jDefaults,
-  jMethodType,
-  jIdToEdit,
-  showJResults,
-  setShowJResults,
-}: IJForm) => {
-  //   console.log(defaults);
+const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
+  const {
+    setJWordsList,
+    setEditJWordMode,
+    setAddJWord,
+    setShowJResults,
+    searchJWord,
+  } = useContext(MyGlobalContext);
 
   const { register, handleSubmit, reset, setFocus } = useForm<JFormValues>({
     defaultValues: {
@@ -238,8 +235,11 @@ const JForm = ({
         </div>
         <div className="flex items-center justify-between gap-4">
           <label>Example:</label>
-          <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+          <textarea
+            // rows="3",
+            // cols="4",
+
+            className="px-2 py-1 border border-white w-60 text-slate-700 h-[150px]"
             {...register("example", {
               // required: "Please enter an example.",
             })}

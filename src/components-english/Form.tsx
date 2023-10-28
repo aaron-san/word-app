@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IDefaults, IForm } from "../types-english";
+import { MyGlobalContext } from "../App";
 
 export type FormValues = {
   word: string | null;
@@ -11,18 +12,9 @@ export type FormValues = {
   mark: boolean | null;
 };
 
-const Form = ({
-  setWordsList,
-  setAddWord,
-  setEditWordMode,
-  setSearchWord,
-  defaults,
-  methodType,
-  idToEdit,
-  showResults,
-  setShowResults,
-}: IForm) => {
-  //   console.log(defaults);
+const Form = ({ defaults, methodType, idToEdit }: IForm) => {
+  const { setWordsList, setAddWord, setEditWordMode, setShowResults } =
+    useContext(MyGlobalContext);
 
   const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
     defaultValues: {
@@ -152,8 +144,8 @@ const Form = ({
         </div>
         <div className="flex items-center justify-between gap-4">
           <label>Example:</label>
-          <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+          <textarea
+            className="px-2 py-1 border border-white w-60 text-slate-700 h-[150px]"
             {...register("example", {
               // required: "Please enter an example.",
             })}

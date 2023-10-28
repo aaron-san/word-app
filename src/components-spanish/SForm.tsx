@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { ISDefaults, ISForm } from "../types-spanish";
+import { ISForm } from "../types-spanish";
+import { MyGlobalContext } from "../App";
 
 export type FormValues = {
   word: string | null;
@@ -17,18 +18,14 @@ export type FormValues = {
   mark: boolean | null;
 };
 
-const SForm = ({
-  setSWordsList,
-  setAddSWord,
-  setEditSWordMode,
-  setSearchSWord,
-  sDefaults,
-  sMethodType,
-  sIdToEdit,
-  showSResults,
-  setShowSResults,
-}: ISForm) => {
-  //   console.log(defaults);
+const SForm = ({ sDefaults, sMethodType }: ISForm) => {
+  const {
+    setSWordsList,
+    setAddSWord,
+    setEditSWordMode,
+    setShowSResults,
+    sIdToEdit,
+  } = useContext(MyGlobalContext);
 
   const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
     defaultValues: {
@@ -89,7 +86,7 @@ const SForm = ({
     if (sMethodType === "PUT") {
       // Send data to the backend via POST
       try {
-        console.log(sIdToEdit);
+        // console.log(sIdToEdit);
         const dataWithId = { id: sIdToEdit, ...data };
         const res = await fetch(
           `http://localhost:3000/spanish-words/${sIdToEdit}`,
@@ -160,8 +157,8 @@ const SForm = ({
         </div>
         <div className="flex items-center justify-between gap-4">
           <label>Example:</label>
-          <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+          <textarea
+            className="px-2 py-1 border border-white w-60 text-slate-700 h-[150px]"
             {...register("example", {
               // required: "Please enter an example.",
             })}

@@ -704,7 +704,6 @@ consonant; consonance [with],,harmonious; in agreement,,
 "consort, consorting",,to associate; keep company,,
 consortium,,"any association, partnership, or union",kuhn-sawr-shee-uhm,
 "conspicuous, inconspicuous",,easy to notice; obvious; easily seen; impossible to miss,kun SPIK yoo us,
-conspire,,,,
 "conspire, conspirator",," to join in secret agreement, to act in harmony toward a common end",,
 constant; constancy,,,,
 constellation,,,,
@@ -886,13 +885,11 @@ deepen; deepened,,,,
 deeper pockets,,richer,,
 deep-rooted,,,,
 deep-seated,,,,
-defect,,,,
 "defect, defector",,,,
 defective,,,,
 defendant/plaintiff,,,,
 defer,,,,
 "deferent; deference [to], deferential",,humble submission or respect,,
-deferential,,,,
 defiantly,,,,
 defiantly,,,,
 deficient; deficiency,,(antonym: excess),,
@@ -1011,20 +1008,10 @@ dictate; dictated,,"say or read aloud (words to be typed, written down, or recor
 diction,,style of speaking or writing as dependent upon choice of words,,
 didactic,,,,
 didactic; didactical,,instructive; intended to teach; morally instructive; pedantic; preachy,,
-differ,,,"differs from (pertaining to dissimilarities);
-differs with (pertaining to a disagreement)differs from (pertaining to dissimilarities);
-differs with (pertaining to a disagreement)differs from (pertaining to dissimilarities);
-differs with (pertaining to a disagreement)differs from (pertaining to dissimilarities);
-differs with (pertaining to a disagreement)differs from (pertaining to dissimilarities);
-differs with (pertaining to a disagreement)",
+differ,,,differs from (pertaining to dissimilarities); differs with (pertaining to a disagreement),
 different [than]; differently,,,different from (pertaining to direct contrast); different than (pertaining to degrees of difference),
 diffident; diffidence,,timid; lacking in self-confidence; reserved,DIF uh dint,
-"diffuse (v, adj), diffusely",,to spread out or disperse; not concentrated; characterized by great length or discursiveness in speech or writing; wordy; widely spread or scattered; dispersed,"dih-FYOOS
-When the bottle broke, the fragrance diffused throughout the room.dih-FYOOS
-When the bottle broke, the fragrance diffused throughout the room.dih-FYOOS
-When the bottle broke, the fragrance diffused throughout the room.dih-FYOOS
-When the bottle broke, the fragrance diffused throughout the room.dih-FYOOS
-When the bottle broke, the fragrance diffused throughout the room.",
+"diffuse (v, adj), diffusely",true,to spread out or disperse; not concentrated; characterized by great length or discursiveness in speech or writing; wordy; widely spread or scattered; dispersed,dih-FYOOS,"When the bottle broke, the fragrance diffused throughout the room"
 digress; digression; digressive,,to stray or depart temporarily from the main subject; ramble,,
 digress; digression; digressive,,,,
 digressionary,,,,
@@ -1290,7 +1277,6 @@ epilogue,,an afterward; a short concluding chapter of a book; a short speech at 
 epiphany,,"any moment of great or sudden revelation; a sudden, intuitive perception of or insight into the reality or essential meaning of something; sudden penetration of an elusive truth; a sudden breakthrough of understanding",,
 episode,,,,
 episodic,,occurring sporadically or incidentally,,
-episodic,,,,
 episodically,,,,
 epistemology,,"the study of the method and grounds of knowledge, especially with reference to its limits and validity",,
 epitome,,representative of a type; a brief summary that captures the meaning of the whole; the perfect example of something; a paradigm,,
@@ -1437,7 +1423,6 @@ falsifiable,,,,
 falsity,,,,
 familial,,,,
 familiar; unfamiliar,,,,
-farcical,,humorously absurd or ludicrous,,
 fascinate; fascination,,,,
 fastidious,true,carefully attentive to detail; difficult to please,fas TID ee us,
 fatal,,,,
@@ -4276,3 +4261,4 @@ habitual,,,,
 monetize,,,,
 monetary,,of or relating to money or currency,,
 wry,,,,a wry allusion
+newword,,,,

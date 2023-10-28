@@ -1,27 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { IDefaults, IWord, IWords } from "../types-english";
-import AddWord, { FormValues } from "./AddWord";
+import AddWord from "./AddWord";
 // import { v4 as uuidv4 } from "uuid";
 import Form from "./Form";
+import { MyGlobalContext } from "../App";
 
-const SearchResults = ({
-  wordsList,
-  setWordsList,
-  addWord,
-  setAddWord,
-  searchWord,
-  setSearchWord,
-  showResults,
-  setShowResults,
-}: IWords) => {
+const SearchResults = () => {
+  const {
+    wordsList,
+    setWordsList,
+    searchWord,
+    showResults,
+    editWordMode,
+    setEditWordMode,
+    idToEdit,
+    setIdToEdit,
+  } = useContext(MyGlobalContext);
+
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     searchRef.current?.focus();
   }, []);
-
-  const [editWordMode, setEditWordMode] = useState<boolean>(false);
-  const [idToEdit, setIdToEdit] = useState<string | null>(null);
 
   const handleDelete = async (word: string, id: string) => {
     const deleteWord = window.prompt(
@@ -66,14 +66,7 @@ const SearchResults = ({
     <div className="w-fill mx-auto p-4 mt-4 max-h-[400px] overflow-auto ">
       <div className="flex flex-col justify-start gap-4 ">
         <div className="flex items-start justify-center gap-4"></div>
-        <AddWord
-          wordsList={wordsList}
-          setWordsList={setWordsList}
-          addWord={addWord}
-          setAddWord={setAddWord}
-          showResults={showResults}
-          setShowResults={setShowResults}
-        />
+        <AddWord />
       </div>
       {/* Search Results */}
       {showResults && (
@@ -171,14 +164,9 @@ const SearchResults = ({
                 return (
                   <div key={el.id} className="">
                     <Form
-                      setWordsList={setWordsList}
-                      setAddWord={setAddWord}
-                      setEditWordMode={setEditWordMode}
                       defaults={defaults}
                       idToEdit={idToEdit}
                       methodType="PUT"
-                      showResults={showResults}
-                      setShowResults={setShowResults}
                     />
                   </div>
                 );
