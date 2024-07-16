@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { ISForm } from "../types-spanish";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 export type FormValues = {
   word: string | null;
@@ -19,9 +19,11 @@ export type FormValues = {
 };
 
 const SForm = ({ sDefaults, sMethodType }: ISForm) => {
+  // console.log("SForm");
   const {
     setSWordsList,
     setAddSWord,
+    editSWordMode,
     setEditSWordMode,
     setShowSResults,
     sIdToEdit,
@@ -42,9 +44,9 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
       mark: sDefaults?.defaultMark,
     },
   });
-  useState(() => {
-    setFocus("word");
-  });
+  // useState(() => {
+  //   setFocus("word");
+  // });
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     // console.log(data);
 
@@ -66,7 +68,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
     if (sMethodType === "POST") {
       // Send data to the backend via POST
       try {
-        fetch("http://localhost:3000/spanish-words", {
+        await fetch(`http://localhost:${SERVERPORT}/spanish-words`, {
           method: "POST",
           mode: "cors",
           headers: {
@@ -89,7 +91,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         // console.log(sIdToEdit);
         const dataWithId = { id: sIdToEdit, ...data };
         const res = await fetch(
-          `http://localhost:3000/spanish-words/${sIdToEdit}`,
+          `http://localhost:${SERVERPORT}/spanish-words/${sIdToEdit}`,
           {
             method: "PUT",
             // mode: "cors",
@@ -109,14 +111,14 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         // Clear form inputs
         reset();
 
-        if (setEditSWordMode) setEditSWordMode(false);
+        if (editSWordMode) setEditSWordMode(false);
       } catch (err) {
         console.log(err);
       }
     }
     // Get updated words list from json server
     const getWords = async () => {
-      const data = await fetch("http://localhost:3000/spanish-words");
+      const data = await fetch(`http://localhost:${SERVERPORT}/spanish-words`);
       const words = await data.json();
       setSWordsList(words);
     };
@@ -126,7 +128,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
 
   const onCancel = () => {
     setAddSWord(false);
-    if (setEditSWordMode) setEditSWordMode(false);
+    if (editSWordMode) setEditSWordMode(false);
     // if (setSearchSWord) setSearchSWord("");
     setShowSResults(true);
   };

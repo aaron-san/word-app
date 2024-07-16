@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IDefaults, IForm } from "../types-english";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 export type FormValues = {
   word: string | null;
@@ -13,8 +13,14 @@ export type FormValues = {
 };
 
 const Form = ({ defaults, methodType, idToEdit }: IForm) => {
-  const { setWordsList, setAddWord, setEditWordMode, setShowResults } =
-    useContext(MyGlobalContext);
+  console.log("Form");
+  const {
+    setWordsList,
+    setAddWord,
+    editWordMode,
+    setEditWordMode,
+    setShowResults,
+  } = useContext(MyGlobalContext);
 
   const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
     defaultValues: {
@@ -25,12 +31,18 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
       mark: defaults?.defaultMark,
     },
   });
-  useState(() => {
-    setFocus("word");
-  });
+  // useState(() => {
+  //   setFocus("word");
+  // });
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    // console.log(data);
-    // console.log("Add Word: ", searchWord);
+    const fetchWords = async () => {
+      const wordsData = await fetch(
+        `http://localhost:${SERVERPORT}/english-words`
+      );
+
+      return await wordsData.json();
+    };
+
     const word = {
       id: uuidv4(),
       word: data.word,
@@ -41,9 +53,9 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
     };
 
     if (methodType === "POST") {
-      // Send data to the backend via POST
+      // Send data to the backend via POST to add a child resource
       try {
-        fetch("http://localhost:3000/english-words", {
+        await fetch(`http://localhost:${SERVERPORT}/english-words`, {
           method: "POST",
           mode: "cors",
           headers: {
@@ -54,19 +66,23 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
         // Clear form inputs
         reset();
 
+        const words = await fetchWords();
+        setWordsList(words);
+
         setAddWord(false);
+        setShowResults(true);
       } catch (err) {
         console.log(err);
       }
     }
 
     if (methodType === "PUT") {
-      // Send data to the backend via POST
+      // Send data to the backend via PUT to modify a resource
       try {
         // console.log(idToEdit);
         const dataWithId = { id: idToEdit, ...data };
-        const res = await fetch(
-          `http://localhost:3000/english-words/${idToEdit}`,
+        await fetch(
+          `http://localhost:${SERVERPORT}/english-words/${idToEdit}`,
           {
             method: "PUT",
             // mode: "cors",
@@ -77,33 +93,37 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
             body: JSON.stringify(dataWithId),
           }
         );
-        const res_data = await res.json();
-        const result = {
-          status: res.status + "-" + res.statusText,
-          headers: { "Content-Type": res.headers.get("Content-Type") },
-          data: res_data,
-        };
+
         // Clear form inputs
         reset();
 
-        if (setEditWordMode) setEditWordMode(false);
+        // Get updated data
+
+        const words = await fetchWords();
+
+        setWordsList(words);
+        // useEffect(() => {
+        // }, [words]);
+
+        if (editWordMode) setEditWordMode(!editWordMode);
+        setShowResults(true);
       } catch (err) {
         console.log(err);
       }
     }
     // Get updated words list from json server
-    const getWords = async () => {
-      const data = await fetch("http://localhost:3000/english-words");
-      const words = await data.json();
-      setWordsList(words);
-    };
-    getWords();
-    setShowResults(true);
+    // const getWords = async () => {
+    //   const data = await fetch(`http://localhost:${SERVERPORT}/english-words`);
+    //   const words = await data.json();
+    //   setWordsList(words);
+    // };
+    // getWords();
+    // setShowResults(true);
   };
 
   const onCancel = () => {
     setAddWord(false);
-    if (setEditWordMode) setEditWordMode(false);
+    if (editWordMode) setEditWordMode(!editWordMode);
     // if (setSearchWord) setSearchWord("");
     setShowResults(true);
   };

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import { IJDefaults, IJWord, IJWords } from "../types-japanese";
 import JAddWord from "./AddJWord";
 import JForm from "./JForm";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 const JSearchResults = () => {
   const {
@@ -29,13 +29,15 @@ const JSearchResults = () => {
     if (deleteWord !== "DELETE") return;
     // Delete data on the backend via PUT
     try {
-      await fetch(`http://localhost:3000/japanese-words/${id}`, {
+      await fetch(`http://localhost:${SERVERPORT}/japanese-words/${id}`, {
         method: "DELETE",
       });
 
       // Get updated words list from json server
       const getJapaneseWords = async () => {
-        const data = await fetch("http://localhost:3000/japanese-words");
+        const data = await fetch(
+          `http://localhost:${SERVERPORT}/japanese-words`
+        );
         const jWords = await data.json();
         setJWordsList(jWords);
       };
@@ -62,7 +64,7 @@ const JSearchResults = () => {
   // const [addWord, setAddWord] = useState<boolean>(false);
 
   return (
-    <div className="max-w-2xl mx-auto p-4  mt-4 max-h-[400px] overflow-auto ">
+    <div className="w-fill mx-auto p-4  mt-4 max-h-[400px] overflow-auto ">
       <div className="flex flex-col justify-start gap-4 ">
         <div className="flex items-start justify-center gap-4"></div>
         <JAddWord />

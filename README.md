@@ -10,6 +10,14 @@
 
 This project uses the json-server library for the backend.
 
+## Push to Remote GitHub Repository
+
+```bash
+git add <file>
+git commit -m "comment"
+git push
+```
+
 ## Git & GitHub Setup
 
 ```bash

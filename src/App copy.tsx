@@ -13,6 +13,7 @@ import { IJWord } from "./types-japanese";
 import SSearchBox from "./components-spanish/SSearchBox";
 import SSearchResults from "./components-spanish/SSearchResults";
 import { ISWord } from "./types-spanish";
+// import { SERVERPORT } from "../App";
 
 // export const myContext = createContext<unknown>(null);
 
@@ -36,7 +37,7 @@ function App() {
 
   useEffect(() => {
     const getEnglishWords = async () => {
-      const data = await fetch("http://localhost:3000/english-words");
+      const data = await fetch(`http://localhost:${SERVERPORT}/english-words`);
       const words = await data.json();
       setWordsList(words);
     };
@@ -45,7 +46,7 @@ function App() {
 
   useEffect(() => {
     const getJapaneseWords = async () => {
-      const data = await fetch("http://localhost:3000/japanese-words");
+      const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
       const words = await data.json();
       setJWordsList(words);
     };
@@ -54,7 +55,7 @@ function App() {
 
   useEffect(() => {
     const getSpanishWords = async () => {
-      const data = await fetch("http://localhost:3000/spanish-words");
+      const data = await fetch(`http://localhost:${SERVERPORT}/spanish-words`);
       const words = await data.json();
       setSWordsList(words);
     };

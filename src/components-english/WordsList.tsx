@@ -3,11 +3,12 @@ import { IWord } from "../types-english";
 
 // console.log(initialWords[0]);
 const WordsList = ({ data }: { data: IWord[] | null }) => {
+  // console.log("WordsList");
   // const [wordsList, setWordsList] = useState<IWord[] | null>(null);
 
   // useEffect(() => {
   //   const getWords = async () => {
-  //     const data = await fetch("http://localhost:3000/words");
+  //     const data = await fetch(`http://localhost:${SERVERPORT}/words`);
   //     const words = await data.json();
   //     setWordsList(words);
   //   };

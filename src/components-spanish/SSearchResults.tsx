@@ -2,9 +2,10 @@ import { useState, useContext } from "react";
 import { ISDefaults } from "../types-spanish";
 import AddSWord from "./AddSWord";
 import SForm from "./SForm";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 const SSearchResults = () => {
+  console.log("SSearchResults");
   const {
     sWordsList,
     setSWordsList,
@@ -29,13 +30,13 @@ const SSearchResults = () => {
     if (deleteWord !== "DELETE") return;
     // Delete data on the backend via PUT
     try {
-      await fetch(`http://localhost:3000/spanish-words/${id}`, {
+      await fetch(`http://localhost:${SERVERPORT}/spanish-words/${id}`, {
         method: "DELETE",
       });
 
       // Get updated words list from json server
       const getSWords = async () => {
-        const data = await fetch("http://localhost:3000/spanish-words");
+        const data = await fetch(`http://localhost:{SERVERPORT}/spanish-words`);
         const words = await data.json();
         setSWordsList(words);
       };

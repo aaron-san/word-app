@@ -3,9 +3,11 @@ import { IDefaults, IWord, IWords } from "../types-english";
 import AddWord from "./AddWord";
 // import { v4 as uuidv4 } from "uuid";
 import Form from "./Form";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 const SearchResults = () => {
+  // console.log("SearchResults");
+
   const {
     wordsList,
     setWordsList,
@@ -19,9 +21,9 @@ const SearchResults = () => {
 
   const searchRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    searchRef.current?.focus();
-  }, []);
+  // useEffect(() => {
+  //   searchRef.current?.focus();
+  // }, []);
 
   const handleDelete = async (word: string, id: string) => {
     const deleteWord = window.prompt(
@@ -30,13 +32,15 @@ const SearchResults = () => {
     if (deleteWord !== "DELETE") return;
     // Delete data on the backend via PUT
     try {
-      await fetch(`http://localhost:3000/english-words/${id}`, {
+      await fetch(`http://localhost:${SERVERPORT}/english-words/${id}`, {
         method: "DELETE",
       });
 
       // Get updated words list from json server
       const getWords = async () => {
-        const data = await fetch("http://localhost:3000/english-words");
+        const data = await fetch(
+          `http://localhost:${SERVERPORT}/english-words`
+        );
         const words = await data.json();
         setWordsList(words);
       };
@@ -94,7 +98,7 @@ const SearchResults = () => {
                           setEditWordMode(!editWordMode);
                         }}
                       >
-                        <div className="p-2 text-xl border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
+                        <div className="p-2 text-xl tracking-wider border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
                           {e.word}
                         </div>
                         {/* <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2"></div> */}

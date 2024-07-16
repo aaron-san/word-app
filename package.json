@@ -1,11 +1,11 @@
 {
-  "name": "english-dictionary-app",
+  "name": "word-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "server": "concurrently \"json-server --watch db.json\" \"node ./export-xl.cjs\"",
-    "dev": "concurrently \"npm run server\"  \"vite\"",
+    "server": "concurrently \"json-server --port 3400 --watch db.json\" \"node ./export-xl.cjs\"",
+    "dev": "concurrently \"npm run server\"  \"vite --open\"",
     "predeploy": "tsc && vite build",
     "deploy": "gh-pages -d dist"
   },

@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IJForm } from "../types-japanese";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 
 export type JFormValues = {
   word: string | null;
@@ -29,8 +29,10 @@ export type JFormValues = {
 };
 
 const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
+  console.log("JForm");
   const {
     setJWordsList,
+    editJWordMode,
     setEditJWordMode,
     setAddJWord,
     setShowJResults,
@@ -96,7 +98,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
     if (jMethodType === "POST") {
       // Send data to the backend via POST
       try {
-        fetch("http://localhost:3000/japanese-words", {
+        await fetch(`http://localhost:${SERVERPORT}/japanese-words`, {
           method: "POST",
           mode: "cors",
           headers: {
@@ -119,7 +121,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         // console.log(jIdToEdit);
         const jDataWithId = { id: jIdToEdit, ...data };
         const res = await fetch(
-          `http://localhost:3000/japanese-words/${jIdToEdit}`,
+          `http://localhost:${SERVERPORT}/japanese-words/${jIdToEdit}`,
           {
             method: "PUT",
             // mode: "cors",
@@ -139,14 +141,14 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         // Clear form inputs
         reset();
 
-        if (setEditJWordMode) setEditJWordMode(false);
+        if (editJWordMode) setEditJWordMode(false);
       } catch (err) {
         console.log(err);
       }
     }
     // Get updated words list from json server
     const getJWords = async () => {
-      const data = await fetch("http://localhost:3000/japanese-words");
+      const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
       const words = await data.json();
       setJWordsList(words);
     };
@@ -156,7 +158,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
 
   const onCancel = () => {
     setAddJWord(false);
-    if (setEditJWordMode) setEditJWordMode(false);
+    if (editJWordMode) setEditJWordMode(false);
     // if (setSearchJWord) setSearchJWord("");
     setShowJResults(true);
   };
