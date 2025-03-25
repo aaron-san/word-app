@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { MyGlobalContext } from "../App";
 
 const AddSWord = () => {
-  // console.log("AddSWord");
   const { addSWord, searchSWord } = useContext(MyGlobalContext);
 
   const sDefaults = {

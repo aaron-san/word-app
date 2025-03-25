@@ -29,7 +29,7 @@ export type JFormValues = {
 };
 
 const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
-  console.log("JForm");
+  // console.log("JForm");
   const {
     setJWordsList,
     editJWordMode,
@@ -153,14 +153,14 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
       setJWordsList(words);
     };
     getJWords();
-    setShowJResults(true);
+    setShowJResults(false);
   };
 
   const onCancel = () => {
     setAddJWord(false);
     if (editJWordMode) setEditJWordMode(false);
     // if (setSearchJWord) setSearchJWord("");
-    setShowJResults(true);
+    // setShowJResults(false);
   };
 
   const jKeys = [
@@ -193,7 +193,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
   //   <div className="flex items-center justify-between gap-4">
   //       <label>{el.label}:</label>
   //       <input
-  //         className="px-2 py-1 border border-white w-60 text-slate-700"
+  //         className="px-2 py-1 border border-white w-80 text-slate-700"
   //         {...register(el.key, {
   //           required: "Please enter a word.",
   //         })}
@@ -204,208 +204,211 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
   return (
     <div>
       <form
-        className="flex flex-col max-w-[420px] gap-4 myb-8 mx-auto text-slate-100 text-2xl"
+        className="flex flex-col gap-2 mb-8 mx-auto text-slate-100 text-2xl py-4 px-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4 text-md">
           <label>Word: </label>
-          <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+          <textarea
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-12"
             {...register("word", {
               required: "Please enter a word.",
             })}
           />
         </div>
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>English:</label>
-          <input
+          <textarea
             {...register("english", {
               // required: "Please enter a definition.",
             })}
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto"
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Japanese:</label>
-          <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+          <textarea
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("japanese", {
               // required: "Please enter a pronunciation.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Example:</label>
           <textarea
-            // rows="3",
-            // cols="4",
-
-            className="px-2 py-1 border border-white w-60 text-slate-700 h-[150px]"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-32"
             {...register("example", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Present:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("present", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Te-form:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("teForm", {
               // required: "Please enter an example.",
             })}
           />
         </div>
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Negative:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("negative", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Past:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("past", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Past Negative:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("pastNegative", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Imperative:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("imperative", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Volitional:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("volitional", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Group:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("group", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Desirative:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("desirative", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Conditional:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("conditional", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Passive:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("passive", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Causative:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("causative", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
-          <label>Causative Passive:</label>
+        <div className="flex items-center justify-end gap-4">
+          <label>Caus. Passive:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("causativePassive", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Honorific:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("honorific", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <label>Humble:</label>
           <input
-            className="px-2 py-1 border border-white w-60 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700"
             {...register("humble", {
               // required: "Please enter an example.",
             })}
           />
         </div>
-        <div className="flex items-center justify-start gap-4">
-          <label>Important ?</label>
-          <input
-            type="checkbox"
-            className="w-8 h-8 px-2 py-1 border border-white ml-[130px] text-slate-700"
-            {...register("mark", {
-              // required: "Mark important?",
-            })}
-          />
+        <div className="flex justify-end gap-4 mt-4">
+          <label className="text-slate-200">Important:</label>
+          <div className="w-80 py-1 text-center">
+            <input
+              type="checkbox"
+              className="h-6 w-6 text-xl my-1 border border-white text-blue-700
+            focus:ring-2 focus:ring-blue-500 rounded-sm focus:ring-offset-gray-700 text-center"
+              {...register("mark", {
+                // required: "Mark important?",
+              })}
+            />
+          </div>
         </div>
         <hr />
-        <input
-          type="submit"
-          value="Save"
-          className="w-full py-2 mx-auto text-2xl text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800"
-        />
+        <div className="flex gap-2 justify-end flex-end">
+          <input
+            type="submit"
+            value="Save"
+            className="w-1/2 py-2 my-1 text-2xl text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+          />
+          <input
+            type="button"
+            className="w-1/2 py-2 my-1 text-2xl text-center bg-red-300 border rounded-md
+            cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+            value="Cancel"
+            onClick={onCancel}
+          />
+        </div>
       </form>
-      <button
-        className="w-full py-2 mx-auto my-4 text-2xl text-center bg-red-300 border rounded-md border-slate-100 text-slate-800"
-        onClick={onCancel}
-      >
-        Cancel
-      </button>
     </div>
   );
 };

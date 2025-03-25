@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const jsonexport = require("jsonexport");
+const { ROOT_DIRECTORY } = require("./constants");
 // let converter = require("json-2-csv");
 
 // module.exports = (req, res, next) => {
@@ -43,19 +44,19 @@ const dataToExport = [
   {
     data: JSONasPOJO["english-words"],
     filename: "english-words",
-    localDirectory: "C:/Users/user/Desktop/Aaron/English/Backup",
+    localDirectory: path.join(ROOT_DIRECTORY, "English/Backup"),
     minWordsSafeOverWrite: 4000,
   },
   {
     data: JSONasPOJO["japanese-words"],
     filename: "japanese-words",
-    localDirectory: "C:/Users/user/Desktop/Aaron/Japanese/Backup",
+    localDirectory: path.join(ROOT_DIRECTORY, "/Japanese/Backup"),
     minWordsSafeOverWrite: 4500,
   },
   {
     data: JSONasPOJO["spanish-words"],
     filename: "spanish-words",
-    localDirectory: "C:/Users/user/Desktop/Aaron/Spanish/Backup",
+    localDirectory: path.join(ROOT_DIRECTORY, "/Spanish/Backup"),
     minWordsSafeOverWrite: 1000,
   },
 ];

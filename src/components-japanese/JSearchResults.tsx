@@ -54,7 +54,6 @@ const JSearchResults = () => {
   //   if (!e) return setFilteredWords([]);
 
   //   setTimeout(() => {
-  //     console.log("====>", e);
   //     setFilteredWords(
   //       wordsList.filter((el) => el.word.toLowerCase().includes(searchWord))
   //     );
@@ -64,16 +63,13 @@ const JSearchResults = () => {
   // const [addWord, setAddWord] = useState<boolean>(false);
 
   return (
-    <div className="w-fill mx-auto p-4  mt-4 max-h-[400px] overflow-auto ">
-      <div className="flex flex-col justify-start gap-4 ">
-        <div className="flex items-start justify-center gap-4"></div>
-        <JAddWord />
-      </div>
+    <div className="w-fill mx-auto mt-4 max-h-[400px] overflow-auto">
+      <JAddWord />
       {/* Search Results */}
       {showJResults && (
         <div className="flex justify-center gap-2 mt-4">
           {!editJWordMode && (
-            <div className="flex flex-wrap w-[700px] gap-4 justify-center min-w-[300px] mx-auto">
+            <div className="flex flex-wrap gap-2 justify-center mx-auto">
               {jWordsList
                 ?.filter((d) => {
                   return searchJWord
@@ -85,14 +81,14 @@ const JSearchResults = () => {
                   return (
                     <div
                       key={e.id}
-                      className={`border rounded-md border-slate-200 max-w-[300px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
+                      className={`border rounded-md border-slate-200 max-w-[280px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
                         e.mark ? "bg-blue-600/60" : "bg-slate-600/60"
                       } h-fit cursor-pointer`}
                     >
                       <div
                         onClick={() => {
                           setJIdToEdit(e.id);
-                          setEditJWordMode(!editJWordMode);
+                          setEditJWordMode(true);
                           // setSearchJWord("");
                         }}
                       >
@@ -178,7 +174,6 @@ const JSearchResults = () => {
                   defaultHumble: el.humble,
                   defaultMark: el.mark,
                 };
-                // console.log(defaults);
 
                 return (
                   <div key={el.id} className="">

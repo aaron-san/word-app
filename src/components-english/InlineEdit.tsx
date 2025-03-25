@@ -11,7 +11,6 @@ interface IWord {
 // Inputs: value (a state value)
 //         setValue (a function to set state)
 const InlineEditWord = ({ value, setValue, arrayValue, editMode }: IWord) => {
-  console.log("InlineEditWord - English");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
   return (

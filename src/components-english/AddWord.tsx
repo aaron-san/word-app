@@ -10,8 +10,7 @@ export type FormValues = {
   example: string;
 };
 const AddWord = () => {
-  console.log("AddWord");
-  const { addWord, searchWord } = useContext(MyGlobalContext);
+  const { searchWord } = useContext(MyGlobalContext);
 
   const defaults = {
     defaultWord: searchWord,
@@ -28,11 +27,7 @@ const AddWord = () => {
   //   setAddWord(false);
   // };
 
-  return (
-    <section>
-      {addWord && <Form methodType="POST" defaults={defaults} />}
-    </section>
-  );
+  return <Form methodType="POST" defaults={defaults} />;
 };
 
 export default AddWord;

@@ -6,9 +6,8 @@ import Form from "./Form";
 import { MyGlobalContext, SERVERPORT } from "../App";
 
 const SearchResults = () => {
-  // console.log("SearchResults");
-
   const {
+    addWord,
     wordsList,
     setWordsList,
     searchWord,
@@ -57,26 +56,20 @@ const SearchResults = () => {
   //   if (!e) return setFilteredWords([]);
 
   //   setTimeout(() => {
-  //     console.log("====>", e);
   //     setFilteredWords(
   //       wordsList.filter((el) => el.word.toLowerCase().includes(searchWord))
   //     );
   //   }, 1);
   // };
 
-  // const [addWord, setAddWord] = useState<boolean>(false);
-
   return (
-    <div className="w-fill mx-auto p-4 mt-4 max-h-[400px] overflow-auto ">
-      <div className="flex flex-col justify-start gap-4 ">
-        <div className="flex items-start justify-center gap-4"></div>
-        <AddWord />
-      </div>
+    <div className="max-h-[400px] overflow-auto rounded bg-slate-700">
+      {addWord && <AddWord />}
       {/* Search Results */}
       {showResults && (
-        <div className="flex justify-center gap-2 mt-4 w-[700px]">
+        <div className="flex justify-center max-w-[600px]">
           {!editWordMode && (
-            <div className="flex flex-wrap gap-4 justify-center min-w-[300px] mx-auto">
+            <div className="flex flex-wrap gap-4 justify-center mx-auto">
               {wordsList
                 ?.filter((d) => {
                   return searchWord
@@ -88,47 +81,45 @@ const SearchResults = () => {
                   return (
                     <div
                       key={e.id}
-                      className={`border rounded-md border-slate-200 max-w-[300px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
+                      className={`border rounded-md border-slate-200 flex flex-wrap flex-col mx-auto w-[280px] ${
                         e.mark ? "bg-blue-600/60" : "bg-slate-600/60"
                       } h-fit cursor-pointer`}
+                      onClick={() => {
+                        setIdToEdit(e.id);
+                        setEditWordMode(!editWordMode);
+                      }}
                     >
-                      <div
-                        onClick={() => {
-                          setIdToEdit(e.id);
-                          setEditWordMode(!editWordMode);
-                        }}
-                      >
-                        <div className="p-2 text-xl tracking-wider border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
-                          {e.word}
-                        </div>
-                        {/* <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2"></div> */}
-                        {e.definition && (
-                          <>
-                            <div className="px-2 my-2 text-lg text-yellow-100">
-                              {e.definition}
-                            </div>
-                            <div className="w-[90%] h-[1px] px-2 bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
-                          </>
-                        )}
-
-                        {e.pronunciation && (
-                          <>
-                            <div className="px-2 my-2 text-lg text-gray-100">
-                              {e.pronunciation}
-                            </div>
-                            <div className="w-[90%] h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
-                          </>
-                        )}
-
-                        {e.example && (
-                          <>
-                            <div className="px-2 my-2 text-lg text-pink-100">
-                              {e.example}
-                            </div>
-                            <div className="flex items-center justify-between"></div>
-                          </>
-                        )}
+                      <div className="p-2 text-xl tracking-wider border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
+                        {e.word}
                       </div>
+                      {/* <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2"></div> */}
+                      {e.definition && (
+                        <>
+                          <div className="px-2 my-2 text-lg text-yellow-100">
+                            {e.definition}
+                          </div>
+                          <div className="w-[90%] h-[1px] px-2 bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
+                        </>
+                      )}
+
+                      {e.pronunciation && (
+                        <>
+                          <div className="px-2 my-2 text-lg text-gray-100">
+                            {e.pronunciation}
+                          </div>
+                          <div className="w-[90%] h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
+                        </>
+                      )}
+
+                      {e.example && (
+                        <>
+                          <div className="px-2 my-2 text-lg text-pink-100">
+                            {e.example}
+                          </div>
+                          <div className="flex items-center justify-between"></div>
+                        </>
+                      )}
+
                       <div className="flex items-center justify-end gap-2 px-2">
                         {/* <button
                         className="px-4 py-1 m-4 max-w-[100px] w-[80%] border border-slate-100 text-slate-100 rounded-md hover:bg-slate-600"
@@ -163,10 +154,9 @@ const SearchResults = () => {
                   defaultExample: el.example,
                   defaultMark: el.mark,
                 };
-                // console.log(defaults);
 
                 return (
-                  <div key={el.id} className="">
+                  <div key={el.id} className="p-8">
                     <Form
                       defaults={defaults}
                       idToEdit={idToEdit}

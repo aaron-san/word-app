@@ -2,9 +2,7 @@
 var XLSX = require("xlsx");
 var fs = require("fs");
 
-const workbook = XLSX.readFile(
-  "C:/Users/user/Desktop/Aaron/--- Quotes ---.xlsx"
-);
+const workbook = XLSX.readFile(ROOT_DIRECTORY + "/Notes/--- Quotes ---.xlsx");
 let worksheet = workbook.Sheets[workbook.SheetNames[0]];
 let range = worksheet["!ref"];
 // let decodedRange = XLSX.utils.decode_range(range);

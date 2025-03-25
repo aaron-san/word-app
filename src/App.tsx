@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-import "./App.css";
+// import "./App.css";
 
 import { IWord } from "./types-english";
 import { IJWord } from "./types-japanese";
@@ -107,50 +107,67 @@ export const MyGlobalContext = createContext<GlobalContent>({
 });
 
 function App() {
-  console.log("App");
+  // console.log("App");
   const [showTab, setShowTab] = useState<string>("english");
   const [wordsList, setWordsList] = useState<IWord[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
   const [addWord, setAddWord] = useState<boolean>(false);
-  const [showResults, setShowResults] = useState<boolean>(true);
+  const [showResults, setShowResults] = useState<boolean>(false);
   const [editWordMode, setEditWordMode] = useState<boolean>(false);
   const [idToEdit, setIdToEdit] = useState<string>("");
   const [jWordsList, setJWordsList] = useState<IJWord[]>([]);
   const [searchJWord, setSearchJWord] = useState<string>("");
   const [addJWord, setAddJWord] = useState<boolean>(false);
-  const [showJResults, setShowJResults] = useState<boolean>(true);
+  const [showJResults, setShowJResults] = useState<boolean>(false);
   const [editJWordMode, setEditJWordMode] = useState<boolean>(false);
   const [jIdToEdit, setJIdToEdit] = useState<string>("");
   const [sWordsList, setSWordsList] = useState<ISWord[]>([]);
   const [searchSWord, setSearchSWord] = useState<string>("");
   const [addSWord, setAddSWord] = useState<boolean>(false);
-  const [showSResults, setShowSResults] = useState<boolean>(true);
+  const [showSResults, setShowSResults] = useState<boolean>(false);
   const [editSWordMode, setEditSWordMode] = useState<boolean>(false);
   const [sIdToEdit, setSIdToEdit] = useState<string>("");
 
   // console.log("B");
-  // useEffect(() => {
-  //   const getEnglishWords = async () => {
-  //     const data = await fetch(`http://localhost:${SERVERPORT}/english-words`);
-  //     const words = await data.json();
-  //     setWordsList(words);
-  //   };
-  //   getEnglishWords();
+  useEffect(() => {
+    const getEnglishWords = async () => {
+      const data = await fetch(`http://localhost:${SERVERPORT}/english-words`);
+      const words = await data.json();
+      setWordsList(words);
+    };
+    getEnglishWords();
 
-  //   const getJapaneseWords = async () => {
-  //     const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
-  //     const words = await data.json();
-  //     setJWordsList(words);
-  //   };
-  //   getJapaneseWords();
+    const getJapaneseWords = async () => {
+      const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
+      const words = await data.json();
+      setJWordsList(words);
+    };
+    getJapaneseWords();
 
-  //   const getSpanishWords = async () => {
-  //     const data = await fetch(`http://localhost:${SERVERPORT}/spanish-words`);
-  //     const words = await data.json();
-  //     setSWordsList(words);
-  //   };
-  //   getSpanishWords();
-  // }, []);
+    const getSpanishWords = async () => {
+      const data = await fetch(`http://localhost:${SERVERPORT}/spanish-words`);
+      const words = await data.json();
+      setSWordsList(words);
+    };
+    getSpanishWords();
+  }, []);
+
+  const HeaderButton = ({
+    title,
+    tabName,
+  }: {
+    title: string;
+    tabName: string;
+  }) => {
+    return (
+      <button
+        className="p-2 border-b-2 border-transparent rounded shadow-md bg-slate-800 active:scale-[98%] justify-between hover:border-slate-100"
+        onClick={() => setShowTab(tabName)}
+      >
+        {title}
+      </button>
+    );
+  };
 
   return (
     <MyGlobalContext.Provider
@@ -193,87 +210,80 @@ function App() {
         setSIdToEdit,
       }}
     >
-      <main className="min-w-screen min-h-screen pt-4 mx-auto bg-slate-700 bg-[url('./images/bg2.jpg')]  bg-no-repeat bg-cover flex flex-wrap gap-1 justify-center">
-        <div className="flex flex-col items-center justify-top">
-          <div className="flex gap-2 text-2xl text-white h-fit">
-            <button
-              className="px-4 py-2 border rounded-md shadow-md bg-gradient-to-r from-slate-800 to-slate-700 active:scale-[98%] border-slate-100"
-              onClick={() => setShowTab("english")}
-            >
-              English
-            </button>
-            <button
-              className="px-4 py-2 border rounded-md shadow-md bg-gradient-to-r from-slate-800 to-slate-700 active:scale-[98%] border-slate-100"
-              onClick={() => setShowTab("japanese")}
-            >
-              Japanese
-            </button>
-            <button
-              className="px-4 py-2 border rounded-md shadow-md bg-gradient-to-r from-slate-800 to-slate-700 active:scale-[98%] border-slate-100"
-              onClick={() => setShowTab("spanish")}
-            >
-              Spanish
-            </button>
-          </div>
-
+      {/* <main className="min-w-screen min-h-screen pt-4 mx-auto bg-[url('./images/blue-plates.jpg')] bg-no-repeat bg-cover flex flex-wrap gap-1 justify-center"> */}
+      <main className="w-screen min-h-screen pt-4 flex flex-col gap-1 pl-8 bg-gray-900">
+        <div className="flex gap-2 text-2xl text-white">
+          <HeaderButton title="English" tabName="english" />
+          <HeaderButton title="Japanese" tabName="japanese" />
+          <HeaderButton title="Spanish" tabName="spanish" />
+        </div>
+        <div className="flex rounded-md z-30 gap-4 mt-4">
           {showTab === "english" && (
-            <div>
-              <div className="p-4 mx-auto my-6 rounded-lg bg-slate-200/80 w-[400px]">
-                <div className="">
-                  <a
-                    className="text-[3rem] text-slate-600 font-['Bitter'] font-bold"
-                    href="/"
-                  >
-                    English Words
-                  </a>
-
-                  {/* <div className="w-[200px] h-[1px] bg-gradient-to-r from-transparent via-slate-800 to-transparent mx-auto"></div> */}
+            <>
+              <div className="flex gap-2 h-fit">
+                <div className="z-30">
+                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
+                    <Header title="English Words" url="/" />
+                    <SearchBox />
+                      <MarkedWords />
+                  </div>
                 </div>
-                <SearchBox />
               </div>
-              <MarkedWords />
 
               <SearchResults />
-            </div>
+            </>
           )}
           {showTab === "japanese" && (
-            <div>
-              <div className="p-4 mx-auto my-6 rounded-lg bg-slate-200/80 w-[400px]">
-                <div className="">
-                  <a
-                    className="text-[3rem] text-slate-600 font-['Bitter'] font-bold"
-                    href="/"
-                  >
-                    Japanese Words
-                  </a>
+            <>
+              <div className="flex gap-2 h-fit">
+                <div className="z-30">
+                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
+                    <Header title="Japanese Words" url="/" />
+                    <JSearchBox />
+                      <JMarkedWords />
+                  </div>
                 </div>
-                <JSearchBox />
               </div>
-              <JMarkedWords />
-              <JSearchResults />
-            </div>
+              <div className="bg-slate-700">
+                <JSearchResults />
+              </div>
+            </>
           )}
           {showTab === "spanish" && (
-            <div>
-              <div className="p-4 mx-auto my-6 rounded-lg bg-slate-200/80 w-[400px]">
-                <div className="">
-                  <a
-                    className="text-[3rem] text-slate-600 font-['Bitter'] font-bold"
-                    href="/"
-                  >
-                    Spanish Words
-                  </a>
+            <>
+              <div className="flex gap-2 h-fit">
+                <div className="z-30">
+                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
+                    <Header title="Spanish Words" url="/" />
+                    <SSearchBox />
+                      <SMarkedWords />
+                  </div>
                 </div>
-                <SSearchBox />
               </div>
-              <SMarkedWords />
-              <SSearchResults />
-            </div>
+              <div className="bg-slate-700">
+                <SSearchResults />
+              </div>
+            </>
           )}
         </div>
+        <div className="bg-gradient bg-gradient-upper"></div>
+        <div className="bg-gradient bg-gradient-lower"></div>
       </main>
     </MyGlobalContext.Provider>
   );
 }
+
+const Header = ({ title, url }: { title: string; url: string }) => {
+  return (
+    <div>
+      <a
+        className="text-[2rem] text-slate-700 font-['Bitter'] font-bold"
+        href={url}
+      >
+        {title}
+      </a>
+    </div>
+  );
+};
 
 export default App;

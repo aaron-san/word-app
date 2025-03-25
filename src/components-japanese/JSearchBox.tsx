@@ -11,7 +11,6 @@ const JSearchBox = () => {
     getJapaneseWords();
   }, []);
 
-  // console.log("JSearchBox");
   const {
     jWordsList,
     setJWordsList,
@@ -36,7 +35,6 @@ const JSearchBox = () => {
   //   if (!e) return setFilteredWords([]);
 
   //   setTimeout(() => {
-  //     console.log("====>", e);
   //     setFilteredWords(
   //       wordsList.filter((el) => el.word.toLowerCase().includes(searchWord))
   //     );
@@ -53,10 +51,12 @@ const JSearchBox = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setSearchJWord(e.currentTarget.value);
+      setShowJResults(true);
     }
     if (e.key === "Escape") {
       if (inputJRef.current?.value) inputJRef.current.value = "";
       setSearchJWord("");
+      setShowJResults(false);
     }
   };
 
@@ -65,7 +65,7 @@ const JSearchBox = () => {
   };
 
   return (
-    <div className="flex justify-start gap-2 mx-auto rounded-md w-[400px]">
+    <div className="flex gap-2 mx-auto rounded-md">
       {/* Search Bar */}
       {!addJWord && !editJWordMode && (
         <input
@@ -73,9 +73,10 @@ const JSearchBox = () => {
           placeholder={`Search...       ${jWordsList.length} words`}
           defaultValue={searchJWord}
           ref={inputJRef}
-          className="p-2 text-lg text-slate-600 border-2 border-slate-600 rounded-md"
+          className="p-2 text-lg border-2 rounded-md text-slate-600 border-slate-600"
           onKeyUp={(e) => handleKeyUp(e)}
           onChange={handleChange}
+          spellCheck="false"
         />
       )}
       {!addJWord && !editJWordMode && (
@@ -84,7 +85,7 @@ const JSearchBox = () => {
             className="px-2 py-2 mr-2 border-2 border-white rounded-md active:scale-[98%] bg-cyan-100 text-slate-600 shadow-md text-lg"
             onClick={addWordHandler}
           >
-            Add Word!
+            Add
           </button>
           {/* <div className="mx-auto mt-1 text-sm text-slate-400">
             {`${jWordsList.length} words`}

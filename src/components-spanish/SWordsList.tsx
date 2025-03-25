@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { IWord } from "../types-english";
 import { SERVERPORT } from "../App";
 
-// console.log(initialWords[0]);
 const SWordsList = ({ data }: { data: IWord[] | null }) => {
   // const [wordsList, setWordsList] = useState<IWord[] | null>(null);
 

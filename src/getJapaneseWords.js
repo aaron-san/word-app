@@ -2,24 +2,22 @@
 import XLSX from "xlsx";
 import * as fs from "fs";
 import { v4 as uuidv4 } from "uuid";
+import { ROOT_DIRECTORY } from "../constants";
 
 const workbook = XLSX.readFile(
-  "C:/Users/user/Desktop/Aaron/Japanese/--- Japanese ---.xlsx"
+  ROOT_DIRECTORY + "/Japanese/--- Japanese ---.xlsx"
 );
 let worksheet = workbook.Sheets[workbook.SheetNames[0]];
 let range = worksheet["!ref"];
 // let decodedRange = XLSX.utils.decode_range(range);
-// console.log(range);
 
 // const colStart = range.split(":")[1].match(/[a-z]/gi).join("");
 const colStart = "A";
 // console.log(colStart);
 // const rowStart = range.split(":")[1].match(/\d/gi).join("");
 const rowStart = 2;
-// console.log(rowStart);
 // const colEnd = range.split(":")[1].match(/[a-z]/gi).join("");
 const colEnd = "T";
-// console.log(colEnd);
 const rowEnd = range.split(":")[1].match(/\d/gi).join("");
 // console.log(rowEnd);
 
@@ -52,8 +50,6 @@ jsObj.map((w) => {
   w.humble = w.enhumble ? w.englhumble : null;
   w.mark = w.mark ? true : false;
 });
-
-// console.log(jsObj.slice(0, 5));
 
 // Save to json file
 fs.writeFileSync("data/japanese/japanese.json", JSON.stringify(jsObj));

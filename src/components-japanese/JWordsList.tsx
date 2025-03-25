@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IJWord } from "../types-japanese";
 
-// console.log(initialWords[0]);
 const JWordsList = ({ data }: { data: IJWord[] | null }) => {
   // const [wordsList, setWordsList] = useState<IWord[] | null>(null);
 

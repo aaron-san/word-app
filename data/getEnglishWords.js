@@ -2,9 +2,10 @@
 import XLSX from "xlsx";
 import * as fs from "fs";
 import { v4 as uuidv4 } from "uuid";
+import { ROOT_DIRECTORY } from "../constants";
 
 const workbook = XLSX.readFile(
-  "C:/Users/user/Desktop/Aaron/English/--- English ---.xlsx"
+  ROOT_DIRECTORY + "/English/--- English ---.xlsx"
 );
 let worksheet = workbook.Sheets[workbook.SheetNames[0]];
 let range = worksheet["!ref"];

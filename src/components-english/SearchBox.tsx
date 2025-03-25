@@ -26,7 +26,6 @@ const SearchBox = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
-    // console.log(inputRef.current?.value ? true : false);
     if (inputRef.current?.value) setSearchWord(inputRef.current?.value);
   }, [addWord]);
 
@@ -39,7 +38,6 @@ const SearchBox = () => {
   //   if (!e) return setFilteredWords([]);
 
   //   setTimeout(() => {
-  //     console.log("====>", e);
   //     setFilteredWords(
   //       wordsList.filter((el) => el.word.toLowerCase().includes(searchWord))
   //     );
@@ -56,10 +54,12 @@ const SearchBox = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setSearchWord(e.currentTarget.value);
+      setShowResults(true);
     }
     if (e.key === "Escape") {
       if (inputRef.current?.value) inputRef.current.value = "";
       setSearchWord("");
+      setShowResults(false);
     }
   };
 
@@ -68,32 +68,31 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="flex justify-start gap-2 mx-auto rounded-md w-[400px]">
+    <div className="flex justify-start gap-2 mx-auto rounded-md">
       {/* Search Bar */}
+
       {!addWord && !editWordMode && (
-        <input
-          type="text"
-          placeholder={`Search...       ${wordsList.length} words`}
-          ref={inputRef}
-          defaultValue={searchWord}
-          className="p-2 text-lg text-slate-600 border-2 border-slate-600 rounded-md"
-          onKeyUp={(e) => handleKeyUp(e)}
-          onChange={handleChange}
-          autoFocus
-        />
-      )}
-      {!addWord && !editWordMode && (
+        <>
+      <input
+        type="text"
+        placeholder={`Search...       ${wordsList.length} words`}
+        ref={inputRef}
+        defaultValue={searchWord}
+        className="p-2 text-lg border-2 rounded-md text-slate-600 border-slate-600"
+        onKeyUp={(e) => handleKeyUp(e)}
+        onChange={handleChange}
+        autoFocus
+      />
+
         <div className="flex flex-col justify-center ">
           <button
             className="px-2 py-2 mr-2 border-2 border-white rounded-md active:scale-[98%] bg-cyan-100 text-slate-600 shadow-md text-lg"
             onClick={addWordHandler}
           >
-            Add Word!
+            Add
           </button>
-          {/* <div className="mx-auto mt-1 text-sm text-slate-600">
-            {`${wordsList.length} words`}
-          </div> */}
         </div>
+        </>
       )}
     </div>
   );

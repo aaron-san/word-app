@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@types/uuid": "^9.0.5",
+    "concurrently": "^9.1.2",
     "json-2-csv": "^4.1.1",
+    "json-server": "^1.0.0-beta.3",
     "jsonexport": "^3.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

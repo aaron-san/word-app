@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IWord } from "../types-english";
 
-// console.log(initialWords[0]);
 const WordsList = ({ data }: { data: IWord[] | null }) => {
-  // console.log("WordsList");
   // const [wordsList, setWordsList] = useState<IWord[] | null>(null);
 
   // useEffect(() => {
