@@ -63,7 +63,7 @@ const SearchResults = () => {
   // };
 
   return (
-    <div className="max-h-[400px] overflow-auto rounded bg-slate-700">
+    <div className="max-h-[400px] overflow-auto rounded bg-slate-700 ">
       {addWord && <AddWord />}
       {/* Search Results */}
       {showResults && (

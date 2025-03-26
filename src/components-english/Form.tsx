@@ -147,7 +147,7 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
         <div className="flex items-center justify-end gap-4 text-md">
           <label>Word: </label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-12"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
             {...register("word", {
               required: "Please enter a word.",
             })}
@@ -160,13 +160,13 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
             {...register("definition", {
               // required: "Please enter a definition.",
             })}
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
           />
         </div>
         <div className="flex items-center justify-end gap-4">
           <label>Pronunciation:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("pronunciation", {
               // required: "Please enter a pronunciation.",
             })}
@@ -175,7 +175,7 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Example:</label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-32 scrollbar-hidden overflow-auto"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-32 scrollbar-hidden overflow-auto bg-slate-200 rounded outline-none"
             {...register("example", {
               // required: "Please ente r an example.",
             })}
@@ -187,7 +187,7 @@ const Form = ({ defaults, methodType, idToEdit }: IForm) => {
           <input
             type="checkbox"
             className="h-6 w-6 text-xl my-1 border border-white text-blue-700
-            focus:ring-2 focus:ring-blue-500 rounded-sm focus:ring-offset-gray-700 text-center"
+            focus:ring-2 focus:ring-blue-500 rounded-sm focus:ring-offset-gray-700 text-center bg-slate-200 rounded outline-none"
             {...register("mark", {
               // required: "Mark important?",
             })}

@@ -4,12 +4,12 @@ import { useState, createContext, useEffect } from "react";
 import { IWord } from "./types-english";
 import { IJWord } from "./types-japanese";
 import { ISWord } from "./types-spanish";
-import SearchBox from "./components-english/SearchBox";
+import SearchBox from "./components-english/SearchPanel";
 import SearchResults from "./components-english/SearchResults";
-import MarkedWords from "./components-english/MarkedWords";
-import JSearchBox from "./components-japanese/JSearchBox";
+import MarkedWords from "./components/MarkedWords";
+import JSearchBox from "./components-japanese/JSearchPanel";
 import JSearchResults from "./components-japanese/JSearchResults";
-import SSearchBox from "./components-spanish/SSearchBox";
+import SSearchBox from "./components-spanish/SSearchPanel";
 import SSearchResults from "./components-spanish/SSearchResults";
 import JMarkedWords from "./components-japanese/JMarkedWords";
 import SMarkedWords from "./components-spanish/SMarkedWords";
@@ -223,9 +223,14 @@ function App() {
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
                   <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="English Words" url="/" />
+                    <Header title="English Words" />
                     <SearchBox />
-                      <MarkedWords />
+                    <MarkedWords
+                      wordsList={wordsList as IWord[]}
+                      setEditWordMode={setEditWordMode}
+                      setIdToEdit={setIdToEdit}
+                      setShowResults={setShowResults}
+                    />
                   </div>
                 </div>
               </div>
@@ -238,15 +243,20 @@ function App() {
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
                   <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="Japanese Words" url="/" />
+                    <Header title="Japanese Words" />
                     <JSearchBox />
-                      <JMarkedWords />
+                    <MarkedWords
+                      wordsList={jWordsList as IJWord[]}
+                      setEditWordMode={setEditJWordMode}
+                      setIdToEdit={setJIdToEdit}
+                      setShowResults={setShowJResults}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-700">
-                <JSearchResults />
-              </div>
+              {/* <div className="bg-slate-700"> */}
+              <JSearchResults />
+              {/* </div> */}
             </>
           )}
           {showTab === "spanish" && (
@@ -254,15 +264,20 @@ function App() {
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
                   <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="Spanish Words" url="/" />
+                    <Header title="Spanish Words" />
                     <SSearchBox />
-                      <SMarkedWords />
+                    <MarkedWords
+                      wordsList={sWordsList as ISWord[]}
+                      setEditWordMode={setEditSWordMode}
+                      setIdToEdit={setSIdToEdit}
+                      setShowResults={setShowSResults}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-700">
-                <SSearchResults />
-              </div>
+              {/* <div className="bg-slate-700"> */}
+              <SSearchResults />
+              {/* </div> */}
             </>
           )}
         </div>
@@ -273,13 +288,10 @@ function App() {
   );
 }
 
-const Header = ({ title, url }: { title: string; url: string }) => {
+const Header = ({ title }: { title: string }) => {
   return (
     <div>
-      <a
-        className="text-[2rem] text-slate-700 font-['Bitter'] font-bold"
-        href={url}
-      >
+      <a className="text-[2rem] text-slate-700 font-['Bitter'] font-bold">
         {title}
       </a>
     </div>

@@ -59,12 +59,12 @@ const SSearchResults = () => {
   // };
 
   return (
-    <div className="w-fill mx-auto mt-4 max-h-[400px] overflow-auto">
+    <div className="max-h-[400px] overflow-auto rounded bg-slate-700 ">
       <AddSWord />
       {/* Search Results */}
       {showSResults && (
         // <div className="flex justify-center gap-2 mt-4 w-[700px]">
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center max-w-[600px]">
           {!editSWordMode && (
             <div className="flex flex-wrap gap-2 justify-center mx-auto">
               {sWordsList
@@ -90,7 +90,7 @@ const SSearchResults = () => {
                   return (
                     <div
                       key={e.id}
-                      className={`border rounded-md border-slate-200 max-w-[280px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
+                      className={`border rounded-md border-slate-200 w-[240px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
                         e.mark ? "bg-blue-600/60" : "bg-slate-600/60"
                       } h-fit cursor-pointer`}
                     >

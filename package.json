@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@types/uuid": "^9.0.5",
+    "clsx": "^2.1.1",
     "concurrently": "^9.1.2",
     "json-2-csv": "^4.1.1",
     "json-server": "^1.0.0-beta.3",

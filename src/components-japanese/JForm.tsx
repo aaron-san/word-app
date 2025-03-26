@@ -210,7 +210,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4 text-md">
           <label>Word: </label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-12"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
             {...register("word", {
               required: "Please enter a word.",
             })}
@@ -223,13 +223,13 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
             {...register("english", {
               // required: "Please enter a definition.",
             })}
-            className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto"
+            className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto bg-slate-200 rounded outline-none"
           />
         </div>
         <div className="flex items-center justify-end gap-4">
           <label>Japanese:</label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("japanese", {
               // required: "Please enter a pronunciation.",
             })}
@@ -238,7 +238,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Example:</label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-32"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-32 bg-slate-200 rounded outline-none"
             {...register("example", {
               // required: "Please enter an example.",
             })}
@@ -247,7 +247,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Present:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("present", {
               // required: "Please enter an example.",
             })}
@@ -256,7 +256,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Te-form:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("teForm", {
               // required: "Please enter an example.",
             })}
@@ -266,7 +266,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Negative:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("negative", {
               // required: "Please enter an example.",
             })}
@@ -275,7 +275,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Past:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("past", {
               // required: "Please enter an example.",
             })}
@@ -284,7 +284,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Past Negative:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("pastNegative", {
               // required: "Please enter an example.",
             })}
@@ -293,7 +293,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Imperative:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("imperative", {
               // required: "Please enter an example.",
             })}
@@ -302,7 +302,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Volitional:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("volitional", {
               // required: "Please enter an example.",
             })}
@@ -311,7 +311,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Group:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("group", {
               // required: "Please enter an example.",
             })}
@@ -320,7 +320,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Desirative:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("desirative", {
               // required: "Please enter an example.",
             })}
@@ -329,7 +329,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Conditional:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("conditional", {
               // required: "Please enter an example.",
             })}
@@ -338,7 +338,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Passive:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("passive", {
               // required: "Please enter an example.",
             })}
@@ -347,7 +347,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Causative:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("causative", {
               // required: "Please enter an example.",
             })}
@@ -356,7 +356,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Caus. Passive:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("causativePassive", {
               // required: "Please enter an example.",
             })}
@@ -365,7 +365,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Honorific:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("honorific", {
               // required: "Please enter an example.",
             })}
@@ -374,7 +374,7 @@ const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Humble:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("humble", {
               // required: "Please enter an example.",
             })}

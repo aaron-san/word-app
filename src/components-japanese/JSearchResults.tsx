@@ -63,13 +63,13 @@ const JSearchResults = () => {
   // const [addWord, setAddWord] = useState<boolean>(false);
 
   return (
-    <div className="w-fill mx-auto mt-4 max-h-[400px] overflow-auto">
+    <div className="max-h-[400px] overflow-auto rounded bg-slate-700 ">
       <JAddWord />
       {/* Search Results */}
       {showJResults && (
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex justify-center max-w-[600px]">
           {!editJWordMode && (
-            <div className="flex flex-wrap gap-2 justify-center mx-auto">
+            <div className="flex flex-wrap gap-y-4 justify-center mx-auto">
               {jWordsList
                 ?.filter((d) => {
                   return searchJWord
@@ -81,7 +81,7 @@ const JSearchResults = () => {
                   return (
                     <div
                       key={e.id}
-                      className={`border rounded-md border-slate-200 max-w-[280px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
+                      className={`border rounded-md border-slate-200 w-[240px] flex justify-start flex-wrap flex-col mx-auto min-w-[200px] ${
                         e.mark ? "bg-blue-600/60" : "bg-slate-600/60"
                       } h-fit cursor-pointer`}
                     >

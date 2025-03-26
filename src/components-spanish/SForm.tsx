@@ -140,7 +140,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Word: </label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("word", {
               required: "Please enter a word.",
             })}
@@ -152,13 +152,13 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
             {...register("definition", {
               // required: "Please enter a definition.",
             })}
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
           />
         </div>
         <div className="flex items-center justify-end gap-4">
           <label>Example:</label>
           <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-[150px]"
+            className="px-2 py-1 border border-white w-80 text-slate-700 h-[150px] bg-slate-200 rounded outline-none"
             {...register("example", {
               // required: "Please enter an example.",
             })}
@@ -168,7 +168,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Present:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("present", {
               // required: "Please enter a pronunciation.",
             })}
@@ -177,7 +177,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Past:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("past", {
               // required: "Please enter a pronunciation.",
             })}
@@ -186,7 +186,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Conditional:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("conditional", {
               // required: "Please enter a pronunciation.",
             })}
@@ -195,7 +195,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Subjunctive:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("subjunctive", {
               // required: "Please enter a pronunciation.",
             })}
@@ -204,7 +204,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Future:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("future", {
               // required: "Please enter a pronunciation.",
             })}
@@ -213,7 +213,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-center justify-end gap-4">
           <label>Imperfect:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("imperfect", {
               // required: "Please enter a pronunciation.",
             })}
@@ -222,7 +222,7 @@ const SForm = ({ sDefaults, sMethodType }: ISForm) => {
         <div className="flex items-stretch justify-end gap-4">
           <label>Continuous <br/>Progressive:</label>
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700"
+            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
             {...register("continuousProgressive", {
               // required: "Please enter a pronunciation.",
             })}

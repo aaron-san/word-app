@@ -26,7 +26,6 @@ const JMarkedWords = () => {
 
   return (
     <div className="w-[300px]">
-      {/* {!editJWordMode && !addJWord && ( */}
       <ul className="flex flex-wrap gap-2 p-2">
         {jWordsList
           .filter((el) => el.mark === true)
@@ -45,7 +44,6 @@ const JMarkedWords = () => {
             );
           })}
       </ul>
-      {/* )} */}
     </div>
   );
 };

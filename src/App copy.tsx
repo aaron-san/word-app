@@ -2,15 +2,15 @@ import React, { useState, createContext, useEffect, useContext } from "react";
 import "./App.css";
 // import { Link } from "react-router-dom";
 // import WordsList from "./components-english/WordsList";
-import SearchBox from "./components-english/SearchBox";
+import SearchBox from "./components-english/SearchPanel";
 import SearchResults from "./components-english/SearchResults";
 import { IWord } from "./types-english";
 
-import JSearchBox from "./components-japanese/JSearchBox";
+import JSearchBox from "./components-japanese/JSearchPanel";
 import JSearchResults from "./components-japanese/JSearchResults";
 import { IJWord } from "./types-japanese";
 
-import SSearchBox from "./components-spanish/SSearchBox";
+import SSearchBox from "./components-spanish/SSearchPanel";
 import SSearchResults from "./components-spanish/SSearchResults";
 import { ISWord } from "./types-spanish";
 // import { SERVERPORT } from "../App";
