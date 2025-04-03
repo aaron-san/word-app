@@ -13,6 +13,8 @@ import SSearchBox from "./components-spanish/SSearchPanel";
 import SSearchResults from "./components-spanish/SSearchResults";
 import JMarkedWords from "./components-japanese/JMarkedWords";
 import SMarkedWords from "./components-spanish/SMarkedWords";
+import clsx from "clsx";
+import HeaderButton from "./components/HeaderButton";
 
 export const SERVERPORT = 3400;
 
@@ -108,7 +110,7 @@ export const MyGlobalContext = createContext<GlobalContent>({
 
 function App() {
   // console.log("App");
-  const [showTab, setShowTab] = useState<string>("english");
+  const [activeTab, setActiveTab] = useState<string>("english");
   const [wordsList, setWordsList] = useState<IWord[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
   const [addWord, setAddWord] = useState<boolean>(false);
@@ -152,22 +154,9 @@ function App() {
     getSpanishWords();
   }, []);
 
-  const HeaderButton = ({
-    title,
-    tabName,
-  }: {
-    title: string;
-    tabName: string;
-  }) => {
-    return (
-      <button
-        className="p-2 border-b-2 border-transparent rounded shadow-md bg-slate-800 active:scale-[98%] justify-between hover:border-slate-100"
-        onClick={() => setShowTab(tabName)}
-      >
-        {title}
-      </button>
-    );
-  };
+  // useEffect(() => {
+  //   console.log(activeTab);
+  // }, [activeTab]);
 
   return (
     <MyGlobalContext.Provider
@@ -213,12 +202,27 @@ function App() {
       {/* <main className="min-w-screen min-h-screen pt-4 mx-auto bg-[url('./images/blue-plates.jpg')] bg-no-repeat bg-cover flex flex-wrap gap-1 justify-center"> */}
       <main className="w-screen min-h-screen pt-4 flex flex-col gap-1 pl-8 bg-gray-900">
         <div className="flex gap-2 text-2xl text-white">
-          <HeaderButton title="English" tabName="english" />
-          <HeaderButton title="Japanese" tabName="japanese" />
-          <HeaderButton title="Spanish" tabName="spanish" />
+          <HeaderButton
+            title="English"
+            language="english"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+          <HeaderButton
+            title="Japanese"
+            language="japanese"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+          <HeaderButton
+            title="Spanish"
+            language="spanish"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         </div>
         <div className="flex rounded-md z-30 gap-4 mt-4">
-          {showTab === "english" && (
+          {activeTab === "english" && (
             <>
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
@@ -238,7 +242,7 @@ function App() {
               <SearchResults />
             </>
           )}
-          {showTab === "japanese" && (
+          {activeTab === "japanese" && (
             <>
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
@@ -259,7 +263,7 @@ function App() {
               {/* </div> */}
             </>
           )}
-          {showTab === "spanish" && (
+          {activeTab === "spanish" && (
             <>
               <div className="flex gap-2 h-fit">
                 <div className="z-30">
@@ -291,7 +295,7 @@ function App() {
 const Header = ({ title }: { title: string }) => {
   return (
     <div>
-      <a className="text-[2rem] text-slate-700 font-['Bitter'] font-bold">
+      <a className="text-[1.6rem] text-slate-700 font-['Bitter'] font-bold">
         {title}
       </a>
     </div>
