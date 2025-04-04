@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -38,12 +38,12 @@ section::-webkit-scrollbar {
 }
 
 /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
-textarea::-webkit-scrollbar {
+/* textarea::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge, and Firefox */
-textarea {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+/* textarea {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */

@@ -1,36 +1,32 @@
-import React from "react";
-import { IWord } from "../types-english";
-import { ISWord } from "../types-spanish";
-import { IJWord } from "../types-japanese";
+import React, { useContext } from "react";
+import { MyGlobalContext } from "../App";
 
 interface SearchInputProps {
-  wordsList: IWord[] | ISWord[] | IJWord[];
-  inputRef: React.RefObject<HTMLInputElement>;
-  searchWord: string;
+  language: "english" | "japanese" | "spanish";
+  inputRef?: React.RefObject<HTMLInputElement>;
   handleKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  addWord: boolean;
-  editWordMode: boolean;
+  // handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
-  wordsList,
+  language,
   inputRef,
-  searchWord,
   handleKeyUp,
-  handleChange,
-  addWord,
-  editWordMode,
 }) => {
+  const { languagesState } = useContext(MyGlobalContext);
+
+  const { wordsList, searchWord, addWord, editWordMode } =
+    languagesState[language];
   return (
     <input
       type="text"
       placeholder={`Search...       ${wordsList.length} words`}
       ref={inputRef}
-      defaultValue={searchWord}
+      // defaultValue={languagesState[language].inputValue || ""}
+      defaultValue={searchWord || ""}
       className="px-4 py-1 border rounded-full text-slate-600 border-slate-600 outline-none"
       onKeyUp={(e) => handleKeyUp(e)}
-      onChange={handleChange}
+      // onChange={handleChange}
       autoFocus
       disabled={addWord || editWordMode}
     />

@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://aaron-san.github.io/word-app",
   "scripts": {
     "server": "concurrently \"json-server --port 3400 --watch db.json\" \"node ./export-xl.cjs\"",
     "dev": "concurrently \"npm run server\"  \"vite --open\"",

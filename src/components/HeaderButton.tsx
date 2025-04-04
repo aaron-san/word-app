@@ -8,9 +8,9 @@ const HeaderButton = ({
     setActiveTab
   }: {
     title: string;
-    language: string;
+    language: "english" | "japanese" | "spanish";
     activeTab: string;
-    setActiveTab: (lang:string) => void;
+    setActiveTab: (lang:"english" | "japanese" | "spanish") => void;
   }) => {
     return (
       <button
