@@ -7,6 +7,8 @@
   "scripts": {
     "server": "concurrently \"json-server --port 3400 --watch db.json\" \"node ./export-xl.cjs\"",
     "dev": "concurrently \"npm run server\"  \"vite --open\"",
+    "export": "node ./export-xl.cjs",
+    "preview": "vite preview --port 8080",
     "predeploy": "tsc && vite build",
     "deploy": "gh-pages -d dist"
   },
