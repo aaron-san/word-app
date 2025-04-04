@@ -19,7 +19,7 @@ export const MyGlobalContext = createContext<GlobalContent>({
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
     japanese: {
       wordsList: [],
@@ -28,7 +28,7 @@ export const MyGlobalContext = createContext<GlobalContent>({
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
     spanish: {
       wordsList: [],
@@ -37,17 +37,19 @@ export const MyGlobalContext = createContext<GlobalContent>({
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
   },
   setLanguagesState: () => {},
 });
 
 function App() {
-  const [activeTab, setActiveTab] = useState<"english" | "japanese" | "spanish">("english");
-  
+  const [activeTab, setActiveTab] = useState<
+    "english" | "japanese" | "spanish"
+  >("english");
+
   const [languagesState, setLanguagesState] = useState<
-  GlobalContent["languagesState"]
+    GlobalContent["languagesState"]
   >({
     english: {
       wordsList: data["english-words"],
@@ -56,7 +58,7 @@ function App() {
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
     japanese: {
       wordsList: data["japanese-words"],
@@ -65,7 +67,7 @@ function App() {
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
     spanish: {
       wordsList: data["spanish-words"],
@@ -74,7 +76,7 @@ function App() {
       showResults: false,
       editWordMode: false,
       idToEdit: "",
-      inputValue: ""
+      inputValue: "",
     },
   });
 
@@ -110,7 +112,7 @@ function App() {
   //   if (e.key === "Escape") {
   //     console.log("Clicked escape!");
   //     updateState(language, {
-    //       searchWord: "",
+  //       searchWord: "",
   //       showResults: false,
   //       addWord: false,
   //       editWordMode: false
@@ -133,7 +135,7 @@ function App() {
           showResults: false,
           addWord: false,
           editWordMode: false,
-          inputValue: ""
+          inputValue: "",
         });
       }
     };
@@ -165,7 +167,6 @@ function App() {
         setLanguagesState,
       }}
     >
-      {/* <main className="min-w-screen min-h-screen pt-4 mx-auto bg-[url('./images/blue-plates.jpg')] bg-no-repeat bg-cover flex flex-wrap gap-1 justify-center"> */}
       <GlobalEscapeKeyHandler language={activeTab} />
       <main className="min-h-screen pt-4 flex flex-col gap-1 pl-8 bg-gray-900 relative overflow-hidden">
         <div className="flex gap-2 text-2xl text-white">

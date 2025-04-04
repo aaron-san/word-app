@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IForm, IWord } from "../../../types/types-english";
@@ -24,7 +24,10 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
 
   // Type the wordsList based on the current language
-  const wordsList = languagesState[language].wordsList as IWord[] | IJWord[] | ISWord[];
+  const wordsList = languagesState[language].wordsList as
+    | IWord[]
+    | IJWord[]
+    | ISWord[];
 
   const updateState = (updates: { [key: string]: string | boolean }) => {
     setLanguagesState({
