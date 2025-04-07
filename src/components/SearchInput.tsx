@@ -24,7 +24,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       ref={inputRef}
       // defaultValue={languagesState[language].inputValue || ""}
       defaultValue={searchWord || ""}
-      className="px-4 py-1 border rounded-full text-slate-600 border-slate-600 outline-none"
+      className="px-4 py-1 border rounded-full text-slate-600 border-slate-600 outline-none md:max-w-[300px] bg-gray-100 focus:bg-white focus:border-cyan-100 focus:ring-1 focus:ring-cyan-100"
       onKeyUp={(e) => handleKeyUp(e)}
       // onChange={handleChange}
       autoFocus

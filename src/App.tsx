@@ -47,7 +47,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<
     "english" | "japanese" | "spanish"
   >("english");
-
+  // console.log("----", import.meta.env.VITE_ENVIRONMENT);
   const [languagesState, setLanguagesState] = useState<
     GlobalContent["languagesState"]
   >({
@@ -168,8 +168,8 @@ function App() {
       }}
     >
       <GlobalEscapeKeyHandler language={activeTab} />
-      <main className="min-h-screen pt-4 flex flex-col gap-1 pl-8 bg-gray-900 relative overflow-hidden">
-        <div className="flex gap-2 text-2xl text-white">
+      <main className="min-h-screen pt-4 flex flex-col gap-1 px-4 md:pl-8 bg-gray-900 relative overflow-hidden">
+        <div className="flex gap-2 md:text-xl text-white">
           <HeaderButton
             title="English"
             language="english"
@@ -189,7 +189,7 @@ function App() {
             setActiveTab={setActiveTab}
           />
         </div>
-        <div className="flex rounded-md z-30 mt-4 gap-4">
+        <div className="flex-col md:flex-row rounded-md z-30 mt-4 gap-4">
           {activeTab === "english" && (
             <>
               <div className="flex gap-2">

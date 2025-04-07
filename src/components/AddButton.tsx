@@ -15,14 +15,13 @@ const AddButton: React.FC<AddButtonProps> = ({ language, addWordHandler }) => {
   return (
     <button
       className={clsx(
-        "px-2 py-2 mr-2 shadow-md text-lg hover:rounded-full transition-[border-radius] duration-500 ease-in-out border",
+        "px-2 py-1 md:py-2 shadow-md md:text-lg hover:rounded-lg transition-[border-radius] duration-500 ease-in-out border",
         {
           "bg-gray-300 rounded-full border-slate-600 shadow-none text-gray-400":
             disabled,
         },
         {
-          "border-2 border-white rounded-2xl bg-cyan-100 text-slate-600":
-            !disabled,
+          "border-2 border-white bg-cyan-100 text-slate-600": !disabled,
         }
       )}
       onClick={(e) => addWordHandler(e)}

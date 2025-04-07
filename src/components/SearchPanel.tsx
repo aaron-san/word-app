@@ -56,7 +56,6 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
     // }
   };
 
-
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       updateState({
@@ -80,7 +79,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   // };
 
   return (
-    <div className="flex justify-start gap-2 mx-auto rounded">
+    <div className="flex flex-col md:flex-row justify-start gap-2 mx-auto rounded">
       {/* Search Bar */}
 
       <SearchInput
