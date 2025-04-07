@@ -168,8 +168,8 @@ function App() {
       }}
     >
       <GlobalEscapeKeyHandler language={activeTab} />
-      <main className="min-h-screen pt-4 flex flex-col gap-1 px-4 md:pl-8 bg-gray-900 relative overflow-hidden">
-        <div className="flex gap-2 md:text-xl text-white">
+      <main className="min-h-screen flex-col pt-4 flex gap-1 px-4 md:pl-8 bg-gray-900 relative overflow-hidden">
+        <div className="flex flex-wrap gap-2 md:text-xl text-white">
           <HeaderButton
             title="English"
             language="english"
@@ -189,53 +189,24 @@ function App() {
             setActiveTab={setActiveTab}
           />
         </div>
-        <div className="flex-col md:flex-row rounded-md z-30 mt-4 gap-4">
+        <div className="flex flex-col md:flex-row rounded-md z-30 mt-4 gap-4 md:w-3/8">
           {activeTab === "english" && (
-            <>
-              <div className="flex gap-2">
-                <div className="z-30">
-                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="English Words" />
-                    <SearchPanel language="english" />
-                    <MarkedWords language="english" />
-                  </div>
-                </div>
-              </div>
-
+            <div className="flex flex-col md:flex-row gap-2">
+              <SearchPanel language="english" />
               <SearchResults language="english" />
-            </>
+            </div>
           )}
           {activeTab === "japanese" && (
-            <>
-              <div className="flex gap-2 h-fit">
-                <div className="z-30">
-                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="Japanese Words" />
-                    <SearchPanel language="japanese" />
-                    <MarkedWords language="japanese" />
-                  </div>
-                </div>
-              </div>
-              {/* <div className="bg-slate-700"> */}
+            <div className="flex flex-col md:flex-row gap-2">
+              <SearchPanel language="japanese" />
               <SearchResults language="japanese" />
-              {/* </div> */}
-            </>
+            </div>
           )}
           {activeTab === "spanish" && (
-            <>
-              <div className="flex gap-2 h-fit">
-                <div className="z-30">
-                  <div className="p-4 mx-auto bg-slate-200/80 rounded">
-                    <Header title="Spanish Words" />
-                    <SearchPanel language="spanish" />
-                    <MarkedWords language="spanish" />
-                  </div>
-                </div>
-              </div>
-              {/* <div className="bg-slate-700"> */}
+            <div className="flex flex-col md:flex-row gap-2">
+              <SearchPanel language="spanish" />
               <SearchResults language="spanish" />
-              {/* </div> */}
-            </>
+            </div>
           )}
         </div>
         <div className="bg-gradient bg-gradient-upper"></div>
@@ -244,15 +215,5 @@ function App() {
     </MyGlobalContext.Provider>
   );
 }
-
-const Header = ({ title }: { title: string }) => {
-  return (
-    <div>
-      <a className="text-[1.6rem] text-slate-700 font-['Bitter'] font-bold">
-        {title}
-      </a>
-    </div>
-  );
-};
 
 export default App;

@@ -2,6 +2,7 @@ import { useEffect, useRef, useContext, useState } from "react";
 import { MyGlobalContext } from "../App";
 import AddButton from "./AddButton";
 import SearchInput from "./SearchInput";
+import MarkedWords from "./MarkedWords";
 
 interface SearchPanelProps {
   language: "english" | "japanese" | "spanish";
@@ -79,19 +80,34 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   // };
 
   return (
-    <div className="flex flex-col md:flex-row justify-start gap-2 mx-auto rounded">
-      {/* Search Bar */}
+    <div className="bg-slate-200/80 rounded flex flex-col sm:max-w-[360px] p-4 h-fit">
+      <Header title={`${language.charAt(0).toUpperCase()}${language.slice(1)} Words`} />
+      <div className="flex flex-col md:flex-row justify-start gap-2 rounded">
+        {/* Search Bar */}
 
-      <SearchInput
-        language={language}
-        inputRef={inputRef}
-        handleKeyUp={handleKeyUp}
-        // handleChange={handleChange}
-      />
+        <SearchInput
+          language={language}
+          inputRef={inputRef}
+          handleKeyUp={handleKeyUp}
+          // handleChange={handleChange}
+        />
 
-      <AddButton language={language} addWordHandler={addWordHandler} />
+        <AddButton language={language} addWordHandler={addWordHandler} />
+      </div>
+      <MarkedWords language={language} />
     </div>
   );
 };
+
+const Header = ({ title }: { title: string }) => {
+  return (
+    <div>
+      <a className="text-[1.6rem] text-slate-700 font-['Bitter'] font-bold">
+        {title}
+      </a>
+    </div>
+  );
+};
+
 
 export default SearchPanel;

@@ -32,11 +32,11 @@ const MarkedWords: React.FC<MarkedWordsProps> = ({ language }) => {
 
   const handleClick = (el: IWord | IJWord | ISWord) => {
     updateState({
-      idToEdit: el.id,
-      editWordMode: true,
-      showResults: false,
+      idToEdit: "",
+      editWordMode: false,
+      showResults: true,
       addWord: false,
-      searchWord: "",
+      searchWord: el.word,
     });
   };
 
@@ -64,8 +64,8 @@ const MarkedWords: React.FC<MarkedWordsProps> = ({ language }) => {
   );
 
   return (
-    <div className="w-[300px]">
-      <ul className="flex flex-wrap gap-2 py-4">
+    <div className="md:min-w-[300px]">
+      <ul className="flex flex-wrap gap-2 py-4 justify-stretch">
         {markedWords
           .slice(numStart, numStart + 8)
           .map((el: IWord | IJWord | ISWord) => {

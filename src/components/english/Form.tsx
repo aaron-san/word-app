@@ -130,7 +130,7 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
       className="flex flex-col gap-2 mb-8 mx-auto text-slate-100 text-xl py-4 px-4"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex items-center justify-end gap-4 text-md">
+      <div className="flex flex-col justify-end gap-1 text-md">
         <label>Word: </label>
         <textarea
           className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
@@ -138,30 +138,30 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
         />
       </div>
 
-      <div className="flex items-center justify-end gap-4">
+      <div className="flex flex-col justify-end gap-1 text-md">
         <label>Definition:</label>
         <textarea
           {...register("definition")}
           className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
         />
       </div>
-      <div className="flex items-center justify-end gap-4">
+      <div className="flex flex-col justify-end gap-1 text-md">
         <label>Pronunciation:</label>
         <input
           className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
           {...register("pronunciation")}
         />
       </div>
-      <div className="flex items-center justify-end gap-4">
+      <div className="flex flex-col justify-end gap-1 text-md">
         <label>Example:</label>
         <textarea
           className="px-2 py-1 border border-white w-80 text-slate-700 h-32 scrollbar-hidden overflow-auto bg-slate-200 rounded outline-none"
           {...register("example")}
         />
       </div>
-      <div className="flex items-center justify-end gap-4 mt-4">
+      <div className="flex flex-col justify-end gap-1 text-md">
         <label className="text-slate-200">Important:</label>
-        <div className="w-80 py-1 text-center">
+        <div className="w-10 py-1 text-center">
           <input
             type="checkbox"
             className="h-6 w-6 text-xl my-1 border border-white text-blue-700

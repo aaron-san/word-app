@@ -170,7 +170,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
 
   return (
     <div className="max-h-[600px] overflow-auto rounded bg-slate-700 ">
-      {addWord && !editWordMode && <AddWord language={language} />}
+      {addWord && <AddWord language={language} />}
       {/* Search Results */}
       {!addWord &&
         filteredWords.length === 0 &&
@@ -180,7 +180,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
             No results...
           </div>
         )}
-      {!addWord && SearchResults.length > 0 && showResults && !editWordMode && (
+      {showResults && !editWordMode && (
         <div className="flex max-w-[680px] mx-auto">
           <div className="flex flex-wrap gap-4 justify-center mx-auto p-4">
             {filteredWords.map((el: WordList[typeof language][0]) => {

@@ -21,7 +21,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
 
   return (
     <div className="fixed z-50 inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
-      <div className="bg-slate-200 p-6 rounded-md w-1/3">
+      <div className="bg-slate-200 p-6 rounded-md w-[300px]">
         <h2 className="text-lg">Delete {word}?</h2>
         <p>Type 'DELETE' to confirm.</p>
         <input
