@@ -42,7 +42,8 @@ export interface ISDefaults {
 }
 
 export interface ISForm {
-  sDefaults?: ISDefaults;
-  sMethodType: string;
-  sIdToEdit?: string | null;
+  word?: ISWord;
+  defaults?: ISDefaults;
+  methodType: string;
+  idToEdit?: string | null;
 }

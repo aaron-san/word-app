@@ -1,8 +1,10 @@
 import { useRef, useContext, useState } from "react";
 import { IDefaults, IWord } from "../../types/types-english";
-import AddWord from "./AddWord";
+// import AddWord from "./AddWord";
 // import { v4 as uuidv4 } from "uuid";
 import Form from "./english/Form";
+import JForm from "./japanese/JForm";
+import SForm from "./spanish/SForm";
 import { MyGlobalContext } from "../App";
 import { IJWord } from "../../types/types-japanese";
 import { ISWord } from "../../types/types-spanish";
@@ -170,7 +172,28 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
 
   return (
     <div className="max-h-[600px] overflow-auto rounded bg-slate-700 ">
-      {addWord && <AddWord language={language} />}
+      {addWord && language === "english" && (
+        <Form
+          // word={el as IWord}
+          idToEdit={idToEdit}
+          methodType="POST"
+        />
+      )}
+      {addWord && language === "japanese" && (
+        <JForm
+          // word={el as IJWord}
+          idToEdit={idToEdit}
+          methodType="POST"
+        />
+      )}
+      {addWord && language === "spanish" && (
+        <SForm
+          // word={el as ISWord}
+          idToEdit={idToEdit}
+          methodType="POST"
+        />
+      )}
+
       {/* Search Results */}
       {!addWord &&
         filteredWords.length === 0 &&
@@ -256,29 +279,36 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       {/* Form - Edit Word */}
       {editWordMode && (
         <div className="flex max-w-[680px] mx-auto">
-          {(wordsList as IWord[])
+          {wordsList
             .filter((el) => el.id === idToEdit)
             .map((el) => {
-              const defaults: IDefaults = {
-                defaultWord: el.word,
-                defaultDefinition: el.definition,
-                defaultPronunciation: el.pronunciation,
-                defaultExample: el.example,
-                defaultMark: el.mark,
-              };
-
               return (
                 <>
                   <div
                     key={el.id}
                     className="flex flex-wrap gap-4 justify-center mx-auto p-4"
                   >
-                    <Form
-                      language={language}
-                      defaults={defaults}
-                      idToEdit={idToEdit}
-                      methodType="PUT"
-                    />
+                    {language === "english" && (
+                      <Form
+                        word={el as IWord}
+                        idToEdit={idToEdit}
+                        methodType="PUT"
+                      />
+                    )}
+                    {language === "japanese" && (
+                      <JForm
+                        word={el as IJWord}
+                        idToEdit={idToEdit}
+                        methodType="PUT"
+                      />
+                    )}
+                    {language === "spanish" && (
+                      <SForm
+                        word={el as ISWord}
+                        idToEdit={idToEdit}
+                        methodType="PUT"
+                      />
+                    )}
                   </div>
                 </>
               );

@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { IForm, IWord } from "../../../types/types-english";
+import { IDefaults, IForm, IWord } from "../../../types/types-english";
 import { MyGlobalContext } from "../../App";
-import { ISWord } from "../../../types/types-spanish";
-import { IJWord } from "../../../types/types-japanese";
 
 export type FormValues = {
   word: string | null;
@@ -14,20 +12,19 @@ export type FormValues = {
   mark: boolean | null;
 };
 
-type WordList = {
-  english: IWord[];
-  japanese: IJWord[];
-  spanish: ISWord[];
-};
-
-const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
+const Form = ({ word, methodType, idToEdit }: IForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
 
-  // Type the wordsList based on the current language
-  const wordsList = languagesState[language].wordsList as
-    | IWord[]
-    | IJWord[]
-    | ISWord[];
+  const language = "english";
+  const wordsList = languagesState[language].wordsList as IWord[];
+
+  const defaults: IDefaults = {
+    defaultWord: word?.word || languagesState[language].searchWord || "",
+    defaultDefinition: word?.definition || "",
+    defaultPronunciation: word?.pronunciation || "",
+    defaultExample: word?.example || "",
+    defaultMark: word?.mark || false,
+  };
 
   const updateState = (updates: { [key: string]: string | boolean }) => {
     setLanguagesState({
@@ -39,7 +36,7 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
     });
   };
 
-  const addWord = (word: IWord | IJWord | ISWord) => {
+  const addWord = (word: IWord) => {
     setLanguagesState({
       ...languagesState,
       [language]: {
@@ -51,14 +48,14 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
     });
   };
 
-  const updateWord = (word: IWord | IJWord | ISWord) => {
+  const updateWord = (word: IWord) => {
     setLanguagesState({
       ...languagesState,
       [language]: {
         ...languagesState[language],
         wordsList: [
-          ...(wordsList as (IWord | IJWord | ISWord)[]).filter(
-            (word: IWord | IJWord | ISWord) => word.id !== idToEdit
+          ...(wordsList as IWord[]).filter(
+            (word: IWord) => word.id !== idToEdit
           ),
           word,
         ],
@@ -108,7 +105,7 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
       reset();
       const wordsOnly = wordsList.map((word) => word.word);
       if (word.word && !wordsOnly.includes(word.word)) {
-        addWord(word as IWord | IJWord | ISWord);
+        addWord(word as IWord);
       } else {
         console.log("Please provide a new word.");
       }
@@ -118,7 +115,7 @@ const Form = ({ language, defaults, methodType, idToEdit }: IForm) => {
       try {
         const dataWithId = { id: idToEdit, ...data };
         reset();
-        updateWord(dataWithId as IWord | IJWord | ISWord);
+        updateWord(dataWithId as IWord);
       } catch (err) {
         console.log(err);
       }

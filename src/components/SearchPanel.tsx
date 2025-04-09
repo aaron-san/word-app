@@ -53,6 +53,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
       searchWord: inputRef?.current?.value || "",
       addWord: true,
       editWordMode: false,
+      showResults: false,
     });
     // }
   };
@@ -81,7 +82,9 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
 
   return (
     <div className="bg-slate-200/80 rounded flex flex-col sm:max-w-[360px] p-4 h-fit">
-      <Header title={`${language.charAt(0).toUpperCase()}${language.slice(1)} Words`} />
+      <Header
+        title={`${language.charAt(0).toUpperCase()}${language.slice(1)} Words`}
+      />
       <div className="flex flex-col md:flex-row justify-start gap-2 rounded">
         {/* Search Bar */}
 
@@ -108,6 +111,5 @@ const Header = ({ title }: { title: string }) => {
     </div>
   );
 };
-
 
 export default SearchPanel;

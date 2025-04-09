@@ -156,9 +156,9 @@ function App() {
     return null; // This component doesn't need to render anything
   };
 
-  useEffect(() => {
-    console.log(languagesState.english);
-  }, [languagesState.english]);
+  // useEffect(() => {
+  //   console.log(languagesState.english);
+  // }, [languagesState.english]);
 
   return (
     <MyGlobalContext.Provider

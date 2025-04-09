@@ -1,13 +1,11 @@
 import { useState, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { IJForm, IJWord } from "../../../types/types-japanese";
+import { IJDefaults, IJForm, IJWord } from "../../../types/types-japanese";
 import { MyGlobalContext } from "../../App";
-import { IWord } from "../../../types/types-english";
-import { ISWord } from "../../../types/types-spanish";
+import { ISDefaults } from "../../../types/types-spanish";
 
-
-export type JFormValues = {
+export type FormValues = {
   word: string | null;
   english: string | null;
   japanese: string | null;
@@ -31,171 +29,118 @@ export type JFormValues = {
   mark: boolean | null;
 };
 
-const JForm = ({ jDefaults, jMethodType, jIdToEdit }: IJForm) => {
-  // console.log("JForm");
+const JForm = ({ word, methodType, idToEdit }: IJForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
 
-  const japaneseWords = languagesState.japanese.wordsList;
+  const language = "japanese";
+  const wordsList = languagesState[language].wordsList;
 
-  const { register, handleSubmit, reset, setFocus } = useForm<JFormValues>({
+  const defaults: IJDefaults = {
+    defaultWord: word?.word || languagesState[language].searchWord || "",
+    defaultEnglish: word?.english,
+    defaultJapanese: word?.japanese || "",
+    defaultExample: word?.example || "",
+    defaultPresent: word?.present || "",
+    defaultTeForm: word?.teForm || "",
+    defaultNegative: word?.negative || "",
+    defaultPast: word?.past || "",
+    defaultPastNegative: word?.pastNegative || "",
+    defaultPotential: word?.potential || "",
+    defaultImperative: word?.imperative || "",
+    defaultVolitional: word?.volitional || "",
+    defaultGroup: word?.group || "",
+    defaultDesirative: word?.desirative || "",
+    defaultConditional: word?.conditional || "",
+    defaultPassive: word?.passive || "",
+    defaultCausative: word?.causative || "",
+    defaultCausativePassive: word?.causativePassive || "",
+    defaultHonorific: word?.honorific || "",
+    defaultHumble: word?.humble || "",
+    defaultMark: word?.mark || "",
+  };
+  const updateState = (updates: { [key: string]: string | boolean }) => {
+    setLanguagesState({
+      ...languagesState,
+      [language]: {
+        ...languagesState[language],
+        ...updates,
+      },
+    });
+  };
+
+  const addWord = (word: IJWord) => {
+    setLanguagesState({
+      ...languagesState,
+      [language]: {
+        ...languagesState[language],
+        wordsList: [...wordsList, word] as IJWord[],
+        addWord: false,
+        showResults: false,
+      },
+    });
+  };
+
+  const updateWord = (word: IJWord) => {
+    setLanguagesState({
+      ...languagesState,
+      [language]: {
+        ...languagesState[language],
+        wordsList: [
+          ...(wordsList as IJWord[]).filter(
+            (word: IJWord) => word.id !== idToEdit
+          ),
+          word,
+        ],
+        editWordMode: false,
+        showResults: false,
+      },
+    });
+  };
+
+  const onCancel = () => {
+    setLanguagesState({
+      ...languagesState,
+      [language]: {
+        ...languagesState[language],
+        addWord: false,
+        editWordMode: false,
+      },
+    });
+  };
+
+  const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
     defaultValues: {
-      word: jDefaults?.defaultWord,
-      english: jDefaults?.defaultEnglish,
-      japanese: jDefaults?.defaultJapanese,
-      example: jDefaults?.defaultExample,
-      present: jDefaults?.defaultPresent,
-      teForm: jDefaults?.defaultTeForm,
-      negative: jDefaults?.defaultNegative,
-      past: jDefaults?.defaultPast,
-      pastNegative: jDefaults?.defaultPastNegative,
-      potential: jDefaults?.defaultPotential,
-      imperative: jDefaults?.defaultImperative,
-      volitional: jDefaults?.defaultVolitional,
-      group: jDefaults?.defaultGroup,
-      desirative: jDefaults?.defaultDesirative,
-      conditional: jDefaults?.defaultConditional,
-      passive: jDefaults?.defaultPassive,
-      causative: jDefaults?.defaultCausative,
-      causativePassive: jDefaults?.defaultCausativePassive,
-      honorific: jDefaults?.defaultHonorific,
-      humble: jDefaults?.defaultHumble,
-      mark: jDefaults?.defaultMark,
+      word: defaults?.defaultWord,
+      english: defaults?.defaultEnglish,
+      japanese: defaults?.defaultJapanese,
+      example: defaults?.defaultExample,
+      present: defaults?.defaultPresent,
+      teForm: defaults?.defaultTeForm,
+      negative: defaults?.defaultNegative,
+      past: defaults?.defaultPast,
+      pastNegative: defaults?.defaultPastNegative,
+      potential: defaults?.defaultPotential,
+      imperative: defaults?.defaultImperative,
+      volitional: defaults?.defaultVolitional,
+      group: defaults?.defaultGroup,
+      desirative: defaults?.defaultDesirative,
+      conditional: defaults?.defaultConditional,
+      passive: defaults?.defaultPassive,
+      causative: defaults?.defaultCausative,
+      causativePassive: defaults?.defaultCausativePassive,
+      honorific: defaults?.defaultHonorific,
+      humble: defaults?.defaultHumble,
+      mark: defaults?.defaultMark,
     },
   });
-  useState(() => {
-    setFocus("word");
-  });
 
-const addWord = (
-  language: "english" | "japanese" | "spanish",
-  word: IWord | IJWord | ISWord
-) => {
-  const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
-
-  switch (language) {
-    case "english":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as IWord[]),
-            word as IWord,
-          ],
-          addWord: false,
-        },
-      });
-
-      break;
-    case "japanese":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as IJWord[]),
-            word as IJWord,
-          ],
-          addWord: false,
-        },
-      });
-
-      break;
-    case "spanish":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as ISWord[]),
-            word as ISWord,
-          ],
-          addWord: false,
-        },
-      });
-
-      break;
-    default:
-      return;
-  }
-};
-
-const updateWord = (
-  language: "english" | "japanese" | "spanish",
-  word: IWord | IJWord | ISWord
-) => {
-  const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
-
-  switch (language) {
-    case "english":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as IWord[]),
-            word as IWord,
-          ],
-          // addWord: false,
-          editWordMode: false,
-          // showResults: false
-        },
-      });
-
-      break;
-    case "japanese":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as IJWord[]),
-            word as IJWord,
-          ],
-          // addWord: false,
-          editWordMode: false,
-        },
-      });
-
-      break;
-    case "spanish":
-      setLanguagesState({
-        ...languagesState,
-        [language]: {
-          ...languagesState[language],
-          wordsList: [
-            ...(languagesState[language].wordsList as ISWord[]),
-            word as ISWord,
-          ],
-          // addWord: false,
-          editWordMode: false,
-        },
-      });
-
-      break;
-    default:
-      return;
-  }
-};
-
-const cancel = (language: "english" | "japanese" | "spanish") => {
-  const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
-
-  setLanguagesState({
-    ...languagesState,
-    [language]: {
-      ...languagesState[language],
-      addWord: false,
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    updateState({
+      searchWord: "",
       editWordMode: false,
-    },
-  });
-};
+    });
 
-
-  const onSubmit: SubmitHandler<JFormValues> = async (data) => {
-    // console.log(data);
-
-    const jWord = {
+    const word = {
       id: uuidv4(),
       word: data.word,
       english: data.english,
@@ -220,74 +165,91 @@ const cancel = (language: "english" | "japanese" | "spanish") => {
       mark: data.mark,
     };
 
-    if (jMethodType === "POST") {
-      // Send data to the backend via POST
-      try {
-        // await fetch(`http://localhost:${SERVERPORT}/japanese-words`, {
-        //   method: "POST",
-        //   mode: "cors",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(jWord), // body data type must match "Content-Type" header
-        // });
-        // Clear form inputs
-        reset();
+    if (methodType === "POST") {
+      reset();
+      const wordsOnly = wordsList.map((word) => word.word);
+      if (word.word && !wordsOnly.includes(word.word)) {
+        addWord(word as IJWord);
+      } else {
+        console.log("Please provide a new word.");
+      }
+    }
 
-        addWord("japanese", jWord as IJWord);
+    if (methodType === "PUT") {
+      try {
+        const dataWithId = { id: idToEdit, ...data };
+        reset();
+        updateWord(dataWithId as IJWord);
       } catch (err) {
         console.log(err);
       }
     }
-
-    if (jMethodType === "PUT") {
-      // Send data to the backend via POST
-      try {
-        // console.log(jIdToEdit);
-        const jDataWithId = { id: jIdToEdit, ...data };
-        // const res = await fetch(
-        //   `http://localhost:${SERVERPORT}/japanese-words/${jIdToEdit}`,
-        //   {
-        //     method: "PUT",
-        //     // mode: "cors",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     // body data type must match "Content-Type" header
-        //     body: JSON.stringify(jDataWithId),
-        //   }
-        // );
-        // const res_data = await res.json();
-        // const result = {
-        //   status: res.status + "-" + res.statusText,
-        //   headers: { "Content-Type": res.headers.get("Content-Type") },
-        //   data: res_data,
-        // };
-        // Clear form inputs
-        reset();
-        const jWords = languagesState.japanese.wordsList.map(
-          (word) => word.word
-        );
-
-        if (jDataWithId.word && !jWords.includes(jDataWithId.word)) {
-          updateWord("japanese", jDataWithId as IJWord);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    // Get updated words list from json server
-    // const getJWords = async () => {
-    //   const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
-    //   const words = await data.json();
-    //   setJWordsList(words);
-    // };
-    // getJWords();
   };
 
-  const onCancel = () => {
-    cancel("japanese");
-  };
+  // if (methodType === "POST") {
+  //   // Send data to the backend via POST
+  //   try {
+  //     // await fetch(`http://localhost:${SERVERPORT}/japanese-words`, {
+  //     //   method: "POST",
+  //     //   mode: "cors",
+  //     //   headers: {
+  //     //     "Content-Type": "application/json",
+  //     //   },
+  //     //   body: JSON.stringify(jWord), // body data type must match "Content-Type" header
+  //     // });
+  //     // Clear form inputs
+  //     reset();
+
+  //     addWord("japanese", word as IJWord);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // if (methodType === "PUT") {
+  //   // Send data to the backend via POST
+  //   try {
+  //     // console.log(jIdToEdit);
+  //     const jDataWithId = { id: idToEdit, ...data };
+  //     // const res = await fetch(
+  //     //   `http://localhost:${SERVERPORT}/japanese-words/${jIdToEdit}`,
+  //     //   {
+  //     //     method: "PUT",
+  //     //     // mode: "cors",
+  //     //     headers: {
+  //     //       "Content-Type": "application/json",
+  //     //     },
+  //     //     // body data type must match "Content-Type" header
+  //     //     body: JSON.stringify(jDataWithId),
+  //     //   }
+  //     // );
+  //     // const res_data = await res.json();
+  //     // const result = {
+  //     //   status: res.status + "-" + res.statusText,
+  //     //   headers: { "Content-Type": res.headers.get("Content-Type") },
+  //     //   data: res_data,
+  //     // };
+  //     // Clear form inputs
+  //     reset();
+  //     const words = languagesState[language].wordsList.map(
+  //       (word) => word.word
+  //     );
+
+  //     if (jDataWithId.word && !words.includes(jDataWithId.word)) {
+  //       updateWord("japanese", dataWithId as IJWord);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+  // Get updated words list from json server
+  // const getJWords = async () => {
+  //   const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
+  //   const words = await data.json();
+  //   setJWordsList(words);
+  // };
+  // getJWords();
+  // };
 
   const jKeys = [
     { label: "Word", key: "word" },
@@ -328,214 +290,209 @@ const cancel = (language: "english" | "japanese" | "spanish") => {
   // )})
 
   return (
-    
-      <form
+    <form
       className="flex flex-col gap-2 mb-8 mx-auto text-slate-100 text-xl py-4 px-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex items-center justify-end gap-4 text-md">
-          <label>Word: </label>
-          <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
-            {...register("word", {
-              required: "Please enter a word.",
-            })}
-          />
-        </div>
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col justify-end gap-4 text-md">
+        <label>Word: </label>
+        <textarea
+          className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
+          {...register("word", {
+            required: "Please enter a word.",
+          })}
+        />
+      </div>
 
-        <div className="flex items-center justify-end gap-4">
-          <label>English:</label>
-          <textarea
-            {...register("english", {
-              // required: "Please enter a definition.",
-            })}
-            className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto bg-slate-200 rounded outline-none"
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Japanese:</label>
-          <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("japanese", {
-              // required: "Please enter a pronunciation.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Example:</label>
-          <textarea
-            className="px-2 py-1 border border-white w-80 text-slate-700 h-32 bg-slate-200 rounded outline-none"
-            {...register("example", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Present:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("present", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Te-form:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("teForm", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>English:</label>
+        <textarea
+          {...register("english", {
+            // required: "Please enter a definition.",
+          })}
+          className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto bg-slate-200 rounded outline-none"
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Japanese:</label>
+        <textarea
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("japanese", {
+            // required: "Please enter a pronunciation.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Example:</label>
+        <textarea
+          className="px-2 py-1 border border-white w-80 text-slate-700 h-32 bg-slate-200 rounded outline-none"
+          {...register("example", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Present:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("present", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Te-form:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("teForm", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
 
-        <div className="flex items-center justify-end gap-4">
-          <label>Negative:</label>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Negative:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("negative", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Past:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("past", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Past Negative:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("pastNegative", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Imperative:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("imperative", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Volitional:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("volitional", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Group:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("group", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Desirative:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("desirative", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Conditional:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("conditional", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Passive:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("passive", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Causative:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("causative", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Caus. Passive:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("causativePassive", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Honorific:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("honorific", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-4">
+        <label>Humble:</label>
+        <input
+          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          {...register("humble", {
+            // required: "Please enter an example.",
+          })}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-1 text-md">
+        <label className="text-slate-200">Important:</label>
+        <div className="w-10 py-1 text-center">
           <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("negative", {
-              // required: "Please enter an example.",
-            })}
+            type="checkbox"
+            className="h-6 w-6 text-xl my-1 border border-white text-blue-700
+            focus:ring-2 focus:ring-blue-500 rounded focus:ring-offset-gray-700 text-center bg-slate-200 outline-none"
+            {...register("mark")}
           />
         </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Past:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("past", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Past Negative:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("pastNegative", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Imperative:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("imperative", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Volitional:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("volitional", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Group:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("group", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Desirative:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("desirative", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Conditional:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("conditional", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Passive:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("passive", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Causative:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("causative", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Caus. Passive:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("causativePassive", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Honorific:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("honorific", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <label>Humble:</label>
-          <input
-            className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-            {...register("humble", {
-              // required: "Please enter an example.",
-            })}
-          />
-        </div>
-        <div className="flex justify-end gap-4 mt-4">
-          <label className="text-slate-200">Important:</label>
-          <div className="w-80 py-1 text-center">
-            <input
-              type="checkbox"
-              className="h-6 w-6 text-xl my-1 border border-white text-blue-700
-            focus:ring-2 focus:ring-blue-500 rounded-sm focus:ring-offset-gray-700 text-center"
-              {...register("mark", {
-                // required: "Mark important?",
-              })}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="flex gap-2 justify-end flex-end">
-          <input
-            type="submit"
-            value="Save"
-            className="w-1/2 py-2 my-1 text-2xl text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
-          />
-          <input
-            type="button"
-            className="w-1/2 py-2 my-1 text-2xl text-center bg-red-300 border rounded-md
-            cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
-            value="Cancel"
-            onClick={onCancel}
-          />
-        </div>
-      </form>
-    
+      </div>
+      <hr />
+      <div className="flex gap-2 justify-between flex-end text-xl">
+        <input
+          type="submit"
+          value="Save"
+          className="w-1/2 py-2 my-1 text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+        />
+        <input
+          type="button"
+          className="w-1/2 py-2 my-1 text-center bg-red-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+          value="Cancel"
+          onClick={onCancel}
+        />
+      </div>
+    </form>
   );
 };
 

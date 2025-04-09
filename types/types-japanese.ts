@@ -66,7 +66,8 @@ export interface IJDefaults {
 }
 
 export interface IJForm {
-  jDefaults?: IJDefaults;
-  jMethodType: string;
-  jIdToEdit?: string | null;
+  word?: IJWord;
+  defaults?: IJDefaults;
+  methodType: string;
+  idToEdit?: string | null;
 }

@@ -36,7 +36,7 @@ export interface IDefaults {
 }
 
 export interface IForm {
-  language: "english" | "japanese" | "spanish";
+  word?: IWord;
   defaults?: IDefaults;
   methodType: string;
   idToEdit?: string | null;
