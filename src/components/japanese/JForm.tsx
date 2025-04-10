@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IJDefaults, IJForm, IJWord } from "../../../types/types-japanese";
 import { MyGlobalContext } from "../../App";
-import { ISDefaults } from "../../../types/types-spanish";
 
 export type FormValues = {
   word: string | null;
@@ -56,7 +55,7 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     defaultCausativePassive: word?.causativePassive || "",
     defaultHonorific: word?.honorific || "",
     defaultHumble: word?.humble || "",
-    defaultMark: word?.mark || "",
+    defaultMark: word?.mark || false,
   };
   const updateState = (updates: { [key: string]: string | boolean }) => {
     setLanguagesState({
@@ -251,29 +250,29 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
   // getJWords();
   // };
 
-  const jKeys = [
-    { label: "Word", key: "word" },
+  // const jKeys = [
+  //   { label: "Word", key: "word" },
 
-    { label: "English", key: "english" },
+  //   { label: "English", key: "english" },
 
-    { label: "Japanese", key: "japanese" },
-    { label: "Example", key: "example" },
-    { label: "Present", key: "present" },
-    { label: "Te-Form", key: "teForm" },
-    { label: "Negative", key: "negative" },
-    { label: "Past", key: "past" },
-    { label: "Past Negative", key: "pastNegative" },
-    { label: "Imperative", key: "imperative" },
-    { label: "Volitional", key: "volitional" },
-    { label: "Group", key: "group" },
-    { label: "Desirative", key: "desirative" },
-    { label: "Conditional", key: "conditional" },
-    { label: "Passive", key: "passive" },
-    { label: "Causative", key: "causative" },
-    { label: "Causative Passive", key: "causativePassive" },
-    { label: "Honorific", key: "honorific" },
-    { label: "Humble", key: "humble" },
-  ];
+  //   { label: "Japanese", key: "japanese" },
+  //   { label: "Example", key: "example" },
+  //   { label: "Present", key: "present" },
+  //   { label: "Te-Form", key: "teForm" },
+  //   { label: "Negative", key: "negative" },
+  //   { label: "Past", key: "past" },
+  //   { label: "Past Negative", key: "pastNegative" },
+  //   { label: "Imperative", key: "imperative" },
+  //   { label: "Volitional", key: "volitional" },
+  //   { label: "Group", key: "group" },
+  //   { label: "Desirative", key: "desirative" },
+  //   { label: "Conditional", key: "conditional" },
+  //   { label: "Passive", key: "passive" },
+  //   { label: "Causative", key: "causative" },
+  //   { label: "Causative Passive", key: "causativePassive" },
+  //   { label: "Honorific", key: "honorific" },
+  //   { label: "Humble", key: "humble" },
+  // ];
 
   // const inputItems = jKeys.map((el) => {
   // // const {label, key} = el;

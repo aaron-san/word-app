@@ -279,7 +279,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       {/* Form - Edit Word */}
       {editWordMode && (
         <div className="flex max-w-[680px] mx-auto">
-          {wordsList
+          {(wordsList as (IWord | IJWord | ISWord)[])
             .filter((el) => el.id === idToEdit)
             .map((el) => {
               return (

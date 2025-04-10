@@ -10,6 +10,18 @@
 
 This project uses the json-server library for the backend.
 
+## Deploy
+```bash
+# Add to reposotory
+git add <file>
+git commit -m "comment"
+git push
+
+# Push to Github Pages
+npm run predeploy # tsc and build
+npm run deploy # gh-pages
+```
+
 ## Push to Remote GitHub Repository
 
 ```bash
