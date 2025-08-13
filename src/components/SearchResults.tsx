@@ -5,7 +5,7 @@ import { IDefaults, IWord } from "../../types/types-english";
 import Form from "./english/Form";
 import JForm from "./japanese/JForm";
 import SForm from "./spanish/SForm";
-import { MyGlobalContext } from "../App";
+import { MyGlobalContext, SERVERPORT } from "../App";
 import { IJWord } from "../../types/types-japanese";
 import { ISWord } from "../../types/types-spanish";
 import React from "react";
@@ -54,26 +54,63 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
   const handleDelete = (id: string) => {
     setIdToDelete(id); // Set the word for which the delete confirmation is required
     setModalOpen(true); // Open the modal
+
+    // const deleteWord = window.prompt(
+    //   `Delete ${word}? \n\nType 'DELETE' to delete`
+    // );
+    // if (deleteWord !== "DELETE") return;
+    // // Delete data on the backend via PUT
+    // try {
+    //   await fetch(`http://localhost:${SERVERPORT}/english-words/${id}`, {
+    //     method: "DELETE",
+    //   });
+
+    //   // Get updated words list from json server
+    //   const getWords = async () => {
+    //     const data = await fetch(
+    //       `http://localhost:${SERVERPORT}/english-words`
+    //     );
+    //     const words = await data.json();
+    //     setWordsList(words);
+    //   };
+    //   getWords();
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (idToDelete && inputValue === "DELETE") {
       // Handle the delete logic
-      updateState({
-        wordsList: (() => {
-          if (language === "english") {
-            return (wordsList as IWord[]).filter((el) => el.id !== idToDelete);
-          } else if (language === "japanese") {
-            return (wordsList as IJWord[]).filter((el) => el.id !== idToDelete);
-          } else if (language === "spanish") {
-            return (wordsList as ISWord[]).filter((el) => el.id !== idToDelete);
+      // Delete data on the backend via PUT
+      try {
+        await fetch(
+          `http://localhost:${SERVERPORT}/english-words/${idToDelete}`,
+          {
+            method: "DELETE",
           }
-          return []; // Return an empty array if the language doesn't match any case
-        })(),
-        editWordMode: false,
-        showResults: false,
-        addWord: false,
-      });
+        );
+        updateState({
+          wordsList: (() => {
+            if (language === "english") {
+              return (wordsList as IWord[]).filter(
+                (el) => el.id !== idToDelete
+              );
+            } else if (language === "japanese") {
+              return (wordsList as IJWord[]).filter(
+                (el) => el.id !== idToDelete
+              );
+            } else if (language === "spanish") {
+              return (wordsList as ISWord[]).filter(
+                (el) => el.id !== idToDelete
+              );
+            }
+            return []; // Return an empty array if the language doesn't match any case
+          })(),
+          editWordMode: false,
+          showResults: false,
+          addWord: false,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       console.log(
         "Delete confirmation failed. Please type 'DELETE' to confirm."
@@ -86,11 +123,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
     setModalOpen(false); // Close the modal without doing anything
   };
 
-  // const handleDelete = (word: string, id: string) => {
-  //   const deleteWord = window.prompt(
-  //     `Delete ${word}? \n\nType 'DELETE' to delete`
-  //   );
-  // if (deleteWord !== "DELETE") return;
   // Delete data on the backend via PUT
   // try {
   // await fetch(`http://localhost:${SERVERPORT}/english-words/${id}`, {
@@ -147,6 +179,33 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
   //   }, 1);
   // };
 
+  const partsToInclude = [ "japanese", "english", "definition"];
+
+  // a helper that narrows the type safely
+  function hasKey<T extends object>(obj: T, key: keyof any): key is keyof T {
+    return key in obj;
+  }
+
+
+
+
+
+  const getCustomStyles = (part: string) => {
+    switch (part) {
+      case "english":
+        return "text-green-200";
+      case "definition":
+        return "text-amber-300";
+      case "japanese":
+        return "text-yellow-100 text-4xl";
+        break;
+      case "example":
+        return "text-pink-100";
+      default:
+        return "text-gray-100";
+    }
+  };
+
   const filteredWords = (() => {
     if (language === "english") {
       return (wordsList as IWord[]).filter((d) => {
@@ -171,7 +230,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
   })();
 
   return (
-    <div className="max-h-[600px] overflow-auto rounded bg-slate-700 ">
+    <div className="bg-slate-700 rounded max-h-[600px] overflow-auto">
       {addWord && language === "english" && (
         <Form
           // word={el as IWord}
@@ -199,13 +258,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
         filteredWords.length === 0 &&
         showResults &&
         !editWordMode && (
-          <div className="flex p-8 w-60 text-white justify-center items-center">
+          <div className="flex justify-center items-center p-8 w-60 text-white">
             No results...
           </div>
         )}
       {showResults && !editWordMode && (
-        <div className="flex max-w-[680px] mx-auto">
-          <div className="flex flex-wrap gap-4 justify-center mx-auto p-4">
+        <div className="flex mx-auto max-w-[680px]">
+          <div className="flex flex-wrap justify-center gap-4 mx-auto p-4">
             {filteredWords.map((el: WordList[typeof language][0]) => {
               // Return editable input fields
               return (
@@ -221,38 +280,26 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                     });
                   }}
                 >
-                  <div className="p-2 text-xl tracking-wider border-b border-1 w-fill text-slate-900 border-slate-200 bg-slate-100/80 rounded-t-md">
+                  <div className="bg-slate-100/80 p-2 border-1 border-slate-200 border-b rounded-t-md w-fill text-slate-900 text-xl tracking-wider">
                     {el.word}
                   </div>
-                  {/* <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2"></div> */}
-                  {"definition" in el && el.definition && (
-                    <>
-                      <div className="px-2 my-2 text-lg text-yellow-100">
-                        {el.definition}
+                  {/* <div className="bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2 w-full h-[1px]"></div> */}
+                  {partsToInclude.map((part) =>
+                    hasKey(el, part) && el[part] ? (
+                      <div
+                        key={part}
+                        className={`my-2 px-2 ${getCustomStyles(part)}`}
+                      >
+                        {el[part]}
+                        <div className="bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 w-[90%] h-[1px]" />
                       </div>
-                      <div className="w-[90%] h-[1px] px-2 bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
-                    </>
+                    ) : null
                   )}
 
-                  {"pronunciation" in el && el.pronunciation && (
-                    <>
-                      <div className="px-2 my-2 text-lg text-gray-100">
-                        {el.pronunciation}
-                      </div>
-                      <div className="w-[90%] h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2"></div>
-                    </>
-                  )}
-
-                  {el.example && (
-                    <div className="px-2 my-2 text-lg text-pink-100">
-                      {el.example}
-                    </div>
-                    // <div className="flex items-center justify-between"></div>
-                  )}
-
-                  <div className="flex items-center justify-end gap-2 px-2">
+                  
+                  <div className="flex justify-end items-center gap-2 px-2">
                     {/* <button
-                        className="px-4 py-1 m-4 max-w-[100px] w-[80%] border border-slate-100 text-slate-100 rounded-md hover:bg-slate-600"
+                        className="hover:bg-slate-600 m-4 px-4 py-1 border border-slate-100 rounded-md w-[80%] max-w-[100px] text-slate-100"
                         onClick={() => {
                           setIdToEdit(e.id);
                           setEditWordMode(!editWordMode);
@@ -261,7 +308,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                         Edit
                       </button> */}
                     <button
-                      className="w-8 h-8 px-2 py-1 m-1 my-3 text-sm text-red-200 border border-red-200 rounded-full hover:bg-slate-600"
+                      className="hover:bg-slate-600 m-1 my-3 px-2 py-1 border border-red-200 rounded-full w-8 h-8 text-red-200 text-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(el.id);
@@ -278,7 +325,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       )}
       {/* Form - Edit Word */}
       {editWordMode && (
-        <div className="flex max-w-[680px] mx-auto">
+        <div className="flex mx-auto max-w-[680px]">
           {(wordsList as (IWord | IJWord | ISWord)[])
             .filter((el) => el.id === idToEdit)
             .map((el) => {
@@ -286,7 +333,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                 <>
                   <div
                     key={el.id}
-                    className="flex flex-wrap gap-4 justify-center mx-auto p-4"
+                    className="flex flex-wrap justify-center gap-4 mx-auto p-4"
                   >
                     {language === "english" && (
                       <Form

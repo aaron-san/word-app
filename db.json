@@ -193,12 +193,12 @@
       "mark": false
     },
     {
-      "word": "abort, aborted",
-      "definition": "to end something before it is completed",
       "id": "fe9ec419-0b5c-4e9c-be86-d068a1a421a6",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "abort; aborted",
+      "definition": "to end something before it is completed",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "abortive",
@@ -293,7 +293,7 @@
       "word": "absolve; absolvable; absolved; absolution",
       "definition": "to clear of guilt or blame, release from consequences",
       "pronunciation": "",
-      "example": "It doesn't absolve him of his duty to...",
+      "example": "It doesn't absolve him of his duty/responsibility to...",
       "mark": true
     },
     {
@@ -442,11 +442,11 @@
     },
     {
       "id": "c1c62e33-7e58-4147-9fe9-31cf566cada7",
-      "word": "acclimate, acclimation; acclimated",
+      "word": "acclimate; acclimation; acclimated",
       "definition": "to accustom or become accustomed to a new climate  or environment; adapt",
       "pronunciation": "",
       "example": "",
-      "mark": false
+      "mark": true
     },
     {
       "word": "accolade",
@@ -3027,10 +3027,10 @@
     {
       "id": "88380745-e8f1-4b39-b8fc-2961948b720f",
       "word": "bind; binding",
-      "definition": null,
-      "pronunciation": null,
-      "example": null,
-      "mark": false
+      "definition": "",
+      "pronunciation": "",
+      "example": "no binding commitments, no enforcement mechanisms",
+      "mark": true
     },
     {
       "word": "bittersweet",
@@ -4225,12 +4225,12 @@
       "example": null
     },
     {
-      "word": "clamor, clamoring",
-      "definition": "a loud uproar, as from a crowd of people",
       "id": "839f3a5b-98be-49c6-9b6a-77e7a0e47e73",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "clamor; clamoring",
+      "definition": "a loud uproar, as from a crowd of people",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "clandestine",
@@ -4249,12 +4249,12 @@
       "example": null
     },
     {
-      "word": "clarity",
       "id": "4eeda883-37a2-4c0d-895a-9e88855febd6",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "clarity",
+      "definition": "",
+      "pronunciation": "",
+      "example": "I prefer clarity over agreement.",
+      "mark": false
     },
     {
       "word": "classifiers",
@@ -4321,44 +4321,44 @@
       "example": null
     },
     {
-      "word": "climate",
       "id": "59e33e42-58d8-4253-a148-dd491a1a704d",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "climate; climatize; climatic",
+      "definition": "climatize: to adapt or become accustomed to a new climate or environment",
+      "pronunciation": "",
+      "example": "",
+      "mark": true
     },
     {
-      "word": "climax, climaxing [in]",
       "id": "8321e8cf-b358-47b0-bfb2-c145ab13d8fe",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "climax; climactic; climaxing [in]",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": true
     },
     {
-      "word": "cling; clinging [to]",
       "id": "01a271b3-7d51-498e-8b34-9811e27709c4",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "cling; clinging [to]; clingy",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
-      "word": "clique",
-      "definition": "an exclusive group bound together by some shared quality or interest",
       "id": "ad95c258-95e2-4dd0-b820-a742bc41e4e9",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "clique; cliquish",
+      "definition": "an exclusive group bound together by some shared quality or interest",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
-      "word": "cloak",
       "id": "23a141c2-c913-469a-8273-9c7edf3ca2a9",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "cloak; cloaked in",
+      "definition": "to cover or hide something",
+      "pronunciation": "",
+      "example": "He has always kept his love affairs cloaked in secrecy.",
+      "mark": true
     },
     {
       "word": "clout",
@@ -4369,12 +4369,12 @@
       "example": null
     },
     {
-      "word": "clustering; cluster",
       "id": "1e6423ea-f6cd-46a4-86cb-b5dae698f5e9",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "clustering; cluster; clustered",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "clutch; clutching",
@@ -4385,20 +4385,20 @@
       "example": null
     },
     {
-      "word": "coalesce",
-      "definition": "to come together as one' to fuse; to unite",
       "id": "d0143398-b17e-4a64-ad43-0fa4a515fe3c",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "coalesce; coalescence; coalescent; coalescing",
+      "definition": "to come together as one' to fuse; to unite",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "id": "ba384e84-890d-4f01-ab92-d89c8ebd8dd2",
-      "word": "coarse",
+      "word": "coarse; coarsely; coarseness; coarsen",
       "definition": "lacking in fineness or delicacy of structure",
       "pronunciation": "",
       "example": "coarse vs. granular",
-      "mark": false
+      "mark": true
     },
     {
       "word": "coax",
@@ -4409,28 +4409,28 @@
       "example": null
     },
     {
-      "word": "coddle; coddled",
+      "id": "385ae5b7-906b-4035-8986-699a2b43c602",
+      "word": "coddle; coddled; coddling",
       "definition": "Treat in an indulgent or overprotective way",
       "pronunciation": "KAHD ul",
-      "id": "385ae5b7-906b-4035-8986-699a2b43c602",
-      "mark": false,
-      "example": null
+      "example": "",
+      "mark": false
     },
     {
-      "word": "codify",
-      "pronunciation": "COD i fye",
       "id": "232ee48b-3bba-4f9c-9ea2-a981227d5aad",
-      "mark": false,
-      "definition": null,
-      "example": null
+      "word": "codify; codified",
+      "definition": "",
+      "pronunciation": "COD i fye",
+      "example": "",
+      "mark": false
     },
     {
-      "word": "coerce; coercive",
-      "definition": "to force someone to do or not to do something",
       "id": "38f1fe96-fa3f-4980-bfc1-4cdfdff0cb12",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "coerce; coercive; coercion; coercible; coercively",
+      "definition": "to force someone to do or not to do something",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "cogent, cogently, cogency",
@@ -4473,12 +4473,12 @@
       "mark": false
     },
     {
-      "word": "cohesive; cohesively",
       "id": "fcf66553-6407-4747-80b1-ff8aef1f8632",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "cohesive; cohesively; cohesion; cohesiveness",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "cohort",
@@ -4505,12 +4505,12 @@
       "mark": false
     },
     {
-      "word": "collaberative; collaborators",
       "id": "836aeb4e-69b8-4e0a-ad81-a65f43ec9fe9",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "collaborate; collaborative; collaborators; collaboration; collaborating",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "collateral",
@@ -4537,12 +4537,12 @@
       "example": null
     },
     {
-      "word": "collusive, collusion",
-      "definition": "conspiracy; secret cooperation",
       "id": "672c65c3-1a39-46c0-9c4f-0d75b29e5e78",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "collude; collusive; collusion; colluding with",
+      "definition": "conspiracy; secret cooperation",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "combat; combative; combativeness",
@@ -4577,12 +4577,12 @@
       "example": null
     },
     {
-      "word": "commend",
       "id": "396576d0-3af5-41ce-a66e-b1959408d145",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "commend",
+      "definition": "",
+      "pronunciation": "",
+      "example": "They were commended for their collaboration.",
+      "mark": false
     },
     {
       "word": "commensurate; commensurately",
@@ -5761,12 +5761,12 @@
       "example": null
     },
     {
+      "id": "a4255ed8-929b-49f3-9dc2-9d1d98e2ebd8",
       "word": "convene",
       "definition": "to gather together; to assemble; to meet",
       "pronunciation": "kun VEEN",
-      "id": "a4255ed8-929b-49f3-9dc2-9d1d98e2ebd8",
-      "mark": false,
-      "example": null
+      "example": "The organization was convened to tackle systemic risks in the political structure.",
+      "mark": false
     },
     {
       "word": "conventional",
@@ -15129,28 +15129,20 @@
       "example": null
     },
     {
-      "word": "invalidate",
-      "definition": "nullify",
       "id": "171d3228-c205-4301-ae37-efd4f5df8057",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "invalidate; invalidation",
+      "definition": "nullify",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
-      "word": "invalidate",
-      "id": "9fc068a1-ba83-46ff-9433-8ddc56763454",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
-    },
-    {
-      "word": "invariably",
-      "definition": "unconditional, unchanging",
       "id": "5c05792e-5674-4c32-8182-ce1d15e22c78",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "invariable; invariably",
+      "definition": "unconditional, unchanging",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "invasive",
@@ -15170,19 +15162,19 @@
     },
     {
       "id": "12a0d442-f852-45c0-b2f5-47757ccc364b",
-      "word": "inverse; inverted",
-      "definition": null,
-      "pronunciation": null,
-      "example": null,
+      "word": "inverse; inversely; inverted; inversion",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
       "mark": false
     },
     {
+      "id": "557aa651-b7e7-4d31-bb0b-c2d517029f77",
       "word": "inveterate",
       "definition": "habitual; firmly established by long persistence; deeply rooted",
-      "id": "557aa651-b7e7-4d31-bb0b-c2d517029f77",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "pronunciation": "",
+      "example": "",
+      "mark": true
     },
     {
       "word": "invidious; invidiously",
@@ -15193,12 +15185,12 @@
       "example": null
     },
     {
-      "word": "invigorating; reinvigorating",
       "id": "ba886c20-f826-42c6-9b45-8fb35e565fd5",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "invigorate; invigorating; reinvigorating",
+      "definition": "to give strength or energy to",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "inviolate",
@@ -15209,36 +15201,36 @@
       "example": null
     },
     {
-      "word": "invoke; invocation",
-      "definition": "to call for with earnest desire; to call upon a higher power for support or inspiration",
       "id": "f6d35473-66c7-4f96-bb94-c946153af63d",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "invoke; invoking; invocation",
+      "definition": "to call for with earnest desire; to call upon a higher power for support or inspiration",
+      "pronunciation": "",
+      "example": "",
+      "mark": true
     },
     {
+      "id": "b3233afd-15a7-48ac-a858-629d9a7a1456",
       "word": "irascible; irascibly",
       "definition": "easily angered or provoked; irritable",
       "pronunciation": "ih RAS uh bul",
       "example": "as irascibl as a spoiled child",
-      "id": "b3233afd-15a7-48ac-a858-629d9a7a1456",
+      "mark": true
+    },
+    {
+      "id": "80750998-dabd-46ee-83cd-b3edefe45a18",
+      "word": "irate; irately",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
       "mark": false
     },
     {
-      "word": "irate",
-      "id": "80750998-dabd-46ee-83cd-b3edefe45a18",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
-    },
-    {
-      "word": "ironic, irony",
-      "definition": "satiric; unexpected; meaning the opposite of what you seem to say",
       "id": "d206cc18-0fcf-4d97-a4e1-46b8b20a80e6",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "ironic; irony; ironically",
+      "definition": "satiric; unexpected; meaning the opposite of what you seem to say",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "irrational; irrationality",
@@ -15385,12 +15377,12 @@
       "example": null
     },
     {
-      "word": "jaded",
-      "definition": "worn out; wearied",
-      "pronunciation": "JAY did",
       "id": "0cdb6118-3bab-4ebe-bdb1-376dff55d58e",
-      "mark": false,
-      "example": null
+      "word": "jaded",
+      "definition": "worn out; wearied; dulled or wearied by excess or overindulgence",
+      "pronunciation": "JAY did",
+      "example": "",
+      "mark": false
     },
     {
       "word": "jargon",
@@ -15401,12 +15393,12 @@
       "example": null
     },
     {
-      "word": "jarring",
       "id": "9fbe8cff-199f-41c1-a02d-38fea4193e85",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "jarring",
+      "definition": "incongruous in a striking or shocking way; clashing; causing a physical shock, jolt, or vibration",
+      "pronunciation": "",
+      "example": "the telephone struck a jarring note\n",
+      "mark": false
     },
     {
       "word": "jeopardy",
@@ -17361,12 +17353,12 @@
       "example": null
     },
     {
-      "word": "murky",
       "id": "ee20c258-8251-4222-96e0-5727c938ecb7",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "murky; murkier",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "muse",
@@ -19513,12 +19505,12 @@
       "example": null
     },
     {
-      "word": "plead [with]; pleaded; pleading",
       "id": "389fd813-557c-4998-9141-9f55f469df76",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "plead [with]; pleaded; pleading",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": true
     },
     {
       "word": "please /displease",
@@ -22081,14 +22073,6 @@
       "example": null
     },
     {
-      "word": "reiterate",
-      "id": "120dfa77-af99-4510-af1f-014ca30b1c49",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
-    },
-    {
       "word": "reject",
       "pronunciation": "abstain",
       "id": "175543a4-bd2c-4a54-99cc-f6e9ce825ecb",
@@ -23609,12 +23593,12 @@
       "mark": false
     },
     {
-      "word": "scramble; scrambling",
       "id": "bd57e774-129e-44b2-95b2-8821a30f77fd",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "scramble; scrambling",
+      "definition": "",
+      "pronunciation": "",
+      "example": "scramble for answers",
+      "mark": false
     },
     {
       "word": "scrounge [up]",
@@ -24201,12 +24185,12 @@
       "example": null
     },
     {
-      "word": "shudder, shuddered; shuddering",
       "id": "10f3c47c-53a1-4521-8dfb-e2c7a88b212f",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "shudder, shuddered; shuddering",
+      "definition": "to shake involuntarily, often as a reaction to fear or cold",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "shun; shunning",
@@ -27521,12 +27505,12 @@
       "example": null
     },
     {
-      "word": "unravel",
       "id": "c996bbb7-37c5-42ed-85bb-6ce79d2f4ef1",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "unravel; unraveled",
+      "definition": "",
+      "pronunciation": "",
+      "example": "their cohesion unraveled quickly",
+      "mark": false
     },
     {
       "word": "unremitting",
@@ -30369,12 +30353,12 @@
       "example": null
     },
     {
-      "word": "clairvoyance",
-      "definition": "ability to see objects or events that cannot be perceived by the five senses (sight, sound, taste, touch, smell)",
       "id": "bf67495f-aaac-4ef9-a7c4-2d3eaf0fdb79",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
+      "word": "clairvoyant; clairvoyance; clairvoyantly",
+      "definition": "ability to see objects or events that cannot be perceived by the five senses (sight, sound, taste, touch, smell)",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "involuntary",
@@ -31033,14 +31017,6 @@
       "example": null
     },
     {
-      "word": "jaded",
-      "definition": "dulled or wearied by excess or overindulgence",
-      "id": "5481c370-9635-4f4b-97e1-d12021bca636",
-      "mark": false,
-      "pronunciation": null,
-      "example": null
-    },
-    {
       "word": "masochistic; masochist",
       "definition": "deriving pleasure from being mistreated mentally or physically",
       "pronunciation": "mas eh kis tik",
@@ -31513,12 +31489,12 @@
       "example": null
     },
     {
-      "word": "clatter; clattered",
       "id": "8f3e7d4c-882b-4ffb-a497-c9f7d6f00c3c",
-      "mark": false,
-      "definition": null,
-      "pronunciation": null,
-      "example": null
+      "word": "clatter; clattered; clattering",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
     },
     {
       "word": "writhe",
@@ -34651,10 +34627,10 @@
     {
       "id": "359c86f3-8706-494e-bd81-2ebded2b4be6",
       "word": "bloat; bloated",
-      "mark": false,
       "definition": "",
       "pronunciation": "",
-      "example": ""
+      "example": "bloated legislation",
+      "mark": false
     },
     {
       "id": "7dc9e9d1-1b7e-4152-81c3-46d0a7bceb07",
@@ -34751,6 +34727,230 @@
       "definition": "behave in a showy or ostentatious manner in an attempt to attract favorable attention from spectators or the media",
       "pronunciation": "",
       "example": "She was grandstanding"
+    },
+    {
+      "id": "f3d1cd1b-c44d-4cc2-be86-ac711bc3ab90",
+      "word": "hi",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "042f273a-4603-41c2-92a5-2a67da1cb83d",
+      "word": "bubop",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "3db072dc-bc31-4a9d-bd4e-0fd92e5160df",
+      "word": "pass off",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": "synonym: fob off"
+    },
+    {
+      "id": "f9030896-6714-4868-8cb2-62e62dbf4593",
+      "word": "fob off",
+      "mark": true,
+      "definition": "to put off with a trick, excuse or inferior substitute",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "6e7b431c-341d-40cb-bd6b-772190045e41",
+      "word": "invalid",
+      "definition": "void; disabled",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
+    },
+    {
+      "id": "4991cd0f-a2ef-4a08-9f79-abaf602cabb8",
+      "word": "invite; inviting",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "15663e21-b127-48f6-bc63-1d6172210395",
+      "word": "irregular",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "55f7d47b-4eed-42a5-ad72-96ae6a983d25",
+      "word": "iterate; iteration",
+      "mark": true,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "4c7eb0d2-0523-4e45-8f10-4a7d992d925d",
+      "word": "isometric",
+      "mark": false,
+      "definition": "of or having equal dimensions",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "95fb99f0-e74d-495c-ba8f-2b3091d83b74",
+      "word": "jangle; jangling; jangly",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "6bc1dadf-4652-4efc-aa09-4a5013cdbe60",
+      "word": "jeer; jeering",
+      "mark": false,
+      "definition": "making rude and mocking remarks, typically in a loud voice",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "027832dd-25b7-480c-a804-8a2ed7c9ccf7",
+      "word": "jerky",
+      "mark": false,
+      "definition": "shaky",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "0ba63933-125c-4b19-9d4d-f928140b5466",
+      "word": "jilt; jilted",
+      "definition": "suddenly reject or abandon (a lover)",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
+    },
+    {
+      "id": "7cf322a9-842b-4e43-bf82-ff25dfd069a3",
+      "word": "clumsy",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "da496a17-e7b0-448d-8c28-726866d197c5",
+      "word": "clunky",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "d2356533-a214-40ab-8483-16cbc1d0dbf4",
+      "word": "clutter; cluttered",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "6d4339ae-1ed6-4083-81d4-7b45c69f2a24",
+      "word": "coalition",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "2c3a95d6-bce5-4e73-abe9-883214d5e3bb",
+      "word": "collate; collation",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "17bdedc9-5c06-4645-b049-801b4cc4cb4f",
+      "word": "clammy; clammily; clamminess",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "ee7b91da-2252-49ae-a238-b8392d3372ed",
+      "word": "cityscape",
+      "definition": "",
+      "pronunciation": "",
+      "example": "",
+      "mark": true
+    },
+    {
+      "id": "e9c0209f-afec-4aeb-b2f1-d7c2727bdfc7",
+      "word": "clamber",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "a460574a-c226-4add-bead-7d0f70d55c5f",
+      "word": "cleave",
+      "definition": "split or sever (something), especially along a natural line or grain",
+      "pronunciation": "",
+      "example": "",
+      "mark": false
+    },
+    {
+      "id": "1b031f3f-de74-4df7-aaa2-1b26a6389143",
+      "word": "clasp",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "c1c2eb0d-d3a5-4b77-a5bc-913d3d4ada24",
+      "word": "clerical",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "110725ab-2784-4560-8a01-1361081b5d0f",
+      "word": "clinch",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": ""
+    },
+    {
+      "id": "cd32bafa-5a16-46f2-a675-5f17e2118307",
+      "word": "task",
+      "mark": false,
+      "definition": "",
+      "pronunciation": "",
+      "example": "they were tasked with monitoring efficiency"
+    },
+    {
+      "id": "99b0ab29-b5e7-4925-b4c4-f3bbb1a4145a",
+      "word": "daring",
+      "mark": true,
+      "definition": "",
+      "pronunciation": "",
+      "example": "He was daring, his rival cautious."
+    },
+    {
+      "id": "4ad17934-9a9d-4c07-ad34-76c6e6740404",
+      "word": "in kind",
+      "mark": true,
+      "definition": "",
+      "pronunciation": "",
+      "example": "they agreed to respond in kind"
     }
   ],
   "comments": [

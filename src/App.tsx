@@ -3,9 +3,11 @@ import { GlobalContent } from "../types/types"; // Make sure types are correct
 
 import SearchPanel from "./components/SearchPanel";
 import SearchResults from "./components/SearchResults";
-import MarkedWords from "./components/MarkedWords";
 import HeaderButton from "./components/HeaderButton";
 import data from "./data/db-sample.json";
+import { IWord } from "../types/types-english";
+import { IJWord } from "../types/types-japanese";
+import { ISWord } from "../types/types-spanish";
 
 export const SERVERPORT = 3400;
 
@@ -48,11 +50,87 @@ function App() {
     "english" | "japanese" | "spanish"
   >("english");
   // console.log("----", import.meta.env.VITE_ENVIRONMENT);
+
+  const [englishWords, setEnglishWords] = useState<IWord[]>([]);
+  const [japaneseWords, setJapaneseWords] = useState<IJWord[]>([]);
+  const [spanishWords, setSpanishWords] = useState<ISWord[]>([]);
+
+  const fetchWords = async () => {
+    try {
+      let eWords: IWord[] = [];
+      let jWords: IJWord[] = [];
+      let sWords: ISWord[] = [];
+
+      if (import.meta.env.VITE_ENVIRONMENT !== "production") {
+        const english = await fetch(
+          `http://localhost:${SERVERPORT}/english-words`
+        );
+        const japanese = await fetch(
+          `http://localhost:${SERVERPORT}/japanese-words`
+        );
+        const spanish = await fetch(
+          `http://localhost:${SERVERPORT}/spanish-words`
+        );
+
+        eWords = await english.json();
+        jWords = await japanese.json();
+        sWords = await spanish.json();
+      } else {
+        eWords = data["english-words"];
+        jWords = data["japanese-words"];
+        sWords = data["spanish-words"];
+      }
+
+      // // Optional: still keep individual word states if you use them somewhere
+      // setEnglishWords(eWords);
+      // setJapaneseWords(jWords);
+      // setSpanishWords(sWords);
+
+      // Use the freshly fetched values directly here
+      setLanguagesState({
+        english: {
+          wordsList: eWords,
+          searchWord: "",
+          addWord: false,
+          showResults: false,
+          editWordMode: false,
+          idToEdit: "",
+          inputValue: "",
+        },
+        japanese: {
+          wordsList: jWords,
+          searchWord: "",
+          addWord: false,
+          showResults: false,
+          editWordMode: false,
+          idToEdit: "",
+          inputValue: "",
+        },
+        spanish: {
+          wordsList: sWords,
+          searchWord: "",
+          addWord: false,
+          showResults: false,
+          editWordMode: false,
+          idToEdit: "",
+          inputValue: "",
+        },
+      });
+    } catch (error) {
+      console.error("Failed to fetch word lists:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWords();
+  }, []);
+
   const [languagesState, setLanguagesState] = useState<
     GlobalContent["languagesState"]
   >({
     english: {
-      wordsList: data["english-words"],
+      // wordsList: data["english-words"],
+      wordsList: [],
       searchWord: "",
       addWord: false,
       showResults: false,
@@ -61,7 +139,7 @@ function App() {
       inputValue: "",
     },
     japanese: {
-      wordsList: data["japanese-words"],
+      wordsList: [],
       searchWord: "",
       addWord: false,
       showResults: false,
@@ -70,7 +148,7 @@ function App() {
       inputValue: "",
     },
     spanish: {
-      wordsList: data["spanish-words"],
+      wordsList: [],
       searchWord: "",
       addWord: false,
       showResults: false,

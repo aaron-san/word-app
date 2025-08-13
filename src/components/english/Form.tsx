@@ -1,8 +1,10 @@
+// import * as dotenv from "dotenv";
+// dotenv.config();
 import React, { useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IDefaults, IForm, IWord } from "../../../types/types-english";
-import { MyGlobalContext } from "../../App";
+import { MyGlobalContext, SERVERPORT } from "../../App";
 
 export type FormValues = {
   word: string | null;
@@ -15,6 +17,8 @@ export type FormValues = {
 const Form = ({ word, methodType, idToEdit }: IForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
 
+  const environment = import.meta.env.VITE_ENVIRONMENT;
+  console.log(environment);
   const language = "english";
   const wordsList = languagesState[language].wordsList as IWord[];
 
@@ -102,18 +106,45 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
     };
 
     if (methodType === "POST") {
-      reset();
-      const wordsOnly = wordsList.map((word) => word.word);
-      if (word.word && !wordsOnly.includes(word.word)) {
-        addWord(word as IWord);
-      } else {
-        console.log("Please provide a new word.");
+      try {
+        // Add word
+        await fetch(`http://localhost:${SERVERPORT}/english-words`, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(word), // body data type must match "Content-Type" header
+        });
+        reset();
+        const wordsOnly = wordsList.map((word) => word.word);
+        if (word.word && !wordsOnly.includes(word.word)) {
+          addWord(word as IWord);
+        } else {
+          console.log("Please provide a new word.");
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
 
     if (methodType === "PUT") {
+      // Send data to the backend via PUT to modify a resource
       try {
         const dataWithId = { id: idToEdit, ...data };
+        await fetch(
+          `http://localhost:${SERVERPORT}/english-words/${idToEdit}`,
+          {
+            method: "PUT",
+            // mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // body data type must match "Content-Type" header
+            body: JSON.stringify(dataWithId),
+          }
+        );
+
         reset();
         updateWord(dataWithId as IWord);
       } catch (err) {
