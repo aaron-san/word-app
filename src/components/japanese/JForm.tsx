@@ -1,8 +1,13 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IJDefaults, IJForm, IJWord } from "../../../types/types-japanese";
 import { MyGlobalContext } from "../../App";
+import {
+  sendPostRequest,
+  sendPutRequest,
+  autoResize,
+} from "../../utils/functions";
 
 export type FormValues = {
   word: string | null;
@@ -30,11 +35,12 @@ export type FormValues = {
 
 const JForm = ({ word, methodType, idToEdit }: IJForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
+  const [showExtraFields, setShowExtraFields] = useState(false);
 
   const language = "japanese";
   const wordsList = languagesState[language].wordsList;
 
-  const defaults: IJDefaults = {
+  const jDefaults: IJDefaults = {
     defaultWord: word?.word || languagesState[language].searchWord || "",
     defaultEnglish: word?.english,
     defaultJapanese: word?.japanese || "",
@@ -57,6 +63,16 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     defaultHumble: word?.humble || "",
     defaultMark: word?.mark || false,
   };
+
+  useEffect(() => {
+    const textareas =
+      document.querySelectorAll<HTMLTextAreaElement>("textarea");
+    textareas.forEach((el) => {
+      el.style.height = "auto";
+      el.style.height = el.scrollHeight + 4 + "px";
+    });
+  }, []);
+
   const updateState = (updates: { [key: string]: string | boolean }) => {
     setLanguagesState({
       ...languagesState,
@@ -67,7 +83,7 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     });
   };
 
-  const addWord = (word: IJWord) => {
+  const addWord = async (word: IJWord) => {
     setLanguagesState({
       ...languagesState,
       [language]: {
@@ -77,9 +93,10 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
         showResults: false,
       },
     });
+    sendPostRequest({ word: word, language: "japanese" });
   };
 
-  const updateWord = (word: IJWord) => {
+  const updateWord = async (word: IJWord) => {
     setLanguagesState({
       ...languagesState,
       [language]: {
@@ -94,6 +111,8 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
         showResults: false,
       },
     });
+
+    sendPutRequest({ language: "japanese", word });
   };
 
   const onCancel = () => {
@@ -109,31 +128,32 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
 
   const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
     defaultValues: {
-      word: defaults?.defaultWord,
-      english: defaults?.defaultEnglish,
-      japanese: defaults?.defaultJapanese,
-      example: defaults?.defaultExample,
-      present: defaults?.defaultPresent,
-      teForm: defaults?.defaultTeForm,
-      negative: defaults?.defaultNegative,
-      past: defaults?.defaultPast,
-      pastNegative: defaults?.defaultPastNegative,
-      potential: defaults?.defaultPotential,
-      imperative: defaults?.defaultImperative,
-      volitional: defaults?.defaultVolitional,
-      group: defaults?.defaultGroup,
-      desirative: defaults?.defaultDesirative,
-      conditional: defaults?.defaultConditional,
-      passive: defaults?.defaultPassive,
-      causative: defaults?.defaultCausative,
-      causativePassive: defaults?.defaultCausativePassive,
-      honorific: defaults?.defaultHonorific,
-      humble: defaults?.defaultHumble,
-      mark: defaults?.defaultMark,
+      word: jDefaults?.defaultWord,
+      english: jDefaults?.defaultEnglish,
+      japanese: jDefaults?.defaultJapanese,
+      example: jDefaults?.defaultExample,
+      present: jDefaults?.defaultPresent,
+      teForm: jDefaults?.defaultTeForm,
+      negative: jDefaults?.defaultNegative,
+      past: jDefaults?.defaultPast,
+      pastNegative: jDefaults?.defaultPastNegative,
+      potential: jDefaults?.defaultPotential,
+      imperative: jDefaults?.defaultImperative,
+      volitional: jDefaults?.defaultVolitional,
+      group: jDefaults?.defaultGroup,
+      desirative: jDefaults?.defaultDesirative,
+      conditional: jDefaults?.defaultConditional,
+      passive: jDefaults?.defaultPassive,
+      causative: jDefaults?.defaultCausative,
+      causativePassive: jDefaults?.defaultCausativePassive,
+      honorific: jDefaults?.defaultHonorific,
+      humble: jDefaults?.defaultHumble,
+      mark: jDefaults?.defaultMark,
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    // console.log("Submitted!");
     updateState({
       searchWord: "",
       editWordMode: false,
@@ -165,331 +185,204 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     };
 
     if (methodType === "POST") {
-      reset();
       const wordsOnly = wordsList.map((word) => word.word);
-      if (word.word && !wordsOnly.includes(word.word)) {
-        addWord(word as IJWord);
-      } else {
+      const japaneseOnly = (wordsList as IJWord[]).map((word) => word.japanese);
+      if (!word.word) {
         console.log("Please provide a new word.");
       }
+      if (
+        word.word &&
+        wordsOnly.includes(word.word) &&
+        word.japanese &&
+        japaneseOnly.includes(word.japanese)
+      ) {
+        console.log("Word already exists!");
+        return;
+      }
+
+      addWord(word as IJWord);
+      reset();
     }
 
     if (methodType === "PUT") {
       try {
         const dataWithId = { id: idToEdit, ...data };
-        reset();
         updateWord(dataWithId as IJWord);
+        reset();
       } catch (err) {
         console.log(err);
       }
     }
   };
 
-  // if (methodType === "POST") {
-  //   // Send data to the backend via POST
-  //   try {
-  //     // await fetch(`http://localhost:${SERVERPORT}/japanese-words`, {
-  //     //   method: "POST",
-  //     //   mode: "cors",
-  //     //   headers: {
-  //     //     "Content-Type": "application/json",
-  //     //   },
-  //     //   body: JSON.stringify(jWord), // body data type must match "Content-Type" header
-  //     // });
-  //     // Clear form inputs
-  //     reset();
+  const Label = (label: string) => {
+    return <label className="mt-2 text-sm">{label}</label>;
+  };
 
-  //     addWord("japanese", word as IJWord);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  type ExtraFieldKey =
+    | "group"
+    | "teForm"
+    | "negative"
+    | "past"
+    | "pastNegative"
+    | "imperative"
+    | "volitional"
+    | "desirative"
+    | "conditional"
+    | "passive"
+    | "causative"
+    | "causativePassive"
+    | "honorific"
+    | "humble";
 
-  // if (methodType === "PUT") {
-  //   // Send data to the backend via POST
-  //   try {
-  //     // console.log(jIdToEdit);
-  //     const jDataWithId = { id: idToEdit, ...data };
-  //     // const res = await fetch(
-  //     //   `http://localhost:${SERVERPORT}/japanese-words/${jIdToEdit}`,
-  //     //   {
-  //     //     method: "PUT",
-  //     //     // mode: "cors",
-  //     //     headers: {
-  //     //       "Content-Type": "application/json",
-  //     //     },
-  //     //     // body data type must match "Content-Type" header
-  //     //     body: JSON.stringify(jDataWithId),
-  //     //   }
-  //     // );
-  //     // const res_data = await res.json();
-  //     // const result = {
-  //     //   status: res.status + "-" + res.statusText,
-  //     //   headers: { "Content-Type": res.headers.get("Content-Type") },
-  //     //   data: res_data,
-  //     // };
-  //     // Clear form inputs
-  //     reset();
-  //     const words = languagesState[language].wordsList.map(
-  //       (word) => word.word
-  //     );
+  type ExtraFields = {
+    name: ExtraFieldKey;
+    label: string;
+  };
 
-  //     if (jDataWithId.word && !words.includes(jDataWithId.word)) {
-  //       updateWord("japanese", dataWithId as IJWord);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-  // Get updated words list from json server
-  // const getJWords = async () => {
-  //   const data = await fetch(`http://localhost:${SERVERPORT}/japanese-words`);
-  //   const words = await data.json();
-  //   setJWordsList(words);
-  // };
-  // getJWords();
-  // };
-
-  // const jKeys = [
-  //   { label: "Word", key: "word" },
-
-  //   { label: "English", key: "english" },
-
-  //   { label: "Japanese", key: "japanese" },
-  //   { label: "Example", key: "example" },
-  //   { label: "Present", key: "present" },
-  //   { label: "Te-Form", key: "teForm" },
-  //   { label: "Negative", key: "negative" },
-  //   { label: "Past", key: "past" },
-  //   { label: "Past Negative", key: "pastNegative" },
-  //   { label: "Imperative", key: "imperative" },
-  //   { label: "Volitional", key: "volitional" },
-  //   { label: "Group", key: "group" },
-  //   { label: "Desirative", key: "desirative" },
-  //   { label: "Conditional", key: "conditional" },
-  //   { label: "Passive", key: "passive" },
-  //   { label: "Causative", key: "causative" },
-  //   { label: "Causative Passive", key: "causativePassive" },
-  //   { label: "Honorific", key: "honorific" },
-  //   { label: "Humble", key: "humble" },
-  // ];
-
-  // const inputItems = jKeys.map((el) => {
-  // // const {label, key} = el;
-  //   return(
-  //   <div className="flex items-center justify-between gap-4">
-  //       <label>{el.label}:</label>
-  //       <input
-  //         className="px-2 py-1 border border-white w-80 text-slate-700"
-  //         {...register(el.key, {
-  //           required: "Please enter a word.",
-  //         })}
-  //       />
-  //     </div>
-  // )})
+  const extraFields: ExtraFields[] = [
+    { name: "group", label: "Group" },
+    { name: "teForm", label: "Te-form" },
+    { name: "negative", label: "Negative" },
+    { name: "past", label: "Past" },
+    { name: "pastNegative", label: "Past Negative" },
+    { name: "imperative", label: "Imperative" },
+    { name: "volitional", label: "Volitional" },
+    { name: "desirative", label: "Desirative" },
+    { name: "conditional", label: "Conditional" },
+    { name: "passive", label: "Passive" },
+    { name: "causative", label: "Causative" },
+    { name: "causativePassive", label: "Caus. Passive" },
+    { name: "honorific", label: "Honorific" },
+    { name: "humble", label: "Humble" },
+  ];
 
   return (
     <form
-      className="flex flex-col gap-2 mb-8 mx-auto text-slate-100 text-xl py-4 px-4"
+      className="flex flex-col gap-2 mx-auto mb-8 px-4 py-4 text-slate-100 text-xl"
       onSubmit={handleSubmit(onSubmit)}
+      onClick={(e) => e.stopPropagation()} // stop bubbling inside form
     >
-      <div className="flex flex-col justify-end gap-4 text-md">
-        <label>Word: </label>
+      <div className="flex flex-col justify-end gap-2 text-md">
+        <div className="flex justify-between">
+          <label className="py-2 text-sm">Word: </label>
+          <div className="flex flex-end justify-end gap-2 text-xl">
+            <input
+              type="submit"
+              value="Save"
+              className="bg-blue-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-[80px] text-slate-800 text-sm text-center cursor-pointer"
+            />
+            <input
+              type="button"
+              className="bg-red-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-[80px] text-slate-800 text-sm text-center cursor-pointer"
+              value="Cancel"
+              onClick={(e) => {
+                e.stopPropagation(); // keep safe
+                onCancel();
+              }}
+            />
+          </div>
+        </div>
         <textarea
-          className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700"
           {...register("word", {
             required: "Please enter a word.",
           })}
         />
       </div>
 
-      <div className="flex flex-col justify-end gap-4">
-        <label>English:</label>
+      <div className="flex flex-col justify-end gap-2">
+        {Label("English:")}
         <textarea
           {...register("english", {
             // required: "Please enter a definition.",
           })}
-          className="px-2 py-1 border border-white w-80 text-slate-700 hide-scrollbar overflow-auto bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700 resize-none"
+          onInput={autoResize}
+          rows={2} // starts with 2 lines
         />
       </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Japanese:</label>
+      <div className="flex flex-col justify-end gap-2">
+        {Label("Japanese:")}
         <textarea
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 font-notojp text-slate-700 text-4xl field-sizing-content"
           {...register("japanese", {
             // required: "Please enter a pronunciation.",
           })}
+          onInput={autoResize}
         />
       </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Example:</label>
+      <div className="flex flex-col justify-end gap-2">
+        {Label("Example:")}
         <textarea
-          className="px-2 py-1 border border-white w-80 text-slate-700 h-32 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700"
           {...register("example", {
             // required: "Please enter an example.",
           })}
+          onInput={autoResize}
         />
       </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Present:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("present", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Te-form:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("teForm", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-
-      <div className="flex flex-col justify-end gap-4">
-        <label>Negative:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("negative", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Past:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("past", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Past Negative:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("pastNegative", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Imperative:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("imperative", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Volitional:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("volitional", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Group:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("group", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Desirative:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("desirative", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Conditional:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("conditional", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Passive:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("passive", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Causative:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("causative", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Caus. Passive:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("causativePassive", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Honorific:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("honorific", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-4">
-        <label>Humble:</label>
-        <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
-          {...register("humble", {
-            // required: "Please enter an example.",
-          })}
-        />
-      </div>
-      <div className="flex flex-col justify-end gap-1 text-md">
-        <label className="text-slate-200">Important:</label>
-        <div className="w-10 py-1 text-center">
-          <input
-            type="checkbox"
-            className="h-6 w-6 text-xl my-1 border border-white text-blue-700
-            focus:ring-2 focus:ring-blue-500 rounded focus:ring-offset-gray-700 text-center bg-slate-200 outline-none"
-            {...register("mark")}
-          />
+      <div className="flex justify-between py-2">
+        <div className="flex justify-end gap-2 align-middle">
+          <label className="py-2 text-slate-200 text-sm">Important:</label>
+          <div className="py-1 w-10 text-center">
+            <input
+              type="checkbox"
+              className="my-1 border border-white rounded-full outline-none focus:ring-2 w-6 h-6 accent-teal-300 cursor-pointer"
+              {...register("mark")}
+            />
+          </div>
         </div>
+        <button
+          className="hover:opacity-98 ml-auto py-1 w-fit text-sm"
+          type="button" // prevents accidental form submit; In HTML, a <button> inside a <form> defaults to type="submit" if you don’t explicitly set its type.
+          onClick={(e) => {
+            e.stopPropagation(); // prevent closing the form
+            setShowExtraFields((prev) => !prev);
+          }}
+        >
+          {showExtraFields ? "Less ▲" : "More ▼"}
+        </button>
       </div>
+      {showExtraFields && (
+        <div className="flex flex-col justify-end gap-2">
+          {extraFields.map((field: ExtraFields) => {
+            return (
+              <div className="flex flex-col justify-end gap-2" key={field.name}>
+                {Label(field.label + ":")}
+                <input
+                  className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700"
+                  {...register(field.name, {
+                    // required: "Please enter an example.",
+                  })}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {/* <div className="flex flex-col justify-end gap-1 text-md">
+        
+      </div> */}
       <hr />
-      <div className="flex gap-2 justify-between flex-end text-xl">
-        <input
+      <div className="flex gap-2">
+        <button
           type="submit"
-          value="Save"
-          className="w-1/2 py-2 my-1 text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
-        />
-        <input
+          className="bg-blue-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-1/2 text-slate-800 text-sm text-center cursor-pointer"
+        >
+          Save
+        </button>
+
+        <button
           type="button"
-          className="w-1/2 py-2 my-1 text-center bg-red-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
-          value="Cancel"
-          onClick={onCancel}
-        />
+          className="bg-red-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-1/2 text-slate-800 text-sm text-center cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCancel();
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

@@ -8,8 +8,7 @@ import data from "./data/db-sample.json";
 import { IWord } from "../types/types-english";
 import { IJWord } from "../types/types-japanese";
 import { ISWord } from "../types/types-spanish";
-
-export const SERVERPORT = 3400;
+import { SERVERPORT } from "./utils/constants";
 
 export const MyGlobalContext = createContext<GlobalContent>({
   // set a default value
@@ -48,12 +47,22 @@ export const MyGlobalContext = createContext<GlobalContent>({
 function App() {
   const [activeTab, setActiveTab] = useState<
     "english" | "japanese" | "spanish"
-  >("english");
+  >("japanese");
   // console.log("----", import.meta.env.VITE_ENVIRONMENT);
 
   const [englishWords, setEnglishWords] = useState<IWord[]>([]);
   const [japaneseWords, setJapaneseWords] = useState<IJWord[]>([]);
   const [spanishWords, setSpanishWords] = useState<ISWord[]>([]);
+
+  // Reused properties for each language state
+  const sharedProperties = {
+    searchWord: "",
+    addWord: false,
+    showResults: false,
+    editWordMode: false,
+    idToEdit: "",
+    inputValue: "",
+  };
 
   const fetchWords = async () => {
     try {
@@ -90,30 +99,15 @@ function App() {
       setLanguagesState({
         english: {
           wordsList: eWords,
-          searchWord: "",
-          addWord: false,
-          showResults: false,
-          editWordMode: false,
-          idToEdit: "",
-          inputValue: "",
+          ...sharedProperties,
         },
         japanese: {
           wordsList: jWords,
-          searchWord: "",
-          addWord: false,
-          showResults: false,
-          editWordMode: false,
-          idToEdit: "",
-          inputValue: "",
+          ...sharedProperties,
         },
         spanish: {
           wordsList: sWords,
-          searchWord: "",
-          addWord: false,
-          showResults: false,
-          editWordMode: false,
-          idToEdit: "",
-          inputValue: "",
+          ...sharedProperties,
         },
       });
     } catch (error) {
@@ -131,30 +125,15 @@ function App() {
     english: {
       // wordsList: data["english-words"],
       wordsList: [],
-      searchWord: "",
-      addWord: false,
-      showResults: false,
-      editWordMode: false,
-      idToEdit: "",
-      inputValue: "",
+      ...sharedProperties,
     },
     japanese: {
       wordsList: [],
-      searchWord: "",
-      addWord: false,
-      showResults: false,
-      editWordMode: false,
-      idToEdit: "",
-      inputValue: "",
+      ...sharedProperties,
     },
     spanish: {
       wordsList: [],
-      searchWord: "",
-      addWord: false,
-      showResults: false,
-      editWordMode: false,
-      idToEdit: "",
-      inputValue: "",
+      ...sharedProperties,
     },
   });
 
@@ -209,8 +188,8 @@ function App() {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         updateState(language, {
-          searchWord: "",
-          showResults: false,
+          // searchWord: "",
+          // showResults: false,
           addWord: false,
           editWordMode: false,
           inputValue: "",
@@ -218,9 +197,6 @@ function App() {
       }
     };
 
-    // if (inputRef.current) {
-    //   inputRef.current.value = "";
-    // }
     useEffect(() => {
       // Add event listener for keyup
       window.addEventListener("keyup", handleEscapeKey);
@@ -234,10 +210,6 @@ function App() {
     return null; // This component doesn't need to render anything
   };
 
-  // useEffect(() => {
-  //   console.log(languagesState.english);
-  // }, [languagesState.english]);
-
   return (
     <MyGlobalContext.Provider
       value={{
@@ -246,17 +218,18 @@ function App() {
       }}
     >
       <GlobalEscapeKeyHandler language={activeTab} />
-      <main className="min-h-screen flex-col pt-4 flex gap-1 px-4 md:pl-8 bg-gray-900 relative overflow-hidden">
-        <div className="flex flex-wrap gap-2 md:text-xl text-white">
-          <HeaderButton
-            title="English"
-            language="english"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
+      <main className="relative flex flex-col gap-1 bg-gray-900 px-4 pt-4 md:pl-8 min-h-screen overflow-hidden">
+        <div className="flex flex-wrap gap-2 text-white md:text-xl">
           <HeaderButton
             title="Japanese"
             language="japanese"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            // className="bg-red-700"
+          />
+          <HeaderButton
+            title="English"
+            language="english"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
@@ -267,25 +240,29 @@ function App() {
             setActiveTab={setActiveTab}
           />
         </div>
-        <div className="flex flex-col md:flex-row rounded-md z-30 mt-4 gap-4 md:w-3/8">
-          {activeTab === "english" && (
-            <div className="flex flex-col md:flex-row gap-2">
+        <div className="z-30 flex md:flex-row flex-col gap-4 mt-4 rounded-md md:w-3/8">
+          <div className="flex md:flex-row flex-col gap-2">
+            <SearchPanel language={activeTab} />
+            <SearchResults language={activeTab} />
+          </div>
+          {/* {activeTab === "english" && (
+            <div className="flex md:flex-row flex-col gap-2">
               <SearchPanel language="english" />
               <SearchResults language="english" />
             </div>
           )}
           {activeTab === "japanese" && (
-            <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex md:flex-row flex-col gap-2">
               <SearchPanel language="japanese" />
               <SearchResults language="japanese" />
             </div>
           )}
           {activeTab === "spanish" && (
-            <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex md:flex-row flex-col gap-2">
               <SearchPanel language="spanish" />
               <SearchResults language="spanish" />
             </div>
-          )}
+          )} */}
         </div>
         <div className="bg-gradient bg-gradient-upper"></div>
         <div className="bg-gradient bg-gradient-lower"></div>

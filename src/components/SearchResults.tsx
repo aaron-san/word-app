@@ -5,11 +5,13 @@ import { IDefaults, IWord } from "../../types/types-english";
 import Form from "./english/Form";
 import JForm from "./japanese/JForm";
 import SForm from "./spanish/SForm";
-import { MyGlobalContext, SERVERPORT } from "../App";
+import { MyGlobalContext } from "../App";
+import { SERVERPORT } from "../utils/constants";
 import { IJWord } from "../../types/types-japanese";
 import { ISWord } from "../../types/types-spanish";
 import React from "react";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import { sendDeleteRequest } from "../utils/functions";
 
 type WordList = {
   english: IWord[];
@@ -81,12 +83,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       // Handle the delete logic
       // Delete data on the backend via PUT
       try {
-        await fetch(
-          `http://localhost:${SERVERPORT}/english-words/${idToDelete}`,
-          {
-            method: "DELETE",
-          }
-        );
+        sendDeleteRequest({ language: `${language}`, idToDelete: idToDelete });
+
         updateState({
           wordsList: (() => {
             if (language === "english") {
@@ -123,72 +121,18 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
     setModalOpen(false); // Close the modal without doing anything
   };
 
-  // Delete data on the backend via PUT
-  // try {
-  // await fetch(`http://localhost:${SERVERPORT}/english-words/${id}`, {
-  //   method: "DELETE",
-  // });
-
-  // Get updated words list from json server
-  // const getWords = async () => {
-  //   const data = await fetch(
-  //     `http://localhost:${SERVERPORT}/english-words`
-  //   );
-  //   const words = await data.json();
-  //   setWordsList(words);
-  // };
-  // getWords();
-  // console.log(`Trying to delete ${word} with id ${id}`);
-
-  // updateState({
-  //   wordsList: wordsList.filter(
-  //     (el) => el.id !== id
-  //   ) as WordList[typeof language],
-  //   editWordMode: false,
-  //   showResults: false,
-  //   addWord: false,
-  // });
-
-  // setLanguagesState({
-  //   ...languagesState,
-  //   [language]: {
-  //     ...languagesState[language],
-  //     wordsList: (wordsList as WordList[typeof language]).filter(
-  //       (el) => el.id !== id
-  //     ),
-  //     editWordMode: false,
-  //     showResults: false,
-  //     addWord: false,
-  //   },
-  // });
-  // } catch (err) {
-  //   console.log(err);
-  // }
-  // };
-
-  // Add throttle (delay) to onChange handler
-  // const [filteredWords, setFilteredWords] = useState<IWord[]>([]);
-
-  // const doWordFilter = (e: string) => {
-  //   if (!e) return setFilteredWords([]);
-
-  //   setTimeout(() => {
-  //     setFilteredWords(
-  //       wordsList.filter((el) => el.word.toLowerCase().includes(searchWord))
-  //     );
-  //   }, 1);
-  // };
-
-  const partsToInclude = [ "japanese", "english", "definition"];
+  const partsToInclude = ["japanese", "english", "definition"];
 
   // a helper that narrows the type safely
+  // <T extends object>  -->   Generic type T must be an object
+  // key: keyof any      -->   Accepts any string/number/symbol key
+  // key is keyof T      -->   Type predicate — tells TypeScript: “If this returns
+  //                           true, treat key as a valid key of T
+
   function hasKey<T extends object>(obj: T, key: keyof any): key is keyof T {
+    // check if a given key exists in an object obj
     return key in obj;
   }
-
-
-
-
 
   const getCustomStyles = (part: string) => {
     switch (part) {
@@ -197,7 +141,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       case "definition":
         return "text-amber-300";
       case "japanese":
-        return "text-yellow-100 text-4xl";
+        return "font-notojp font-optical-auto font-[300] not-italic text-yellow-100 text-6xl";
         break;
       case "example":
         return "text-pink-100";
@@ -206,25 +150,55 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
     }
   };
 
+  const lowerSearchWord = searchWord?.toLowerCase() || "";
+
   const filteredWords = (() => {
     if (language === "english") {
-      return (wordsList as IWord[]).filter((d) => {
-        return searchWord
-          ? d.word?.toLowerCase().includes(searchWord.toLowerCase())
-          : false;
-      });
+      return (wordsList as IWord[])
+        .filter((d) => {
+          return (
+            searchWord &&
+            (d.word?.toLowerCase().includes(lowerSearchWord) ||
+              d.definition?.toLowerCase().includes(lowerSearchWord))
+          );
+        })
+        .sort((a, b) => (a.word.length < b.word.length ? -1 : 1));
     } else if (language === "japanese") {
-      return (wordsList as IJWord[]).filter((d) => {
-        return searchWord
-          ? d.word?.toLowerCase().includes(searchWord.toLowerCase())
-          : false;
-      });
+      return (wordsList as IJWord[])
+        .filter((d) => {
+          return (
+            searchWord &&
+            (d.word?.toLowerCase().includes(lowerSearchWord) ||
+              d.english?.toLowerCase().includes(lowerSearchWord) ||
+              d.japanese?.toLowerCase().includes(lowerSearchWord))
+          );
+        })
+        .sort((a, b) => {
+          const aIncludes = a.word?.toLowerCase().includes(lowerSearchWord)
+            ? 1
+            : 0;
+          const bIncludes = b.word?.toLowerCase().includes(lowerSearchWord)
+            ? 1
+            : 0;
+
+          // First priority: whether it includes lowerSearchWord
+          if (aIncludes !== bIncludes) {
+            return bIncludes - aIncludes; // items that include come first
+          }
+
+          // Second priority: word length
+          return a.word.length - b.word.length;
+        });
     } else if (language === "spanish") {
-      return (wordsList as ISWord[]).filter((d) => {
-        return searchWord
-          ? d.word?.toLowerCase().includes(searchWord.toLowerCase())
-          : false;
-      });
+      return (wordsList as ISWord[])
+        .filter((d) => {
+          return (
+            searchWord &&
+            (d.word?.toLowerCase().includes(lowerSearchWord) ||
+              d.definition?.toLowerCase().includes(lowerSearchWord))
+          );
+        })
+        .sort((a, b) => (a.word.length < b.word.length ? -1 : 1));
     }
     return []; // Return an empty array if the language doesn't match any case
   })();
@@ -270,8 +244,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
               return (
                 <div
                   key={el.id}
-                  className={`border rounded-md border-slate-200 flex flex-wrap flex-col mx-auto w-[280px] ${
-                    el.mark ? "bg-blue-600/60" : "bg-slate-600/60"
+                  className={`border rounded-md flex flex-wrap flex-col mx-auto w-[280px] border-slate-100/30 ${
+                    el.mark ? "bg-emerald-600/60" : "bg-slate-600/60 "
                   } h-fit cursor-pointer`}
                   onClick={() => {
                     updateState({
@@ -280,8 +254,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                     });
                   }}
                 >
-                  <div className="bg-slate-100/80 p-2 border-1 border-slate-200 border-b rounded-t-md w-fill text-slate-900 text-xl tracking-wider">
+                  <div className="flex justify-between bg-slate-100/80 p-2 border-1 border-slate-200 border-b rounded-t-md w-fill">
+                  <div className="text-slate-900 text-xl tracking-wider">
                     {el.word}
+                  </div>
+                  {"group" in el && el.group && <div className="self-center mr-2 ml-2 text-slate-700 text-base">({el.group})</div>}
                   </div>
                   {/* <div className="bg-gradient-to-r from-transparent via-slate-200 to-transparent my-2 px-2 w-full h-[1px]"></div> */}
                   {partsToInclude.map((part) =>
@@ -296,7 +273,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                     ) : null
                   )}
 
-                  
                   <div className="flex justify-end items-center gap-2 px-2">
                     {/* <button
                         className="hover:bg-slate-600 m-4 px-4 py-1 border border-slate-100 rounded-md w-[80%] max-w-[100px] text-slate-100"
@@ -307,8 +283,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                       >
                         Edit
                       </button> */}
+
+                      
                     <button
-                      className="hover:bg-slate-600 m-1 my-3 px-2 py-1 border border-red-200 rounded-full w-8 h-8 text-red-200 text-sm"
+                      className="hover:opacity-80 m-1 my-3 p-1/2 border border-red-200/80 rounded-lg w-6 h-6 overflow-hidden text-red-200 text-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(el.id);
@@ -325,16 +303,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
       )}
       {/* Form - Edit Word */}
       {editWordMode && (
-        <div className="flex mx-auto max-w-[680px]">
+        <div className="flex mx-auto w-fit max-w-[680px]">
           {(wordsList as (IWord | IJWord | ISWord)[])
             .filter((el) => el.id === idToEdit)
             .map((el) => {
               return (
-                <>
-                  <div
-                    key={el.id}
-                    className="flex flex-wrap justify-center gap-4 mx-auto p-4"
-                  >
+                <div key={el.id}>
+                  <div className="flex flex-wrap justify-center gap-4 mx-auto p-4">
                     {language === "english" && (
                       <Form
                         word={el as IWord}
@@ -357,7 +332,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
                       />
                     )}
                   </div>
-                </>
+                </div>
               );
             })}
         </div>

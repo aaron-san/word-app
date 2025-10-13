@@ -4,7 +4,9 @@ import React, { useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { IDefaults, IForm, IWord } from "../../../types/types-english";
-import { MyGlobalContext, SERVERPORT } from "../../App";
+import { MyGlobalContext } from "../../App";
+// import { send } from "process";
+import { sendPostRequest, sendPutRequest } from "../../utils/functions";
 
 export type FormValues = {
   word: string | null;
@@ -17,8 +19,8 @@ export type FormValues = {
 const Form = ({ word, methodType, idToEdit }: IForm) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
 
-  const environment = import.meta.env.VITE_ENVIRONMENT;
-  console.log(environment);
+  // const environment = import.meta.env.VITE_ENVIRONMENT;
+  // console.log(environment);
   const language = "english";
   const wordsList = languagesState[language].wordsList as IWord[];
 
@@ -64,9 +66,10 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
           word,
         ],
         editWordMode: false,
-        showResults: false,
+        // showResults: true,
       },
     });
+    sendPutRequest({language: "english", word });
   };
 
   const onCancel = () => {
@@ -108,14 +111,7 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
     if (methodType === "POST") {
       try {
         // Add word
-        await fetch(`http://localhost:${SERVERPORT}/english-words`, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(word), // body data type must match "Content-Type" header
-        });
+        sendPostRequest({ word: word as IWord, language: "english" });
         reset();
         const wordsOnly = wordsList.map((word) => word.word);
         if (word.word && !wordsOnly.includes(word.word)) {
@@ -130,23 +126,12 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
 
     if (methodType === "PUT") {
       // Send data to the backend via PUT to modify a resource
+      const dataWithId = { id: idToEdit, ...data };
       try {
-        const dataWithId = { id: idToEdit, ...data };
-        await fetch(
-          `http://localhost:${SERVERPORT}/english-words/${idToEdit}`,
-          {
-            method: "PUT",
-            // mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body data type must match "Content-Type" header
-            body: JSON.stringify(dataWithId),
-          }
-        );
+        // sendPutRequest({ word: dataWithId as IWord, language: "english" });
 
-        reset();
         updateWord(dataWithId as IWord);
+        reset();
       } catch (err) {
         console.log(err);
       }
@@ -155,59 +140,63 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
 
   return (
     <form
-      className="flex flex-col gap-2 mb-8 mx-auto text-slate-100 text-xl py-4 px-4"
+      className="flex flex-col gap-2 mx-auto mb-8 px-4 py-4 text-slate-100 text-xl"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col justify-end gap-1 text-md">
-        <label>Word: </label>
+        <div className="flex justify-between">
+
+        <label className="py-1 text-sm">Word:</label>
+        <div className="flex justify-end gap-2">
+        <label className="py-1 text-slate-200 text-sm">Important:</label>
+        {/* <div className="py-1 w-10 text-center"> */}
+        
+          <input
+            type="checkbox"
+            className="inline bg-slate-200 my-1 border border-white rounded outline-none w-6 h-6 text-blue-700 text-xl text-center accent-teal-300 cursor-pointer"
+            {...register("mark")}
+          />
+        </div>
+        {/* </div> */}
+      </div>
         <textarea
-          className="px-2 py-1 border border-white w-80 text-slate-700 h-12 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h-12 text-slate-700"
           {...register("word", { required: "Please enter a word." })}
         />
       </div>
 
       <div className="flex flex-col justify-end gap-1 text-md">
-        <label>Definition:</label>
+        <label className="text-sm">Definition:</label>
         <textarea
           {...register("definition")}
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700"
         />
       </div>
       <div className="flex flex-col justify-end gap-1 text-md">
-        <label>Pronunciation:</label>
+        <label className="text-sm">Pronunciation:</label>
         <input
-          className="px-2 py-1 border border-white w-80 text-slate-700 bg-slate-200 rounded outline-none"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 text-slate-700"
           {...register("pronunciation")}
         />
       </div>
       <div className="flex flex-col justify-end gap-1 text-md">
-        <label>Example:</label>
+        <label className="text-sm">Example:</label>
         <textarea
-          className="px-2 py-1 border border-white w-80 text-slate-700 h-32 scrollbar-hidden overflow-auto bg-slate-200 rounded outline-none"
+          className="scrollbar-hidden bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h-32 overflow-auto text-slate-700"
           {...register("example")}
         />
       </div>
-      <div className="flex flex-col justify-end gap-1 text-md">
-        <label className="text-slate-200">Important:</label>
-        <div className="w-10 py-1 text-center">
-          <input
-            type="checkbox"
-            className="h-6 w-6 text-xl my-1 border border-white text-blue-700
-            focus:ring-2 focus:ring-blue-500 rounded focus:ring-offset-gray-700 text-center bg-slate-200 outline-none"
-            {...register("mark")}
-          />
-        </div>
-      </div>
+      
       <hr />
-      <div className="flex gap-2 justify-between flex-end text-xl">
+      <div className="flex flex-end justify-between gap-2 text-xl">
         <input
           type="submit"
           value="Save"
-          className="w-1/2 py-2 my-1 text-center bg-blue-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+          className="bg-blue-300 hover:opacity-95 my-1 py-2 border border-slate-100 rounded-md w-1/2 text-slate-800 text-center cursor-pointer"
         />
         <input
           type="button"
-          className="w-1/2 py-2 my-1 text-center bg-red-300 border rounded-md cursor-pointer border-slate-100 text-slate-800 hover:opacity-95"
+          className="bg-red-300 hover:opacity-95 my-1 py-2 border border-slate-100 rounded-md w-1/2 text-slate-800 text-center cursor-pointer"
           value="Cancel"
           onClick={onCancel}
         />

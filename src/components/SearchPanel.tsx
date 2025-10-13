@@ -24,6 +24,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   // }, []);
 
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
+  const { addWord, editWordMode } = languagesState[language];
 
   // const { addWord } = languagesState[language];
 
@@ -81,11 +82,11 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   // };
 
   return (
-    <div className="bg-slate-200/80 rounded flex flex-col sm:max-w-[360px] p-4 h-fit">
+    <div className="flex flex-col bg-slate-200/80 p-4 rounded sm:max-w-[360px] h-fit">
       <Header
         title={`${language.charAt(0).toUpperCase()}${language.slice(1)} Words`}
       />
-      <div className="flex flex-col md:flex-row justify-start gap-2 rounded">
+      <div className="flex md:flex-row flex-col justify-start gap-2 rounded">
         {/* Search Bar */}
 
         <SearchInput
@@ -95,7 +96,9 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
           // handleChange={handleChange}
         />
 
-        <AddButton language={language} addWordHandler={addWordHandler} />
+        {!addWord && (
+          <AddButton language={language} addWordHandler={addWordHandler} />
+        )}
       </div>
       <MarkedWords language={language} />
     </div>
@@ -105,7 +108,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
 const Header = ({ title }: { title: string }) => {
   return (
     <div>
-      <a className="text-[1.6rem] text-slate-700 font-['Bitter'] font-bold">
+      <a className="font-['Bitter'] font-bold text-[1.6rem] text-slate-700">
         {title}
       </a>
     </div>

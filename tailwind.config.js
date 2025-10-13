@@ -6,6 +6,9 @@ export default {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        notojp: ['"Noto Sans JP"', "sans-serif"],
+        bitter: ['"Bitter"', "serif"],},
     },
   },
   plugins: [

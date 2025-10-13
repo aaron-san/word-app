@@ -63,21 +63,33 @@ const MarkedWords: React.FC<MarkedWordsProps> = ({ language }) => {
     [markedWords.length] // Dependency on markedWords.length to update numStart when markedWords changes
   );
 
+const getNumberOfMarkedToShow = () => {
+    const numberToShow = language === "japanese" ? 14 : 8;
+    return Math.min(markedWords.length, numberToShow);
+  };
+
   return (
     <div className="md:min-w-[300px]">
-      <ul className="flex flex-wrap gap-2 py-4 justify-stretch">
+      <ul className="flex flex-wrap justify-stretch gap-2 py-4">
         {markedWords
-          .slice(numStart, numStart + 8)
+          .slice(numStart, numStart + getNumberOfMarkedToShow())
           .map((el: IWord | IJWord | ISWord) => {
             const firstWord = el.word.split(";")[0];
 
             return (
               <li
-                className="px-2 py-1 text-center bg-gradient-to-br from-slate-800/80 to-slate-600/80 text-slate-100 rounded-xl border border-white hover:cursor-pointer hover:opacity-95 tracking-wider shadow"
+                className={`bg-gradient-to-br from-slate-200/80 to-slate-100/80 hover:opacity-95 shadow px-2 py-1 border border-white rounded-xl text-slate-800 text-center tracking-wider hover:cursor-pointer                   
+                  ${language === "japanese" ? "text-2xl" : "text-xl"}`
+                }
                 key={el.id}
                 onClick={() => handleClick(el)}
               >
-                <div>{firstWord}</div>
+                {language !== "japanese" && (
+                  <div>{firstWord}</div>
+                )}
+                {language === "japanese" && "japanese" in el && typeof el.japanese === "string" && (
+                  <div>{el.japanese.split(";")[0]}</div>
+                )}
               </li>
             );
           })}
