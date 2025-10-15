@@ -1,10 +1,10 @@
 import { useState, createContext, useEffect, useRef } from "react";
 import { GlobalContent } from "../types/types"; // Make sure types are correct
 
-import SearchPanel from "./components/SearchPanel";
-import SearchResults from "./components/SearchResults";
-import HeaderButton from "./components/HeaderButton";
-import data from "./data/db-sample.json";
+import SearchPanel from "@/components/SearchPanel";
+import SearchResults from "@/components/SearchResults";
+import HeaderButton from "@/components/HeaderButton";
+import data from "@/data/db-sample.json";
 import { IWord } from "../types/types-english";
 import { IJWord } from "../types/types-japanese";
 import { ISWord } from "../types/types-spanish";
@@ -245,24 +245,7 @@ function App() {
             <SearchPanel language={activeTab} />
             <SearchResults language={activeTab} />
           </div>
-          {/* {activeTab === "english" && (
-            <div className="flex md:flex-row flex-col gap-2">
-              <SearchPanel language="english" />
-              <SearchResults language="english" />
-            </div>
-          )}
-          {activeTab === "japanese" && (
-            <div className="flex md:flex-row flex-col gap-2">
-              <SearchPanel language="japanese" />
-              <SearchResults language="japanese" />
-            </div>
-          )}
-          {activeTab === "spanish" && (
-            <div className="flex md:flex-row flex-col gap-2">
-              <SearchPanel language="spanish" />
-              <SearchResults language="spanish" />
-            </div>
-          )} */}
+         
         </div>
         <div className="bg-gradient bg-gradient-upper"></div>
         <div className="bg-gradient bg-gradient-lower"></div>

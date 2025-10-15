@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { IJDefaults, IJForm, IJWord } from "../../../types/types-japanese";
-import { MyGlobalContext } from "../../App";
+import { IJDefaults, IJForm, IJWord } from "@/types/types-japanese";
+import { MyGlobalContext } from "@/App";
 import {
   sendPostRequest,
   sendPutRequest,
   autoResize,
-} from "../../utils/functions";
+} from "@/utils/functions";
 
 export type FormValues = {
   word: string | null;

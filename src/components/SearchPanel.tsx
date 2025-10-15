@@ -1,10 +1,10 @@
 import { useEffect, useRef, useContext, useState } from "react";
-import { MyGlobalContext } from "../App";
-import AddButton from "./AddButton";
-import SearchInput from "./SearchInput";
-import MarkedWords from "./MarkedWords";
+import { MyGlobalContext } from "@/App";
+import AddButton from "@/components/AddButton";
+import SearchInput from "@/components/SearchInput";
+import MarkedWords from "@/components/MarkedWords";
 
-interface SearchPanelProps {
+type SearchPanelProps = {
   language: "english" | "japanese" | "spanish";
   // inputRef?: RefObject<HTMLInputElement>;
 }
@@ -26,9 +26,15 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   const { languagesState, setLanguagesState } = useContext(MyGlobalContext);
   const { addWord, editWordMode } = languagesState[language];
 
-  // const { addWord } = languagesState[language];
+  // Partial makes all props optional
+  type LanguageStateUpdate = Partial<{
+    searchWord: string;
+    addWord: boolean;
+    editWordMode: boolean;
+    showResults: boolean;
+  }>;
 
-  const updateState = (updates: { [key: string]: string | boolean }) => {
+  const updateState = (updates: LanguageStateUpdate) => {
     setLanguagesState({
       ...languagesState,
       [language]: {
@@ -50,7 +56,6 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
 
   const addWordHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     updateState({
-      // searchWord: e.currentTarget.value,
       searchWord: inputRef?.current?.value || "",
       addWord: true,
       editWordMode: false,
@@ -67,7 +72,6 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
       });
     }
     if (e.key === "Escape") {
-      // if (inputRef?.current?.value) inputRef.current.value = "";
       updateState({
         searchWord: "",
         showResults: false,
@@ -93,7 +97,6 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
           language={language}
           inputRef={inputRef}
           handleKeyUp={handleKeyUp}
-          // handleChange={handleChange}
         />
 
         {!addWord && (
