@@ -2,7 +2,7 @@ import React from "react";
 import { IWord } from "../../types/types-english";
 import { IJWord } from "../../types/types-japanese";
 import { ISWord } from "../../types/types-spanish";
-import { SERVERPORT } from "./constants";
+import { SERVERPORT } from "../utils/constants";
 
 interface RequestProps {
   language: "english" | "japanese" | "spanish";
