@@ -149,6 +149,16 @@ const SForm = ({ word, methodType, idToEdit }: ISForm) => {
       }
     }
   };
+  const onCancel = () => {
+  setLanguagesState({
+    ...languagesState,
+    [language]: {
+      ...languagesState[language],
+      addWord: false,
+      editWordMode: false,
+    },
+  });
+};
 
   const values = watch();
 
@@ -158,13 +168,25 @@ const SForm = ({ word, methodType, idToEdit }: ISForm) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       {/* special characters */}
-      <div className="flex flex-wrap gap-2 w-1/2">
-        {"áéíóúüñÁÉÍÓÚÜÑ¡¿".split("").map((char) => (
+      <div className="flex flex-wrap gap-2">
+        {"áéíóúñü¿".split("").map((char) => (
           <button
             type="button"
             onClick={() => selectChar(char)}
             key={char}
-            className="bg-gradient-to-b from-teal-400 to-teal-500 py-1 border-teal-100 border-b-2 rounded-2xl w-8 font-bold text-teal-50 text-base active:scale-[0.98]"
+            className="bg-gradient-to-b from-gray-400 to-gray-500 py-1 border-gray-100 rounded-lg w-8 font-bold text-gray-50 text-lg active:scale-[0.98]"
+          >
+            {char}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {"ÁÉÍÓÚÑÜ¡".split("").map((char) => (
+          <button
+            type="button"
+            onClick={() => selectChar(char)}
+            key={char}
+            className="bg-gradient-to-b from-gray-400 to-gray-500 py-1 border-gray-100 rounded-lg w-8 font-bold text-gray-50 text-lg active:scale-[0.98]"
           >
             {char}
           </button>
@@ -212,16 +234,22 @@ const SForm = ({ word, methodType, idToEdit }: ISForm) => {
 
       <hr />
       <div className="flex gap-2 text-xl">
-        <input
+        <button
           type="submit"
-          value="Save"
-          className="bg-blue-300 hover:opacity-95 my-1 py-2 border border-slate-100 rounded-md w-[200px] text-slate-800 cursor-pointer"
-        />
-        <input
+          className="bg-blue-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-1/2 text-slate-800 text-sm text-center cursor-pointer"
+        >
+          Save
+        </button>
+        <button
           type="button"
-          value="Cancel"
-          className="bg-red-300 hover:opacity-95 my-1 py-2 border border-slate-100 rounded-md w-[200px] text-slate-800 cursor-pointer"
-        />
+          className="bg-red-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-1/2 text-slate-800 text-sm text-center cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCancel();
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

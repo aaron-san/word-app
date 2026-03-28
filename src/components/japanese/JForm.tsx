@@ -1,36 +1,33 @@
 import React, { useState, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { IJDefaults, IJForm, IJWord } from "@/types/types-japanese";
+import { IJDefaults, IJForm, IJWord } from "../../../types/types-japanese";
 import { MyGlobalContext } from "@/App";
-import {
-  sendPostRequest,
-  sendPutRequest,
-  autoResize,
-} from "@/utils/functions";
+import { sendPostRequest, sendPutRequest, autoResize } from "@/utils/functions";
+// import type { Subscription } from "react-hook-form";
 
 export type FormValues = {
-  word: string | null;
-  english: string | null;
-  japanese: string | null;
-  example: string | null;
-  present: string | null;
-  teForm: string | null;
-  negative: string | null;
-  past: string | null;
-  pastNegative: string | null;
-  potential: string | null;
-  imperative: string | null;
-  volitional: string | null;
-  group: string | null;
-  desirative: string | null;
-  conditional: string | null;
-  passive: string | null;
-  causative: string | null;
-  causativePassive: string | null;
-  honorific: string | null;
-  humble: string | null;
-  mark: boolean | null;
+  word: string;
+  english?: string;
+  japanese?: string;
+  example?: string;
+  present?: string;
+  teForm?: string;
+  negative?: string;
+  past?: string;
+  pastNegative?: string;
+  potential?: string;
+  imperative?: string;
+  volitional?: string;
+  group?: string;
+  desirative?: string;
+  conditional?: string;
+  passive?: string;
+  causative?: string;
+  causativePassive?: string;
+  honorific?: string;
+  humble?: string;
+  mark?: boolean;
 };
 
 const JForm = ({ word, methodType, idToEdit }: IJForm) => {
@@ -126,31 +123,32 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     });
   };
 
-  const { register, handleSubmit, reset, setFocus } = useForm<FormValues>({
-    defaultValues: {
-      word: jDefaults?.defaultWord,
-      english: jDefaults?.defaultEnglish,
-      japanese: jDefaults?.defaultJapanese,
-      example: jDefaults?.defaultExample,
-      present: jDefaults?.defaultPresent,
-      teForm: jDefaults?.defaultTeForm,
-      negative: jDefaults?.defaultNegative,
-      past: jDefaults?.defaultPast,
-      pastNegative: jDefaults?.defaultPastNegative,
-      potential: jDefaults?.defaultPotential,
-      imperative: jDefaults?.defaultImperative,
-      volitional: jDefaults?.defaultVolitional,
-      group: jDefaults?.defaultGroup,
-      desirative: jDefaults?.defaultDesirative,
-      conditional: jDefaults?.defaultConditional,
-      passive: jDefaults?.defaultPassive,
-      causative: jDefaults?.defaultCausative,
-      causativePassive: jDefaults?.defaultCausativePassive,
-      honorific: jDefaults?.defaultHonorific,
-      humble: jDefaults?.defaultHumble,
-      mark: jDefaults?.defaultMark,
-    },
-  });
+  const { register, handleSubmit, reset, setFocus, watch, setValue } =
+    useForm<FormValues>({
+      defaultValues: {
+        word: jDefaults?.defaultWord,
+        english: jDefaults?.defaultEnglish,
+        japanese: jDefaults?.defaultJapanese,
+        example: jDefaults?.defaultExample,
+        present: jDefaults?.defaultPresent,
+        teForm: jDefaults?.defaultTeForm,
+        negative: jDefaults?.defaultNegative,
+        past: jDefaults?.defaultPast,
+        pastNegative: jDefaults?.defaultPastNegative,
+        potential: jDefaults?.defaultPotential,
+        imperative: jDefaults?.defaultImperative,
+        volitional: jDefaults?.defaultVolitional,
+        group: jDefaults?.defaultGroup,
+        desirative: jDefaults?.defaultDesirative,
+        conditional: jDefaults?.defaultConditional,
+        passive: jDefaults?.defaultPassive,
+        causative: jDefaults?.defaultCausative,
+        causativePassive: jDefaults?.defaultCausativePassive,
+        honorific: jDefaults?.defaultHonorific,
+        humble: jDefaults?.defaultHumble,
+        mark: jDefaults?.defaultMark,
+      },
+    });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     // console.log("Submitted!");
@@ -257,6 +255,9 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
     { name: "humble", label: "Humble" },
   ];
 
+  // Create a watched variable that tracks the "mark" checkbox state and multiple checkboxes can stay in sync
+  const mark = watch("mark");
+
   return (
     <form
       className="flex flex-col gap-2 mx-auto mb-8 px-4 py-4 text-slate-100 text-xl"
@@ -267,7 +268,19 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
         <div className="flex justify-between">
           <label className="py-2 text-sm">Word: </label>
           <div className="flex flex-end justify-end gap-2 text-xl">
-            <input
+            <div className="flex justify-end gap-2 align-middle">
+              <label className="py-2 text-slate-200 text-sm">Important:</label>
+              <div className="py-1 w-10 text-center">
+                <input
+                  type="checkbox"
+                  checked={!!mark} // Keep both in sync
+                  className="my-1 border border-white rounded-full outline-none focus:ring-2 w-6 h-6 accent-teal-300 cursor-pointer"
+                  // {...register("mark")}
+                  onChange={(e) => setValue("mark", e.target.checked)}
+                />
+              </div>
+            </div>
+            {/* <input
               type="submit"
               value="Save"
               className="bg-blue-300 hover:opacity-95 my-1 px-4 py-1 border border-slate-100 rounded-full w-[80px] text-slate-800 text-sm text-center cursor-pointer"
@@ -280,7 +293,7 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
                 e.stopPropagation(); // keep safe
                 onCancel();
               }}
-            />
+            /> */}
           </div>
         </div>
         <textarea
@@ -328,8 +341,11 @@ const JForm = ({ word, methodType, idToEdit }: IJForm) => {
           <div className="py-1 w-10 text-center">
             <input
               type="checkbox"
+              checked={!!mark} // Keep both in sync
+              // onChange={(e) => setValue("mark", e.target.checked)}
               className="my-1 border border-white rounded-full outline-none focus:ring-2 w-6 h-6 accent-teal-300 cursor-pointer"
-              {...register("mark")}
+              // {...register("mark")}
+              onChange={(e) => setValue("mark", e.target.checked)}
             />
           </div>
         </div>

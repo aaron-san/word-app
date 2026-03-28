@@ -4,6 +4,42 @@ import { IWord } from "../../types/types-english";
 import { IJWord } from "../../types/types-japanese";
 import { ISWord } from "../../types/types-spanish";
 
+
+const MARKED_JP_WORDS_TO_SHOW = 14;
+const MARKED_DEFAULT_WORDS_TO_SHOW = 13;
+
+const COLORS = [
+  "bg-pink-200",
+  "bg-sky-200",
+  "bg-emerald-200",
+  "bg-amber-200",
+  "bg-green-200",
+  "bg-yellow-200",
+  "bg-blue-200",
+  "bg-orange-200",
+  "bg-purple-200",
+  "bg-lime-200",
+  "bg-red-200",
+  "bg-stone-200",
+  "bg-gray-200"
+];
+
+const ROTATIONS = [
+  "rotate-[-1deg]",
+  "rotate-[-2deg]",
+  "rotate-[1deg]",
+  "rotate-[2deg]",
+];
+
+const getRandom = <T,>(arr: T[]): T => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+type StyledWord = (IWord | IJWord | ISWord) & {
+  color: string;
+  rotation: string;
+};
+
 interface MarkedWordsProps {
   language: "english" | "japanese" | "spanish";
 }
@@ -57,6 +93,14 @@ const MarkedWords: React.FC<MarkedWordsProps> = ({ language }) => {
     }
   );
 
+  const styledWords: StyledWord[] = useMemo(() => {
+  return markedWords.map((word) => ({
+    ...word,
+    color: getRandom(COLORS),
+    rotation: getRandom(ROTATIONS),
+  }));
+}, [markedWords]);
+
   // Generate a random number to start the slice from
   const numStart = useMemo(
     () => Math.floor(Math.random() * markedWords.length) + 1,
@@ -64,23 +108,27 @@ const MarkedWords: React.FC<MarkedWordsProps> = ({ language }) => {
   );
 
 const getNumberOfMarkedToShow = () => {
-    const numberToShow = language === "japanese" ? 14 : 8;
+    const numberToShow = language === "japanese" ? MARKED_JP_WORDS_TO_SHOW : MARKED_DEFAULT_WORDS_TO_SHOW;
     return Math.min(markedWords.length, numberToShow);
   };
 
   return (
     <div className="md:min-w-[300px]">
       <ul className="flex flex-wrap justify-stretch gap-2 py-4">
-        {markedWords
+        {styledWords
           .slice(numStart, numStart + getNumberOfMarkedToShow())
-          .map((el: IWord | IJWord | ISWord) => {
+          .map((el) => {
             const firstWord = el.word.split(";")[0];
 
             return (
               <li
-                className={`bg-gradient-to-br from-slate-200/80 to-slate-100/80 hover:opacity-95 shadow px-2 py-1 border border-white rounded-xl text-slate-800 text-center tracking-wider hover:cursor-pointer                   
-                  ${language === "japanese" ? "text-2xl" : "text-xl"}`
-                }
+                className={`${el.color} ${el.rotation}     
+                  hover:scale-105 transition-transform duration-200
+                  hover:opacity-95 px-2 py-1
+                   text-slate-800 text-center tracking-wider shadow-[0_2px_6px_rgba(0,0,0,0.08)] 
+                  hover:cursor-pointer
+                  ${language === "japanese" ? "text-xl" : "text-base"}
+                `}
                 key={el.id}
                 onClick={() => handleClick(el)}
               >

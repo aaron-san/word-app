@@ -160,7 +160,7 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
         {/* </div> */}
       </div>
         <textarea
-          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h-12 text-slate-700"
+          className="bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h-10 text-slate-700"
           {...register("word", { required: "Please enter a word." })}
         />
       </div>
@@ -182,7 +182,7 @@ const Form = ({ word, methodType, idToEdit }: IForm) => {
       <div className="flex flex-col justify-end gap-1 text-md">
         <label className="text-sm">Example:</label>
         <textarea
-          className="scrollbar-hidden bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h-32 overflow-auto text-slate-700"
+          className="scrollbar-hidden bg-slate-200 px-2 py-1 border border-white rounded outline-none w-80 h- overflow-auto text-slate-700 24"
           {...register("example")}
         />
       </div>

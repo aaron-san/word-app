@@ -45,9 +45,12 @@ export const MyGlobalContext = createContext<GlobalContent>({
 });
 
 function App() {
+
+  const DEFAULT_TAB = "english"
+
   const [activeTab, setActiveTab] = useState<
     "english" | "japanese" | "spanish"
-  >("japanese");
+  >(DEFAULT_TAB);
   // console.log("----", import.meta.env.VITE_ENVIRONMENT);
 
   const [englishWords, setEnglishWords] = useState<IWord[]>([]);
@@ -221,17 +224,17 @@ function App() {
       <main className="relative flex flex-col gap-1 bg-gray-900 px-4 pt-4 md:pl-8 min-h-screen overflow-hidden">
         <div className="flex flex-wrap gap-2 text-white md:text-xl">
           <HeaderButton
+            title="English"
+            language="english"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+          <HeaderButton
             title="Japanese"
             language="japanese"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             // className="bg-red-700"
-          />
-          <HeaderButton
-            title="English"
-            language="english"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
           />
           <HeaderButton
             title="Spanish"

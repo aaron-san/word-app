@@ -195,6 +195,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
           return (
             searchWord &&
             (d.word?.toLowerCase().includes(lowerSearchWord) ||
+              fuzzyMatch(lowerSearchWord, d.word?.toLowerCase() || "")) &&
+              d.word?.length! > lowerSearchWord.length - 1
+              ||
+            (
               d.definition?.toLowerCase().includes(lowerSearchWord))
           );
         })
@@ -355,5 +359,37 @@ const SearchResults: React.FC<SearchResultsProps> = ({ language }) => {
     </div>
   );
 };
+
+function normalize(str: string): string {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function fuzzyMatch(typed: string, candidate: string): boolean {
+  typed = normalize(typed);
+  candidate = normalize(candidate);
+
+  let i = 0; // typed
+  let j = 0; // candidate
+  let misses = 0;
+
+  while (i < typed.length && j < candidate.length) {
+    if (typed[i] === candidate[j]) {
+      i++;
+      j++;
+    } else {
+      j++; // skip candidate letters until we find a match
+    }
+  }
+
+  // Remaining typed letters were not found
+  misses += typed.length - i;
+
+  return misses <= 1;
+}
+
+
+
 
 export default SearchResults;

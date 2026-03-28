@@ -13,7 +13,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ language }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   // const {inputWord, setInputWord} = useState("")
   // Component logic here, using language and inputRef
-
+      
   // useEffect(() => {
   //   const getEnglishWords = async () => {
   //     const data = await fetch(`http://localhost:${SERVERPORT}/english-words`);
